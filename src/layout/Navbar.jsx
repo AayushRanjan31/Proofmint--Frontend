@@ -1,0 +1,34 @@
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import logo from '../assets/image.png';
+import '../NavbarCustom.css'; 
+
+function FormExample() {
+  return (
+    <Navbar className="bg-body-tertiary py-2 custom-navbar">
+      <Container fluid className="d-flex justify-content-between px-4 align-items-center">
+        {/* Brand Logo */}
+        <Navbar.Brand href="#home" className="ms-2">
+          <img
+            src={logo}
+            alt="Logo"
+            className="object-contain navbar-logo"
+          />
+        </Navbar.Brand>
+
+        {/* Buttons */}
+        <div className="me-2 d-flex flex-row flex-sm-row flex-column-reverse gap-2">
+          <Button variant="outline-primary" className="custom-btn">
+            Sign Up
+          </Button>
+          <Button variant="outline-primary" className="custom-btn">
+            Login
+          </Button>
+        </div>
+      </Container>
+    </Navbar>
+  );
+}
+
+export default FormExample;

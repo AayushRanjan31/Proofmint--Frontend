@@ -1,0 +1,29 @@
+/* Default desktop styles */
+.custom-navbar {
+  height: 70px;
+}
+
+.navbar-logo {
+  max-height: 65px;
+}
+
+.custom-btn {
+  padding: 8px 16px; /* normal size */
+  font-size: 16px;
+}
+
+/* Mobile styles */
+@media (max-width: 576px) {
+  .custom-navbar {
+    height: 90px; /* taller navbar */
+  }
+
+  .navbar-logo {
+    max-height: 40px; /* smaller logo */
+  }
+
+  .custom-btn {
+    padding: 4px 12px; /* smaller buttons */
+    font-size: 14px;
+  }
+}
