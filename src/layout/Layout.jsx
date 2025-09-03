@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 const Layout = () => {
   return (
     <div>
-      
-    </div>
-  )
-}
 
-export default Layout
+    </div>
+  );
+};
+
+export default Layout;
