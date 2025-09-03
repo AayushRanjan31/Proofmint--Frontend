@@ -27,8 +27,8 @@ function NavbarPage() {
 
         {/* Buttons */}
         <div className="d-none d-md-flex gap-2 ">
-          <Button variant="outline-primary"><Link to={'/signUp'} className="no-underline">Sign Up</Link></Button>
-          <Button variant="outline-primary"><Link to={'/login'}>Login</Link> </Button>
+         <Link to={'/signUp'}><Button variant="outline-primary">Sign Up</Button></Link>
+         <Link to={'/login'}><Button variant="outline-primary">Login </Button></Link>
         </div>
       </Container>
     </Navbar>
