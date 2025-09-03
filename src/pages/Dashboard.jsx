@@ -1,7 +1,6 @@
 import {useState} from 'react';
-import VerifyDocument from '../components/VerifyDocument';
-import UploadDocument from '../components/uploadDocument';
-
+import UploadDocument from "../components/UploadDocument"
+import VerifyDocument from "../components/VerifyDocument"
 const Dashboard = () => {
   const [login, setlogin] = useState(true);
   return (

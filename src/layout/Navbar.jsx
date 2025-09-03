@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import logo from '../assets/image.png';
 import '../NavbarCustom.css'; 
 
-function FormExample() {
+function NavbarPage() {
   return (
     <Navbar className="bg-body-tertiary py-2 custom-navbar">
       <Container fluid className="d-flex justify-content-between px-4 align-items-center">
@@ -31,4 +31,4 @@ function FormExample() {
   );
 }
 
-export default FormExample;
+export default NavbarPage;
