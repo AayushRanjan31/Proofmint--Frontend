@@ -1,9 +1,6 @@
 import {useState} from 'react';
-import VerifyDocument from '../components/VerifyDocument';
-import Setting from '../components/Setting';
-import UploadDocument from '../components/uploadDocument';
-import DocumentsTable from '../components/DocumentsTable';
-
+import UploadDocument from "../components/UploadDocument"
+import VerifyDocument from "../components/VerifyDocument"
 const Dashboard = () => {
   const [login, setlogin] = useState(false);
   return (

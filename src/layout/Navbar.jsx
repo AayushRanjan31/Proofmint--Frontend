@@ -1,34 +1,37 @@
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import logo from '../assets/logo.png';
-import '../NavbarCustom.css'; 
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import logo from "../assets/image.png";
+import "../css/navbarCustom.css";
 
-function FormExample() {
+function NavbarPage() {
   return (
-    <Navbar className="bg-body-tertiary py-2 custom-navbar ">
-      <Container fluid className="d-flex justify-content-between px-4 align-items-center">
-        {/* Brand Logo */}
-        <Navbar.Brand href="#home" className="ms-2">
+    <Navbar
+      bg="light"
+      expand="sm"
+      className="py-2 custom-navbar"
+    >
+      <Container fluid className="d-flex justify-content-between align-items-center">
+        {/* Logo */}
+        <Navbar.Brand
+          href="#home"
+          className="d-flex justify-content-center flex-grow-1 flex-md-grow-0"
+        >
           <img
             src={logo}
             alt="Logo"
-            className="object-contain navbar-logo"
+            style={{ height: "50px" }}
           />
         </Navbar.Brand>
 
         {/* Buttons */}
-        <div className="me-2 d-flex flex-row flex-sm-row flex-column-reverse gap-2">
-          <Button variant="outline-primary" className="custom-btn">
-            Sign Up
-          </Button>
-          <Button variant="outline-primary" className="custom-btn">
-            Login
-          </Button>
+        <div className="d-none d-md-flex gap-2">
+          <Button variant="outline-primary">Sign Up</Button>
+          <Button variant="outline-primary">Login</Button>
         </div>
       </Container>
     </Navbar>
   );
 }
 
-export default FormExample;
+export default NavbarPage;
