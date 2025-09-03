@@ -20,7 +20,6 @@ const Signup = () => {
     }
     else {
       dispatch(registerUser({ signUpUsername, signUpEmail, signUpPassword }))
-      console.log(signUpUsername, signUpEmail, setPassword, setConfirmPassword)
     }
   };
   return (

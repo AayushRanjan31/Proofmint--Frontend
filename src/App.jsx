@@ -1,7 +1,6 @@
 
 import { ToastContainer } from "react-toastify";
 import Dashboard from './pages/Dashboard';
-import Navbar from './layout/Navbar';
 import Signup from './components/SignupPage';
 import Login from './components/LoginPage';
 import IssuedCertificate from './components/IssuedCertificate';

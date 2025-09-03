@@ -12,13 +12,12 @@ const Login = () => {
     }
     else {
       dispatch(loginUser({ loginEmail, loginPassword }))
-      console.log(loginEmail, loginPassword)
     }
 
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-xl">
+      <div className="w-full max-w-sm ml-7 mr-7 p-8 bg-white shadow-md rounded-xl">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
            
@@ -53,8 +52,8 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 text-white bg-blue-600 rounded-lg
-             hover:bg-blue-700 transition cursor-pointer"
+            className="w-full py-3 text-white bg-blue-600 rounded
+             hover:bg-blue-700 transition cursor-pointer "
           >
             Login
           </button>
