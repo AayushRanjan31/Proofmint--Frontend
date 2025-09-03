@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import logo from "../assets/logo.png";
 import "../css/navbarCustom.css";
+import { Link } from "react-router-dom";
 
 function NavbarPage() {
   return (
@@ -26,8 +27,8 @@ function NavbarPage() {
 
         {/* Buttons */}
         <div className="d-none d-md-flex gap-2">
-          <Button variant="outline-primary">Sign Up</Button>
-          <Button variant="outline-primary">Login</Button>
+          <Button variant="outline-primary"><Link to={'/signUp'}>Sign Up</Link></Button>
+          <Button variant="outline-primary"><Link to={'/login'}>Login</Link> </Button>
         </div>
       </Container>
     </Navbar>

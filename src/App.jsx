@@ -6,6 +6,8 @@ import IssuedCertificate from './components/IssuedCertificate';
 import CertificateWithQR from './components/UploadStamp';
 import OutletPage from "./layout/Outlet";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import UploadDocument from "./components/UploadDocument";
+import Setting from "./pages/Setting";
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
             <Route path="/SignUp" element={<Signup/>}/>
             <Route path="/IssuedCertificate" element={<IssuedCertificate/>}/>
             <Route path="/CertificateWithQr" element={<CertificateWithQR/>}/>
-          </Route>
+            <Route path="/upload" element={<UploadDocument/>}/>
+             <Route path="/setting" element={<Setting/>}/>
+         </Route>
         </Routes>
       </BrowserRouter>   
     </>

@@ -36,14 +36,14 @@ function Sidebar() {
             transition: "left 0.3s",
           }}
         >
-          <Nav defaultActiveKey="/dashboard" className="flex-column gap-2 py-4">
-            <Nav.Link href="/dashboard" className="d-flex align-items-center fs-5 text-white">
+          <Nav defaultActiveKey="/" className="flex-column gap-2 py-4">
+            <Nav.Link href="/" className="d-flex align-items-center fs-5 text-white">
               <House className="me-2" /> Dashboard
             </Nav.Link>
             <Nav.Link href="/upload" className="d-flex align-items-center fs-5 text-white">
               <Upload className="me-2" /> Upload a File
             </Nav.Link>
-            <Nav.Link href="/settings" className="d-flex align-items-center fs-5 text-white">
+            <Nav.Link href="/setting" className="d-flex align-items-center fs-5 text-white">
               <Gear className="me-2" /> Settings
             </Nav.Link>
           </Nav>
