@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+:root {
+  --color-very-dark-blue-bg: hsl(207, 26%, 17%);
+  --color-white: hsl(0, 0%, 89%);
+
+  --color-bg: var(--color-white);
+}
+
+.dark {
+  --color-bg: var(--color-very-dark-blue-bg);
+}
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

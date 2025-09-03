@@ -4,10 +4,15 @@ const initialState = {
     filePath: null,
 }
 
-const fileSlice = createSlice({
+const uploadDocument = createSlice({
     name:'uploadDocument',
     initialState,
-    reducers: {
-        set
+   reducers: {
+    setFilePath: (state, action) => {
+      state.filePath = action.payload;
+    },
     }
 })
+
+export const { setFilePath, clearFilePath } = uploadDocument.actions;
+export default uploadDocument.reducer;

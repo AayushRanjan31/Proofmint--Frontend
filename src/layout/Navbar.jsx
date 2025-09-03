@@ -1,12 +1,12 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import logo from '../assets/image.png';
+import logo from '../assets/logo.png';
 import '../NavbarCustom.css'; 
 
 function FormExample() {
   return (
-    <Navbar className="bg-body-tertiary py-2 custom-navbar">
+    <Navbar className="bg-body-tertiary py-2 custom-navbar ">
       <Container fluid className="d-flex justify-content-between px-4 align-items-center">
         {/* Brand Logo */}
         <Navbar.Brand href="#home" className="ms-2">
