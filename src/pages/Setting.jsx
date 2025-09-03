@@ -9,7 +9,7 @@ const Setting = () => {
   };
 
   return (
-    <div className=" m-8 p-6 bg-white shadow rounded-2xl">
+    <div className=" m-8 p-6 bg-white shadow rounded-2xl md:ml-70">
       <div className="flex flex-col gap-2">
              <h1 className="text-2xl font-bold ">Settings</h1>
         <div>

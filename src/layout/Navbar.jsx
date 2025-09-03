@@ -26,8 +26,8 @@ function NavbarPage() {
         </Navbar.Brand>
 
         {/* Buttons */}
-        <div className="d-none d-md-flex gap-2">
-          <Button variant="outline-primary"><Link to={'/signUp'}>Sign Up</Link></Button>
+        <div className="d-none d-md-flex gap-2 ">
+          <Button variant="outline-primary"><Link to={'/signUp'} className="no-underline">Sign Up</Link></Button>
           <Button variant="outline-primary"><Link to={'/login'}>Login</Link> </Button>
         </div>
       </Container>

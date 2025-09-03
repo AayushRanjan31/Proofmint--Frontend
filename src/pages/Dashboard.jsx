@@ -5,7 +5,7 @@ import VerifyDocument from '../components/VerifyDocument';
 const Dashboard = () => {
   const [login, setlogin] = useState(false);
   return (
-    <section>
+    <section className='md:ml-63'>
       {login ? <div>
         <DocumentsTable />
       </div> :

@@ -6,7 +6,7 @@ import IssuedCertificate from './components/IssuedCertificate';
 import CertificateWithQR from './components/UploadStamp';
 import OutletPage from "./layout/Outlet";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UploadDocument from "./components/UploadDocument";
+import UploadDocument from "./pages/UploadDocument";
 import Setting from "./pages/Setting";
 
 function App() {

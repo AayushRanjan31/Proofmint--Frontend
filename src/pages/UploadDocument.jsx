@@ -45,7 +45,7 @@ const UploadDocument = () => {
   };
 
   return (
-    <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-5 bg-white ">
+    <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-5 bg-white md:ml-70">
       <h1 className="text-6xl font-semibold pb-1">Upload Document</h1>
       <div className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-4 bg-white" onDrop={handleDrop} onDragOver={handleDragOver}>
         <FiUploadCloud size={60} className="text-gray-500" />
