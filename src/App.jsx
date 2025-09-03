@@ -1,16 +1,15 @@
 // import {ToastContainer} from 'react-toastify';
 import Dashboard from './pages/Dashboard';
 import Navbar from './layout/Navbar';
+import { ToastContainer } from 'react-toastify';
+import Sidebar from './layout/Sidebar';
 
 function App() {
-const router = createBrowserRouter([
-  {}
-])
   return (
     <div>
       <ToastContainer position="top-right" autoClose= "3000" />
-      <Navbar/> 
-      <Dashboard />
+      <Navbar/>
+      <Sidebar />
     </div>
   );
 }
