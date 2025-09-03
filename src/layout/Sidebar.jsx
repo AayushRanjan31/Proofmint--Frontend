@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { House, Upload, Gear, List } from "react-bootstrap-icons";
-// Ensure this line is in your main JS or App file:
-// import 'bootstrap/dist/css/bootstrap.min.css';
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);

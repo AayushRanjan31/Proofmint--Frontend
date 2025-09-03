@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import logo from "../assets/image.png";
 import "../css/navbarCustom.css";
 
-function FormExample() {
+function NavbarPage() {
   return (
     <Navbar
       bg="light"
@@ -34,4 +34,4 @@ function FormExample() {
   );
 }
 
-export default FormExample;
+export default NavbarPage;
