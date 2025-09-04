@@ -19,7 +19,7 @@ function NavbarPage() {
           href="#home"
           className="d-flex justify-content-center flex-grow-1 flex-md-grow-0"
         >
-          <img
+          <img 
             src={logo}
             alt="Logo"
             style={{ height: "50px" }}
