@@ -7,7 +7,6 @@ import { Link, useLocation } from "react-router-dom";
 
 function NavbarPage() {
     const location = useLocation();
-
   return (
     <Navbar
       expand="sm"
