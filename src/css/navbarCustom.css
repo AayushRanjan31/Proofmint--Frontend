@@ -1,6 +1,7 @@
 /* Default desktop styles */
 .custom-navbar {
   height: 70px;
+  background-color:var(--navbar-bg) !important;
 }
 
 .navbar-logo {

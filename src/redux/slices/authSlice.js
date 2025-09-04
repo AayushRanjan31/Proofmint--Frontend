@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { signUp, login } from '../../utils/proofMintApi';
 import { toast } from 'react-toastify';
 
-export const registerUser = createAsyncThunk('register', async ({ username, email, password }) => {
-  const signUpData = await signUp(username, email, password);
+export const registerUser = createAsyncThunk('register', async ({signUpUsername,signUpEmail,signUpPassword}) => {
+  const signUpData = await signUp(signUpUsername,signUpEmail,signUpPassword);
   return signUpData;
 });
-export const loginUser = createAsyncThunk('login', async ({ email, password }) => {
-  const loginData = await login(email, password);
+export const loginUser = createAsyncThunk('login', async ({loginEmail,loginPassword }) => {
+  const loginData = await login(loginEmail,loginPassword);
   return loginData;
 });
 const Authentication = createSlice({

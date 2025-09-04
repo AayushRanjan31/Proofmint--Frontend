@@ -19,7 +19,7 @@ function Sidebar() {
       {/* Hamburger button - shows ONLY on mobile (<=450px) */}
       {isMobile && (
         <button
-          className="fixed mx-2 top-7 start-0 z-50 p-1 bg-dark text-white border rounded"
+          className="fixed z-50 p-1 mx-2 text-white border rounded top-5 start-0 bg-dark"
           onClick={toggleSidebar}
         >
           <List size={25} />
@@ -36,14 +36,14 @@ function Sidebar() {
             transition: "left 0.3s",
           }}
         >
-          <Nav defaultActiveKey="/" className="flex-column gap-2 py-4">
-            <Nav.Link href="/" className="d-flex align-items-center fs-5 text-white">
+          <Nav defaultActiveKey="/" className="gap-2 py-4 flex-column">
+            <Nav.Link href="/" className="text-white d-flex align-items-center fs-5">
               <House className="me-2" /> Dashboard
             </Nav.Link>
-            <Nav.Link href="/upload" className="d-flex align-items-center fs-5 text-white">
+            <Nav.Link href="/upload" className="text-white d-flex align-items-center fs-5">
               <Upload className="me-2" /> Upload a File
             </Nav.Link>
-            <Nav.Link href="/setting" className="d-flex align-items-center fs-5 text-white">
+            <Nav.Link href="/setting" className="text-white d-flex align-items-center fs-5">
               <Gear className="me-2" /> Settings
             </Nav.Link>
           </Nav>
@@ -65,7 +65,7 @@ function Sidebar() {
       {/* Overlay for mobile when sidebar is open */}
       {isMobile && isOpen && (
         <div
-          className="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50"
+          className="top-0 opacity-50 position-fixed start-0 w-100 h-100 bg-dark"
           onClick={toggleSidebar}
           style={{ zIndex: 100 }}
         ></div>
