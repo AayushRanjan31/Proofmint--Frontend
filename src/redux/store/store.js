@@ -1,3 +1,5 @@
+
+
 import {configureStore} from '@reduxjs/toolkit';
 import verifyDocumentReducer from '../slices/verifyDocument';
 import Authentication from '../slices/authSlice'
@@ -13,4 +15,8 @@ export const store = configureStore({
     Settings:settings,
     // documents: documentReducer
   },
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: false,
+  //   }),
 });

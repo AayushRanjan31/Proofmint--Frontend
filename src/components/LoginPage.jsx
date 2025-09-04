@@ -13,7 +13,6 @@ const Login = () => {
     }
     else {
       dispatch(loginUser({ loginEmail, loginPassword }))
-      console.log(loginEmail, loginPassword)
     }
 
   };

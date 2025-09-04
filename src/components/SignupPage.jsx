@@ -21,7 +21,6 @@ const Signup = () => {
     }
     else {
       dispatch(registerUser({ signUpUsername, signUpEmail, signUpPassword }))
-      console.log(signUpUsername, signUpEmail, setPassword, setConfirmPassword)
     }
   };
   return (
@@ -72,7 +71,7 @@ const Signup = () => {
           </div>
           <div>
             <input
-              type="text"
+              type="password"
               placeholder="Confirm password"
               value={signUpConfirmPassword}
               onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
