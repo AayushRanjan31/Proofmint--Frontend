@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+:root {
+  --color-very-dark-blue-bg: hsl(207, 26%, 17%);
+  --color-lightgray: #D3D3D3 ;
+  --color-LIGHT-SLATE-GREY: #778899;
+  --color-white: hsl(0, 0%, 100%);
+  --color-dark-blue: hsl(208, 25%, 10%);
+  --color-gray:hsl(220, 9%, 46%);
+  --bs-primary:#0d6efd;
+
+  --color-bg: var(--color-lightgray);
+  --component-bg : var(--color-white);
+  --navbar-bg: var(--color-white);
+}
+
+.dark {
+    --color-bg: var(--color-very-dark-blue-bg);
+    --component-bg : var(--color-LIGHT-SLATE-GREY);
+    --navbar-bg: var(--color-gray);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

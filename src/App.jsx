@@ -1,17 +1,52 @@
-// import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ToastContainer} from 'react-toastify';
-import Dashboard from './pages/Dashboard';
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import DocumentsTable from "./components/DocumentsTable";
+import Signup from './components/SignupPage';
+import LoginPages from './components/LoginPage';
+import UploadDocument from "./pages/UploadDocument";
+import Setting from "./pages/Setting";
+import VerifyDocument from "./components/VerifyDocument";
 
+import AuthLayout from "./layout/AuthLayout";
+import AppLayout from "./layout/AppLayout";
 
 function App() {
-// const router = createBrowserRouter([
-//   {}
-// ])
+  const [login, setLogin] = useState(false);
+
+  const router = createBrowserRouter(
+    login
+      ? [
+          {
+            path: "/",              
+            element: <AuthLayout />,
+            children: [
+              { index: true, element: <LoginPages /> },
+              { path: "signUp", element: <Signup /> },
+              { path: "verifydocument", element: <VerifyDocument /> },
+            ],
+          },
+        ]
+      : [
+          {
+            path: "/",           
+            element: <AppLayout />,
+            children: [
+              { path: "/", element: <DocumentsTable /> },
+              { path: "upload", element: <UploadDocument /> },
+              { path: "setting", element: <Setting /> },
+            ],
+          },
+        ]
+  );
+
   return (
     <>
-      <ToastContainer position="top-right" autoClose= "3000" />
-      {/* <RouterProvider router={router} /> */}
-      <Dashboard />
+      <ToastContainer position="top-right" autoClose={3000} />
+      <RouterProvider router={router} />
     </>
   );
 }
