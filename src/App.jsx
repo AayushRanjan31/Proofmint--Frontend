@@ -4,7 +4,7 @@ import Signup from './components/SignupPage';
 import Login from './components/LoginPage';
 import IssuedCertificate from './components/IssuedCertificate';
 import CertificateWithQR from './components/UploadStamp';
-import OutletPage from "./layout/Outlet";
+import MainLayout from "./layout/MainLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UploadDocument from "./pages/UploadDocument";
 import Setting from "./pages/Setting";
@@ -15,7 +15,7 @@ function App() {
       <ToastContainer position="top-right" autoClose= "3000" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<OutletPage/>}>
+          <Route path="/" element={<MainLayout/>}>
             <Route path="/" element={<Dashboard />}/>
             <Route path="/LogIn" element={<Login/>}/>
             <Route path="/SignUp" element={<Signup/>}/>
