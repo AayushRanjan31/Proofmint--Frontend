@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allDocument } from "../redux/slices/documentSlice";
 
-
 const DocumentsTable = () => {
   const dispatch = useDispatch();
   const {documents, loading, error} = useSelector((state) => state.document);
@@ -14,14 +13,14 @@ const DocumentsTable = () => {
   return (
     <div className='lg:flex lg:justify-center'>
     <div className="m-8 shadow rounded-lg p-5 bg-white lg:w-[70vw]">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold pb-1">Documents</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="pb-1 font-semibold">Documents</h2>
       </div>
 
-      <div className="hidden lg:block overflow-x-auto">
+      <div className="hidden overflow-x-auto lg:block">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gray-100 text-left">
+            <tr className="text-left bg-gray-100">
               <th className="p-3 border-b">Title</th>
               <th className="p-3 border-b">Document ID</th>
               <th className="p-3 border-b">Status</th>
@@ -51,13 +50,13 @@ const DocumentsTable = () => {
         </table>
       </div>
 
-      <div className="lg:hidden space-y-4">
+      <div className="space-y-4 lg:hidden">
         {documents.map((doc, idx) => (
           <div
             key={idx}
             className="p-4 border rounded-lg shadow-sm bg-gray-50"
           >
-            <h3 className="font-semibold text-lg">{doc.title}</h3>
+            <h3 className="text-lg font-semibold">{doc.title}</h3>
             <p className="text-gray-600">Document ID: {doc.documentId}</p>
             <p className="mt-1">
               <span
@@ -70,7 +69,7 @@ const DocumentsTable = () => {
                 {doc.status}
               </span>
             </p>
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="mt-1 text-sm text-gray-500">
               Issued: {doc.issuedAt}
             </p>
           </div>

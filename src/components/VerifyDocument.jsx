@@ -8,7 +8,7 @@ const VerifyDocument = () => {
 
   return (
     <div className='md:flex md:justify-center'>
-            <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-2 bg-white md:w-[50vw]">
+            <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-2 bg-white md:w-[40vw] mt-20">
       <h1 className="font-semibold pb-1">Verify Document</h1>
        <p className="text-gray-500 text-sm">
           Enter your Document ID or scan the QR code to verify.
@@ -21,7 +21,7 @@ const VerifyDocument = () => {
         onChange={(e) => dispatch(setDocumentId(e.target.value))}
       />
       <button
-        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
+        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer rounded"
         onClick={() => dispatch(setVerified())}
       >
                 Verify
@@ -31,7 +31,7 @@ const VerifyDocument = () => {
           <span className="px-2 text-gray-400 text-sm">OR</span>
           <div className="flex-grow h-px bg-gray-300"></div>
         </div>
-      <button className="flex justify-center gap-3 items-center px-4 py-2 bg-gray-500 text-white rounded-lg shadow hover:bg-gray-600 cursor-pointer">
+      <button className="flex justify-center gap-3 items-center px-4 py-2 bg-gray-500 text-white rounded shadow hover:bg-gray-600 cursor-pointer">
         <MdOutlineQrCodeScanner size={20} />
         <span>Scan QR Code</span>
       </button>

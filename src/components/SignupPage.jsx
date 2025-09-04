@@ -1,5 +1,6 @@
 import { setUsername, setEmail, setPassword, setConfirmPassword, registerUser } from "../redux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 const Signup = () => {
   const { signUpUsername, signUpEmail, signUpPassword, signUpConfirmPassword } = useSelector((state) => state.auth);
@@ -24,8 +25,8 @@ const Signup = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center min-h-[90vh] md:ml-[250px]">
-      <div className="w-full max-w-sm p-5 md:p-8 bg-white shadow-md rounded-xl m-2">
+    <div className="flex items-center justify-center min-h-[90vh]">
+      <div className="w-full max-w-sm p-5 md:p-8 bg-white shadow-md rounded-xl m-3">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
             <img src="" alt="" />
@@ -83,11 +84,12 @@ const Signup = () => {
 
           <button
             type="submit"
-            className="w-full py-3 text-white bg-blue-600 rounded-lg
-             hover:bg-blue-700 transition cursor-pointer"
+            className="w-full py-[10px] text-white bg-blue-600 rounded-lg
+             hover:bg-blue-700 transition cursor-pointer rounded mb-3"
           >
             Sign up
           </button>
+         <Link to={'/'} ><p className="text-center">Already have an account? Login In</p></Link>
         </form>
       </div>
     </div>
