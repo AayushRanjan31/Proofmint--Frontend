@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import Draggable from "react-draggable";
-import html2canvas from "html2canvas";
-import { getCertificateWithQrApi, saveFinalCertificateApi } from '../utils/proofMintApi'
+import {useRef, useState} from 'react';
+import Draggable from 'react-draggable';
+import html2canvas from 'html2canvas';
+import {getCertificateWithQrApi, saveFinalCertificateApi} from '../utils/proofMintApi';
 
 export default function CertificateWithStamp() {
   const certRef = useRef(null);
@@ -16,30 +16,30 @@ export default function CertificateWithStamp() {
       setCertificateUrl(data.certificateUrl);
       setQrUrl(data.qrUrl);
     } catch (err) {
-      console.error("Error fetching certificate + QR:", err);
-      alert("Fetching failed");
+      console.error('Error fetching certificate + QR:', err);
+      alert('Fetching failed');
     }
   };
 
   const handleSaveFinal = async () => {
     if (!certRef.current) return;
 
-    const canvas = await html2canvas(certRef.current, { scale: 2 });
+    const canvas = await html2canvas(certRef.current, {scale: 2});
     const blob = await new Promise((resolve) =>
-      canvas.toBlob(resolve, "image/png")
+      canvas.toBlob(resolve, 'image/png'),
     );
 
     try {
       await saveFinalCertificateApi(blob);
     } catch (err) {
-      console.error("Error saving final cert:", err);
-      alert("Save failed");
+      console.error('Error saving final cert:', err);
+      alert('Save failed');
     }
   };
 
   return (
     <div className="flex flex-col items-center text-center gap-4">
-    
+
       <button
         onClick={handleGetFromBackend}
         className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
@@ -57,7 +57,7 @@ export default function CertificateWithStamp() {
         )}
 
         {qrUrl && (
-          <Draggable nodeRef={nodeRef} defaultPosition={{ x: 50, y: 50 }}>
+          <Draggable nodeRef={nodeRef} defaultPosition={{x: 50, y: 50}}>
             <img
               ref={nodeRef}
               src={qrUrl}

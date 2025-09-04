@@ -1,11 +1,11 @@
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import logo from "../assets/logo.png";
-import "../styles/navbarCustom.css";
-import { Link, useLocation } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
-import { useState, useEffect, useRef } from "react";
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import logo from '../assets/logo.png';
+import '../styles/navbarCustom.css';
+import {Link, useLocation} from 'react-router-dom';
+import {FaUserCircle} from 'react-icons/fa';
+import {useState, useEffect, useRef} from 'react';
 
 function NavbarPage() {
   const location = useLocation();
@@ -29,9 +29,9 @@ function NavbarPage() {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -40,7 +40,7 @@ function NavbarPage() {
       <Container fluid className="flex justify-between items-center">
         {/* Logo */}
         <Navbar.Brand className="ml-[30%] md:ml-[2px]">
-          <img src={logo} alt="Logo" style={{ height: "50px" }} />
+          <img src={logo} alt="Logo" style={{height: '50px'}} />
         </Navbar.Brand>
 
         {/* Buttons */}
@@ -48,7 +48,7 @@ function NavbarPage() {
           <div className="relative" ref={dropdownRef}>
             <FaUserCircle
               size={30}
-              className="cursor-pointer"
+              className="cursor-pointer text-[var(--text-color)]"
               onClick={() => setClickUser(!clickUser)}
             />
             {clickUser && (
@@ -66,18 +66,18 @@ function NavbarPage() {
           </div>
         ) : (
           <div>
-            {location.pathname === "/" || location.pathname === "/signUp" ? (
-              <Link to={"/verifydocument"}>
+            {location.pathname === '/' || location.pathname === '/signUp' ? (
+              <Link to={'/verifydocument'}>
                 <Button variant="outline-primary">Verify Document</Button>
               </Link>
             ) : (
               <div className="gap-2 md:flex">
                 <div className="hidden md:flex">
-                  <Link to={"/signUp"}>
+                  <Link to={'/signUp'}>
                     <Button variant="outline-primary">Sign Up</Button>
                   </Link>
                 </div>
-                <Link to={"/"}>
+                <Link to={'/'}>
                   <Button variant="outline-primary">Login</Button>
                 </Link>
               </div>

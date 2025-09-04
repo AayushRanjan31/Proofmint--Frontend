@@ -1,14 +1,14 @@
-import NavbarPage from "./Navbar"
-import { Outlet } from "react-router-dom"
+import NavbarPage from './Navbar';
+import {Outlet} from 'react-router-dom';
 
 const AuthLayout = () => {
   return (
     <div>
-       <NavbarPage/>
-        <Outlet/>
-        
-    </div>
-  )
-}
+      <NavbarPage/>
+      <Outlet/>
 
-export default AuthLayout
+    </div>
+  );
+};
+
+export default AuthLayout;

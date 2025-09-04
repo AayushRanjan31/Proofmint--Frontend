@@ -1,24 +1,29 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUp, login } from '../../utils/proofMintApi';
-import { toast } from 'react-toastify';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {signUp, login} from '../../utils/proofMintApi';
+import {toast} from 'react-toastify';
+import Cookies from 'js-cookie';
 
-export const registerUser = createAsyncThunk('register', async ({signUpUsername,signUpEmail,signUpPassword}) => {
-  const signUpData = await signUp(signUpUsername,signUpEmail,signUpPassword);
+export const registerUser = createAsyncThunk('register', async ({signUpUsername, signUpEmail, signUpPassword}) => {
+  const signUpData = await signUp(signUpUsername, signUpEmail, signUpPassword);
   return signUpData;
 });
-export const loginUser = createAsyncThunk('login', async ({loginEmail,loginPassword }) => {
-  const loginData = await login(loginEmail,loginPassword);
+export const loginUser = createAsyncThunk('login', async ({loginEmail, loginPassword}) => {
+  const loginData = await login(loginEmail, loginPassword);
   return loginData;
 });
+
+
 const Authentication = createSlice({
   name: 'authentication',
   initialState: {
-    signUpUsername: "",
-    signUpEmail: "",
-    signUpPassword: "",
-    signUpConfirmPassword: "",
-    loginEmail: "",
-    loginPassword: ""
+    signUpUsername: '',
+    signUpEmail: '',
+    signUpPassword: '',
+    signUpConfirmPassword: '',
+    loginEmail: '',
+    loginPassword: '',
+    token: '',
+    isLoggedIn: false,
   },
   reducers: {
     setUsername: (state, action) => {
@@ -38,35 +43,48 @@ const Authentication = createSlice({
     },
     setLoginPassword: (state, action) => {
       state.loginPassword = action.payload;
-    }
+    },
+    setToken: (state, action)=>{
+      state.token=action.payload;
+    },
+    setLoggedIn: (state, action)=>{
+      state.isLoggedIn=action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.loginEmail = "";
-      state.loginPassword = "";
-      toast.success('Login successful.', { toastId: 'login-success' });
+      state.loginEmail = '';
+      state.loginPassword = '';
+      toast.success('Login successful.', {toastId: 'login-success'});
+
+      const token = Cookies.get('token');
+      if (token) {
+        state.token = token;
+        state.isLoggedIn=true;
+      }
     })
-      .addCase(loginUser.rejected, (state) => {
-        state.loginEmail = "";
-        state.loginPassword = "";
-        toast.error('Failed to login,Please try again.', { toastId: 'login-error' });
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.signUpUsername = "";
-        state.signUpEmail = "";
-        state.signUpPassword = "";
-        state.signUpConfirmPassword = "";
-        toast.success('Registration successful', { toastId: 'registration-success' });
-      })
-      .addCase(registerUser.rejected, (state) => {
-        state.signUpUsername = "";
-        state.signUpEmail = "";
-        state.signUpPassword = "";
-        state.signUpConfirmPassword = "";
-        toast.error('Failed to signUp.Please try again!', { toastId: 'registration-error' });
-      });
+        .addCase(loginUser.rejected, (state) => {
+          state.loginEmail = '';
+          state.loginPassword = '';
+          toast.error('Failed to login,Please try again.', {toastId: 'login-error'});
+          console.log(action.payload);
+        })
+        .addCase(registerUser.fulfilled, (state, action) => {
+          state.signUpUsername = '';
+          state.signUpEmail = '';
+          state.signUpPassword = '';
+          state.signUpConfirmPassword = '';
+          toast.success('Registration successful', {toastId: 'registration-success'});
+        })
+        .addCase(registerUser.rejected, (state) => {
+          state.signUpUsername = '';
+          state.signUpEmail = '';
+          state.signUpPassword = '';
+          state.signUpConfirmPassword = '';
+          toast.error('Failed to signUp.Please try again!', {toastId: 'registration-error'});
+        });
   },
 });
-export const { setUsername, setEmail, setPassword, setConfirmPassword, setLoginEmail, setLoginPassword } = Authentication.actions;
+export const {setUsername, setEmail, setPassword, setConfirmPassword, setLoginEmail, setLoginPassword} = Authentication.actions;
 export default Authentication.reducer;
 
