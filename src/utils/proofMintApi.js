@@ -12,6 +12,11 @@ export async function login(email, password) {
   return response.data;
 };
 
+export async function fetchDocuments(){
+  const response = await axios.get('');
+  const data = await response.json();
+  return data;
+} 
 
 
 

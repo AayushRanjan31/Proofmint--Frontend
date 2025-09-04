@@ -1,26 +1,13 @@
 const DocumentsTable = () => {
-  const documents = [
-    {
-      title: "Certificate of Completion",
-      documentId: "4y589y24582y5",
-      status: "Issued",
-      issuedAt: "2024-04-24",
-    },
-    {
-      title: "Employee ID",
-      documentId: "32526450",
-      status: "Revoked",
-      issuedAt: "2024-04-20",
-    },
-  ];
 
   return (
-    <div className="m-8 shadow rounded-lg p-5 bg-white">
+    <div className='lg:flex lg:justify-center'>
+    <div className="m-8 shadow rounded-lg p-5 bg-white lg:w-[70vw]">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-semibold pb-1">Documents</h2>
+        <h2 className="font-semibold pb-1">Documents</h2>
       </div>
 
-      <div className="hidden md:block overflow-x-auto">
+      <div className="hidden lg:block overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100 text-left">
@@ -53,7 +40,7 @@ const DocumentsTable = () => {
         </table>
       </div>
 
-      <div className="md:hidden space-y-4">
+      <div className="lg:hidden space-y-4">
         {documents.map((doc, idx) => (
           <div
             key={idx}
@@ -79,6 +66,7 @@ const DocumentsTable = () => {
         ))}
       </div>
     </div>
+      </div>
   );
 };
 

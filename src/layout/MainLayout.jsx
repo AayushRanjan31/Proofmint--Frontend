@@ -1,7 +1,7 @@
 import NavbarPage from "./Navbar"
 import { Outlet } from "react-router-dom"
 import Sidebar from "./Sidebar"
-const OutletPage = () => {
+const MainLayout = () => {
   return (
     <div>
         <NavbarPage/>
@@ -12,4 +12,4 @@ const OutletPage = () => {
   )
 }
 
-export default OutletPage
+export default MainLayout

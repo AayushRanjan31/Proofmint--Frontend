@@ -45,9 +45,10 @@ const UploadDocument = () => {
   };
 
   return (
-    <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-5 bg-white md:ml-70">
-      <h1 className="text-6xl font-semibold pb-1">Upload Document</h1>
-      <div className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-4 bg-white" onDrop={handleDrop} onDragOver={handleDragOver}>
+    <div className='md:flex md:justify-center md:ml-70 mt-20 md:mt-10'>
+    <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-3 bg-white md:w-[50vw]">
+      <h1 className="font-semibold pb-1">Upload Document</h1>
+      <div className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3 bg-white" onDrop={handleDrop} onDragOver={handleDragOver}>
         <FiUploadCloud size={60} className="text-gray-500" />
         <p className="text-gray-500">Drag and drop file or</p>
         <label htmlFor="fileInput" className="px-6 py-2 bg-gray-100 rounded-md cursor-pointer hover:bg-gray-200"> Browse File </label>
@@ -62,6 +63,7 @@ const UploadDocument = () => {
               {file ? 'Stamp' : 'Upload'}  
       </button>
     </div>
+     </div>
   );
 };
 

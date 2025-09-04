@@ -9,18 +9,19 @@ const Setting = () => {
   };
 
   return (
-    <div className=" m-8 p-6 bg-white shadow rounded-2xl md:ml-70">
-      <div className="flex flex-col gap-2">
-             <h1 className="text-2xl font-bold ">Settings</h1>
+    <div className='md:flex md:justify-center md:ml-70 mt-20 md:mt-10'>
+    <div className=" m-8 p-10 bg-white shadow rounded-xl md:w-[50vw]">
+      <div className="flex flex-col">
+             <h1 className="font-semibold">Settings</h1>
         <div>
-          <h3 className="text-lg font-semibold mb-2 mt-4">Profile</h3>
-          <div className="flex flex-col gap-3">
+          <h3 className="text-lg font-semibold mb-3 mt-4">Profile</h3>
+          <div className="flex flex-col gap-2">
             <input
               type="text"
               name="name"
               // value={form.name}
               className="w-full border p-2 rounded-lg"
-              placeholder="Name"
+              placeholder="Username"
             />
             <input
               type="email"
@@ -33,7 +34,7 @@ const Setting = () => {
         </div>
 
      <div>
-      <h3 className="text-lg font-semibold mb-2 mt-4">Preferences</h3>
+      <h3 className="text-lg font-semibold mb-3 mt-4">Preferences</h3>
       <div className="flex items-center gap-3">
         <span className="text-lg font-medium">
            Light
@@ -58,6 +59,7 @@ const Setting = () => {
     </div>
       </div>
     </div>
+        </div>
   );
 };
 
