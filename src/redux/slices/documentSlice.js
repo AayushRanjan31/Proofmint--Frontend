@@ -1,33 +1,33 @@
-// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import fetchDocuments from '../../utils/proofMintApi'
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {fetchDocuments} from '../../utils/proofMintApi'
 
-// export const allDocument = createAsyncThunk("documents/fetchDocuments", async () => {
-//     const data = fetchDocuments()
-//     return data;
-// })
+export const allFetchDocument = createAsyncThunk("documents/fetchDocuments", async () => {
+    const data = await fetchDocuments()
+    return data;
+})
 
-// const initialState = {
-//     documents: [],
-//     loading: false,
-//     error: null,
-// }
+const initialState = {
+    documents: [],
+    // loading: false,
+    // error: null,
+}
 
-// const documentSlice = createSlice({
-//     name: 'documents',
-//     initialState,
-//     reducers: {},
-//     extraReducers: (builder) => {
-//      builder
-//      .addCase(allDocument.pending, (state) => {
-//         state.loading = true
-//      })
-//      .addCase(allDocument.fulfilled, (state, action) => {
-//         state.documents = action.payload;
-//      })
-//      .addCase(allDocument.rejected, (state) => {
-//         state.error = action.error.message;
-//      })
-//     }
-// })
+const documentSlice = createSlice({
+    name: 'documents',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+     builder
+     .addCase(allFetchDocument.pending, (state) => {
+        state.loading = true
+     })
+     .addCase(allFetchDocument.fulfilled, (state, action) => {
+        state.documents = action.payload;
+     })
+     .addCase(allFetchDocument.rejected, (state) => {
+        state.error = action.error.message;
+     })
+    }
+})
 
-// export default documentSlice.reducer;
+export default documentSlice.reducer;

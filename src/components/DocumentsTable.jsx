@@ -1,31 +1,17 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { allDocument } from "../redux/slices/documentSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { allFetchDocument } from "../redux/slices/documentSlice";
 
 const DocumentsTable = () => {
-  // const dispatch = useDispatch();
-  // const {documents, loading, error} = useSelector((state) => state.document);
+  const dispatch = useDispatch();
+  const {documents} = useSelector((state) => state.documents);
 
-  //   useEffect(() => {
-  //   dispatch(allDocument()); 
-  // }, [dispatch]);
-  const documents = [
-    {
-      title: "Certificate of Completion",
-      documentId: "4y589y24582y5",
-      status: "Issued",
-      issuedAt: "2024-04-24",
-    },
-    {
-      title: "Employee ID",
-      documentId: "32526450",
-      status: "Revoked",
-      issuedAt: "2024-04-20",
-    },
-  ];
+    useEffect(() => {
+    dispatch(allFetchDocument()); 
+  }, [dispatch]);
 
   return (
-    <div className='lg:flex lg:justify-center md:ml-[250px]'>
+    <div className='lg:flex lg:justify-center md:ml-[250px] mt-10'>
     <div className="m-8 shadow rounded-lg p-5 bg-white lg:w-[70vw]">
       <div className="flex items-center justify-between mb-4">
         <h2 className="pb-1 font-semibold">Documents</h2>

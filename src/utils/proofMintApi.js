@@ -26,6 +26,11 @@ console.log(response.data);
 return response.data
 };
 
+export async function fetchDocuments() {
+  const res = await axios.get('https://ac4087f1a82c.ngrok-free.app/api/v1/documents');
+  return res;
+}
+
 //upload certificate
 // export const uploadDocumentApi = async (file) => {
 //   const formData = new FormData();
@@ -84,10 +89,7 @@ export const saveFinalCertificateApi = async (blob) => {
   return response.data;
 };
 
-export async function fetchDocuments(){
-  const response = await axios.get('');
-  return response;
-} 
+
 
 
 

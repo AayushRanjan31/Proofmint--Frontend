@@ -19,7 +19,7 @@ function Sidebar() {
       {/* Hamburger button - shows ONLY on mobile (<=450px) */}
       {isMobile && (
         <button
-          className="fixed z-50 p-1 mx-2 text-white border rounded top-5 start-0 bg-dark"
+          className="fixed z-50 p-1 mx-2 text-white border rounded top-7 start-0 bg-dark"
           onClick={toggleSidebar}
         >
           <List size={25} />
@@ -47,18 +47,6 @@ function Sidebar() {
               <Gear className="me-2" /> Settings
             </Nav.Link>
           </Nav>
-
-          {/* Show buttons only on mobile inside open sidebar */}
-          {isMobile && isOpen && (
-            <>
-              <Button variant="primary" className="mt-2 w-100">
-                Sign Up
-              </Button>
-              <Button variant="primary" className="mt-2 w-100">
-                Login
-              </Button>
-            </>
-          )}
         </div>
       )}
 

@@ -21,23 +21,23 @@ function App() {
     login
       ? [
           {
-            path: "/",              
-            element: <AuthLayout />,
-            children: [
-              { index: true, element: <LoginPages /> },
-              { path: "signUp", element: <Signup /> },
-              { path: "verifydocument", element: <VerifyDocument /> },
-            ],
-          },
-        ]
-      : [
-          {
             path: "/",           
             element: <AppLayout />,
             children: [
               { path: "/", element: <DocumentsTable /> },
               { path: "upload", element: <UploadDocument /> },
               { path: "setting", element: <Setting /> },
+            ],
+          },
+        ] :
+        [
+          {
+            path: "/",              
+            element: <AuthLayout />,
+            children: [
+              { index: true, element: <LoginPages /> },
+              { path: "signUp", element: <Signup /> },
+              { path: "verifydocument", element: <VerifyDocument /> },
             ],
           },
         ]
