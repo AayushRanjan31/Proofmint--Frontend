@@ -1,11 +1,14 @@
 import {MdOutlineQrCodeScanner} from 'react-icons/md';
 import {useDispatch, useSelector} from 'react-redux';
-import {setDocumentId, setVerified} from '../redux/slices/verifyDocument';
-
+import {setDocumentId} from '../redux/slices/verifyDocument';
+import IssuedCertificate from './IssuedCertificate';
+import { getCerificate } from '../redux/slices/verifyDocument';
 const VerifyDocument = () => {
   const dispatch = useDispatch();
-  const {documentId} = useSelector((state) => state.verifyDocument);
-
+  const {documentId,certificate} = useSelector((state) => state.verifyDocument);
+  const handleGetCertificate=(documentId)=>{
+      dispatch(getCerificate(documentId))
+  }
   return (
     <div className='md:flex md:justify-center'>
             <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-2 bg-white md:w-[40vw] mt-20">
@@ -22,7 +25,7 @@ const VerifyDocument = () => {
       />
       <button
         className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer rounded"
-        onClick={() => dispatch(setVerified())}
+        onClick={() => handleGetCertificate(documentId)}
       >
                 Verify
       </button>
@@ -35,7 +38,12 @@ const VerifyDocument = () => {
         <MdOutlineQrCodeScanner size={20} />
         <span>Scan QR Code</span>
       </button>
+      {
+       certificate && <IssuedCertificate/>
+      }
+      
     </div>
+   
     </div>
   );
 };

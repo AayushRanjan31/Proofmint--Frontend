@@ -17,11 +17,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout/>}>
-            {/* <Route path="/" element={<Dashboard />}/> */}
             <Route path="/" element={<LoginPages/>}/>
             <Route path="/signUp" element={<Signup/>}/>
-            <Route path="verifydocument" element={<VerifyDocument/>} />
-            <Route path="/IssuedCertificate" element={<IssuedCertificate/>}/>
+            <Route path="/verifydocument" element={<VerifyDocument/>} />
+            <Route path="/issuedCertificate" element={<IssuedCertificate/>}/>
             <Route path="/CertificateWithQr" element={<CertificateWithQR/>}/>
             <Route path="/upload" element={<UploadDocument/>}/>
              <Route path="/setting" element={<Setting/>}/>

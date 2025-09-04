@@ -1,10 +1,15 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice,createAsyncThunk} from '@reduxjs/toolkit';
+import { getCertificateDetails } from '../../utils/proofMintApi';
+export const getCerificate = createAsyncThunk('getCertificate', async(documentId) => {
+  const certificateDetails = await getCertificateDetails(documentId);
+  return certificateDetails;
+});
 
 const initialState = {
   documentId: '',
   verified: false,
+  certificate:null
 };
-
 const verifyDocument = createSlice({
   name: 'verifyDocument',
   initialState,
@@ -12,15 +17,13 @@ const verifyDocument = createSlice({
     setDocumentId: (state, action) => {
       state.documentId = action.payload;
     },
-    setVerified: (state) => {
-      if (state.documentId.trim() !== '') {
-        state.verified = true;
-      } else {
-        state.verified = false;
-      }
-    },
   },
+  extraReducers:(builder)=>{
+    builder.addCase(getCerificate.fulfilled,(state,action)=>{
+      state.certificate=action.payload
+    })
+  }
 });
 
-export const {setDocumentId, setVerified} = verifyDocument.actions;
+export const {setDocumentId} = verifyDocument.actions;
 export default verifyDocument.reducer;

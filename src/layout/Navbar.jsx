@@ -16,7 +16,7 @@ function NavbarPage() {
       <Container fluid className="d-flex justify-content-between align-items-center">
         {/* Logo */}
         <Navbar.Brand
-          href="#home"
+          href="/"
           className="flex flex-grow-1 flex-md-grow-0"
         >
           <img 

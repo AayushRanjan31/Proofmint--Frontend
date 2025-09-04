@@ -17,7 +17,7 @@ export async function login(email, password) {
   console.log(email,password)
   
   const response = await axios.post(
-  "https://28866a8e20da.ngrok-free.app/api/v1/auth/login", { email, password },{withCredentials: true,headers: {
+  "https://ac4087f1a82c.ngrok-free.app/api/v1/auth/login", { email, password },{withCredentials: true,headers: {
     "Content-Type": "application/json",
     },
   }
@@ -42,7 +42,7 @@ return response.data
 
 export const uploadDocumentApi = async ({ file, title, expiry, username }) => {
   const formData = new FormData();
-  formData.append("document", file);    
+  formData.append("file", file);    
   formData.append("title", title);     
   formData.append("expiry", expiry);       
   formData.append("username", username);   
@@ -53,13 +53,13 @@ export const uploadDocumentApi = async ({ file, title, expiry, username }) => {
   }
 
   const response = await axios.post(
-    "https://28866a8e20da.ngrok-free.app/api/v1/document/upload",
+    "https://ac4087f1a82c.ngrok-free.app/api/v1/document/upload",
     formData,
     {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      withCredentials: true, // 🔑 send cookies (token)
+      withCredentials: true, 
     }
   );
 
@@ -88,6 +88,13 @@ export async function fetchDocuments(){
   const response = await axios.get('');
   return response;
 } 
+
+// verify document
+export async function getCertificateDetails(documentId) {
+  const certificate=await axios.get('')
+  return certificate
+  
+}
 
 
 

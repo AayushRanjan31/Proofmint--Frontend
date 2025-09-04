@@ -6,18 +6,22 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const { loginEmail, loginPassword } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (loginPassword.length <= 5) {
       toast.error('Password must be 6 characters.', { toastId: 'fetch-error' });
     }
     else {
-      dispatch(loginUser({ loginEmail, loginPassword }))
+     dispatch(loginUser({ loginEmail, loginPassword }));
+
     }
 
   };
   return (
+    
     <div className="flex items-center justify-center min-h-[90vh]">
+    
+
       <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-xl m-3">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
@@ -26,7 +30,6 @@ const Login = () => {
           </div>
           <h2 className="mt-4 text-xl font-semibold text-gray-700">Login</h2>
         </div>
-
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <div>

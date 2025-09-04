@@ -1,8 +1,10 @@
 import { FiUploadCloud } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadDocument, setFile, setFilePath } from "../redux/slices/uploadDocument";
+import { useState } from "react";
 
 const UploadDocument = () => {
+
   const dispatch = useDispatch();
   const { file } = useSelector((state) => state.uploadDocument);
 
@@ -35,12 +37,13 @@ const UploadDocument = () => {
 
   const handleUpload = () => {
     if (file) {
+      console.log(file)
       dispatch(
         uploadDocument({
-          file,
-          title: "",
-          expiry:"",
-          username: "",
+          file:file,
+          title: "aadhar",
+          expiry:"2025-12-26",
+          username: "satyamani",
         })
       );
 
@@ -53,6 +56,7 @@ const UploadDocument = () => {
 
   return (
     <div className='md:flex md:justify-center md:ml-70 mt-20 md:mt-10'>
+      
     <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-3 bg-white md:w-[50vw]">
       <h1 className="font-semibold pb-1">Upload Document</h1>
       <div className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3 bg-white" onDrop={handleDrop} onDragOver={handleDragOver}>
