@@ -23,8 +23,8 @@ const Signup = () => {
     }
   };
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-xl">
+    <div className="flex items-center justify-center min-h-screen md:ml-[250px]">
+      <div className="w-full max-w-sm p-5 md:p-8 bg-white shadow-md rounded-xl m-2">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
             <img src="" alt="" />
@@ -70,7 +70,7 @@ const Signup = () => {
           </div>
           <div>
             <input
-              type="text"
+              type="password"
               placeholder="Confirm password"
               value={signUpConfirmPassword}
               onChange={(e) => dispatch(setConfirmPassword(e.target.value))}

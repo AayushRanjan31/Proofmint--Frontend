@@ -1,66 +1,81 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Draggable from "react-draggable";
 import html2canvas from "html2canvas";
-import axios from "axios";
-import certFile from "../assets/certificate.png";
-import stampImg from "../assets/stamp.png";
+import { getCertificateWithQrApi, saveFinalCertificateApi } from '../utils/proofMintApi'
 
 export default function CertificateWithStamp() {
   const certRef = useRef(null);
   const nodeRef = useRef(null);
 
-  // Preview (send to backend)
-  const handlePreview = async () => {
+  const [certificateUrl, setCertificateUrl] = useState(null);
+  const [qrUrl, setQrUrl] = useState(null);
+
+  const handleGetFromBackend = async () => {
+    try {
+      const data = await getCertificateWithQrApi();
+      setCertificateUrl(data.certificateUrl);
+      setQrUrl(data.qrUrl);
+    } catch (err) {
+      console.error("Error fetching certificate + QR:", err);
+      alert("Fetching failed");
+    }
+  };
+
+  const handleSaveFinal = async () => {
+    if (!certRef.current) return;
+
     const canvas = await html2canvas(certRef.current, { scale: 2 });
     const blob = await new Promise((resolve) =>
       canvas.toBlob(resolve, "image/png")
     );
 
-    const formData = new FormData();
-    formData.append("file", blob, "certificate.png");
-
     try {
-      const res = await axios.post("http://localhost:5000/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      if (res.status === 200) {
-        alert("✅ Preview saved successfully on backend.");
-      }
+      await saveFinalCertificateApi(blob);
     } catch (err) {
-      console.error("Error uploading:", err);
-      alert("Upload failed");
+      console.error("Error saving final cert:", err);
+      alert("Save failed");
     }
   };
 
   return (
-    <div className="flex flex-col items-center text-center">
-      {/* Certificate + Stamp */}
-      <div ref={certRef} className="relative inline-block">
-        <img
-          src={certFile}
-          alt="certificate"
-          className="block max-w-full"
-        />
+    <div className="flex flex-col items-center text-center gap-4">
+    
+      <button
+        onClick={handleGetFromBackend}
+        className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
+      >
+        Get Certificate + QR
+      </button>
 
-        {/* Draggable stamp */}
-        <Draggable nodeRef={nodeRef} defaultPosition={{ x: 50, y: 50 }}>
+      <div ref={certRef} className="relative inline-block mt-4">
+        {certificateUrl && (
           <img
-            ref={nodeRef}
-            src={stampImg}
-            alt="stamp"
-            className="absolute w-24 cursor-move top-0 left-0"
+            src={certificateUrl}
+            alt="certificate"
+            className="block max-w-full"
           />
-        </Draggable>
+        )}
+
+        {qrUrl && (
+          <Draggable nodeRef={nodeRef} defaultPosition={{ x: 50, y: 50 }}>
+            <img
+              ref={nodeRef}
+              src={qrUrl}
+              alt="qr"
+              className="absolute w-24 cursor-move top-0 left-0"
+            />
+          </Draggable>
+        )}
       </div>
 
-      {/* Preview button */}
-      <button
-        onClick={handlePreview}
-        className="mt-6 px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
-      >
-        Preview
-      </button>
+      {certificateUrl && qrUrl && (
+        <button
+          onClick={handleSaveFinal}
+          className="px-6 py-2 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition mt-4"
+        >
+          Save with QR
+        </button>
+      )}
     </div>
   );
 }

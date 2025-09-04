@@ -1,34 +1,34 @@
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import logo from '../assets/image.png';
-import '../NavbarCustom.css'; 
-import { Link } from 'react-router-dom';
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import logo from "../assets/logo.png";
+import "../css/navbarCustom.css";
+import { Link } from "react-router-dom";
 
 function NavbarPage() {
   return (
-    <Navbar className="bg-blue-100 py-2 custom-navbar">
-      <Container fluid className="d-flex justify-content-between px-4 align-items-center">
-        {/* Brand Logo */}
-        <Navbar.Brand href="#home" className="ms-2">
+    <Navbar
+      bg="light"
+      expand="sm"
+      className="py-2 custom-navbar"
+    >
+      <Container fluid className="d-flex justify-content-between align-items-center">
+        {/* Logo */}
+        <Navbar.Brand
+          href="#home"
+          className="d-flex justify-content-center flex-grow-1 flex-md-grow-0"
+        >
           <img
             src={logo}
             alt="Logo"
-            className="object-contain navbar-logo"
+            style={{ height: "50px" }}
           />
         </Navbar.Brand>
 
         {/* Buttons */}
-        <div className="me-2 d-flex flex-row flex-sm-row flex-column-reverse gap-2">
-          <Link to="/SignUp">
-           <Button variant="outline-primary" className="custom-btn">
-            Sign Up
-          </Button></Link>
-           <Link to="/Login">
-          <Button variant="outline-primary" className="custom-btn">
-            Login
-          </Button>
-          </Link>
+        <div className="d-none d-md-flex gap-2 ">
+         <Link to={'/signUp'}><Button variant="outline-primary">Sign Up</Button></Link>
+         <Link to={'/login'}><Button variant="outline-primary">Login </Button></Link>
         </div>
       </Container>
     </Navbar>

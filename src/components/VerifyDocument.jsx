@@ -7,17 +7,17 @@ const VerifyDocument = () => {
   const {documentId} = useSelector((state) => state.verifyDocument);
 
   return (
-    <div className="shadow m-10 flex flex-col p-5 rounded-xl gap-5 ">
-      <h1 className="text-5xl font-semibold pb-3">Verify Document</h1>
+    <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-4 bg-white">
+      <h1 className="text-6xl font-semibold pb-1">Verify Document</h1>
       <input
         type="text"
         placeholder="Document ID"
-        className="border border-gray-300 p-2 text-lg rounded-md"
+        className="border border-gray-300 p-2 text-lg rounded-md mb-3"
         value={documentId}
         onChange={(e) => dispatch(setDocumentId(e.target.value))}
       />
       <button
-        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
+        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer mb-4"
         onClick={() => dispatch(setVerified())}
       >
                 Verify

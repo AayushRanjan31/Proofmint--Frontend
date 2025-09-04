@@ -1,12 +1,13 @@
 import {useState} from 'react';
-import UploadDocument from "../components/UploadDocument"
-import VerifyDocument from "../components/VerifyDocument"
+import DocumentsTable from '../components/DocumentsTable';
+import VerifyDocument from '../components/VerifyDocument';
+
 const Dashboard = () => {
-  const [login, setlogin] = useState(true);
+  const [login, setlogin] = useState(false);
   return (
-    <section>
+    <section className='md:ml-63'>
       {login ? <div>
-        <UploadDocument />
+        <DocumentsTable />
       </div> :
        <div>
          <VerifyDocument/>
