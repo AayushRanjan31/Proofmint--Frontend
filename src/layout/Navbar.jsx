@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import logo from "../assets/logo.png";
-import "../css/navbarCustom.css";
+import "../styles/navbarCustom.css";
 import { Link } from "react-router-dom";
 
 function NavbarPage() {

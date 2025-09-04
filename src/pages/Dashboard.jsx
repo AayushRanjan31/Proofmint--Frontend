@@ -1,13 +1,13 @@
 import {useState} from 'react';
-import DocumentsTable from '../components/DocumentsTable';
+// import DocumentsTable from '../components/DocumentsTable';
 import VerifyDocument from '../components/VerifyDocument';
 
 const Dashboard = () => {
-  const [login, setlogin] = useState(true);
+  const [login, setlogin] = useState(false);
   return (
     <section className='md:ml-63 mt-20 md:mt-10'>
       {login ? <div>
-        <DocumentsTable />
+        {/* <DocumentsTable /> */}
       </div> :
        <div>
          <VerifyDocument/>
