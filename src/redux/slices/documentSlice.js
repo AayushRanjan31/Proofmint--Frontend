@@ -5,11 +5,9 @@ export const allFetchDocument = createAsyncThunk('documents/fetchDocuments', asy
   const data = await fetchDocuments();
   return data;
 });
-
 const initialState = {
   documents: [],
-  // loading: false,
-  // error: null,
+  error: null,
 };
 
 const documentSlice = createSlice({
@@ -19,15 +17,17 @@ const documentSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addCase(allFetchDocument.pending, (state) => {
-          state.loading = true;
+          state.error = null;
         })
         .addCase(allFetchDocument.fulfilled, (state, action) => {
           state.documents = action.payload;
+          state.error = null;
         })
-        .addCase(allFetchDocument.rejected, (state) => {
-          state.error = action.error.message;
+        .addCase(allFetchDocument.rejected, (state, action) => {
+          state.error = action.error.message || 'Failed to fetch documents';
         });
   },
 });
+
 
 export default documentSlice.reducer;

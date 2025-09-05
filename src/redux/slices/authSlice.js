@@ -3,8 +3,9 @@ import {signUp, login} from '../../utils/proofMintApi';
 import {toast} from 'react-toastify';
 import Cookies from 'js-cookie';
 
-export const registerUser = createAsyncThunk('register', async ({signUpUsername, signUpEmail, signUpPassword}) => {
-  const signUpData = await signUp(signUpUsername, signUpEmail, signUpPassword);
+
+export const registerUser = createAsyncThunk('register', async ({signUpFirstname, signUpLastname, signUpEmail, signUpPassword}) => {
+  const signUpData = await signUp(signUpFirstname, signUpLastname, signUpEmail, signUpPassword);
   return signUpData;
 });
 export const loginUser = createAsyncThunk('login', async ({loginEmail, loginPassword}) => {
@@ -16,7 +17,8 @@ export const loginUser = createAsyncThunk('login', async ({loginEmail, loginPass
 const Authentication = createSlice({
   name: 'authentication',
   initialState: {
-    signUpUsername: '',
+    signUpFirstname: '',
+    signUpLastname: '',
     signUpEmail: '',
     signUpPassword: '',
     signUpConfirmPassword: '',
@@ -26,8 +28,11 @@ const Authentication = createSlice({
     isLoggedIn: false,
   },
   reducers: {
-    setUsername: (state, action) => {
-      state.signUpUsername = action.payload;
+    setFirstname: (state, action) => {
+      state.signUpFirstname = action.payload;
+    },
+    setLastname: (state, action) => {
+      state.signUpLastname = action.payload;
     },
     setEmail: (state, action) => {
       state.signUpEmail = action.payload;
@@ -60,24 +65,27 @@ const Authentication = createSlice({
       const token = Cookies.get('token');
       if (token) {
         state.token = token;
-        state.isLoggedIn=true;
+        state.isLoggedIn=!state.isLoggedIn;
       }
     })
         .addCase(loginUser.rejected, (state) => {
           state.loginEmail = '';
           state.loginPassword = '';
+          state.isLoggedIn=!state.isLoggedIn; // dummy
           toast.error('Failed to login,Please try again.', {toastId: 'login-error'});
-          console.log(action.payload);
         })
         .addCase(registerUser.fulfilled, (state, action) => {
-          state.signUpUsername = '';
+          state.signUpFirstname='';
+          state.signUpLastname='';
           state.signUpEmail = '';
           state.signUpPassword = '';
           state.signUpConfirmPassword = '';
           toast.success('Registration successful', {toastId: 'registration-success'});
+          navigate('/login');
         })
         .addCase(registerUser.rejected, (state) => {
-          state.signUpUsername = '';
+          state.signUpFirstname='';
+          state.signUpLastname='';
           state.signUpEmail = '';
           state.signUpPassword = '';
           state.signUpConfirmPassword = '';
@@ -85,6 +93,6 @@ const Authentication = createSlice({
         });
   },
 });
-export const {setUsername, setEmail, setPassword, setConfirmPassword, setLoginEmail, setLoginPassword} = Authentication.actions;
+export const {setFirstname, setLastname, setEmail, setPassword, setConfirmPassword, setLoginEmail, setLoginPassword, setLoggedIn} = Authentication.actions;
 export default Authentication.reducer;
 

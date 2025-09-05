@@ -5,14 +5,16 @@ import {toast} from 'react-toastify';
 import {Link} from 'react-router-dom';
 
 const Login = () => {
-  const {loginEmail, loginPassword} = useSelector((state) => state.auth);
+  const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginPassword.length <= 5) {
       toast.error('Password must be 6 characters.', {toastId: 'fetch-error'});
     } else {
-      dispatch(loginUser({loginEmail, loginPassword}));
+      const res= await dispatch(loginUser({loginEmail, loginPassword}));
+      if (res.payload?.status==200) {
+      }
     }
   };
   return (

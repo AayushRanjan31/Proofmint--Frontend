@@ -1,7 +1,6 @@
 import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath} from '../redux/slices/uploadDocument';
-import {useState} from 'react';
 
 const UploadDocument = () => {
   const dispatch = useDispatch();

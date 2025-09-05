@@ -4,8 +4,8 @@ import axios from 'axios';
 const baseUrl = config.api.baseUrl;
 
 // signup
-export async function signUp(username, email, password) {
-  const response = await axios.post(`https://28866a8e20da.ngrok-free.app/api/v1/auth/signup`, {username, email, password}, {
+export async function signUp(firstname, lastname, email, password) {
+  const response = await axios.post(`https://28866a8e20da.ngrok-free.app/api/v1/auth/signup`, {firstname, lastname, email, password}, {
     withCredentials: true,
     headers: {'Content-Type': 'application/json'},
   });

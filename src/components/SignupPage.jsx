@@ -1,15 +1,19 @@
-import {setUsername, setEmail, setPassword, setConfirmPassword, registerUser} from '../redux/slices/authSlice';
+import {setFirstname, setLastname, setEmail, setPassword, setConfirmPassword, registerUser} from '../redux/slices/authSlice';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
 
 const Signup = () => {
-  const {signUpUsername, signUpEmail, signUpPassword, signUpConfirmPassword} = useSelector((state) => state.auth);
+  const {signUpFirstname, signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const navigate=useNavigate();
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    if (signUpUsername.length <= 5) {
-      toast.error('Username must be 6 characters.', {toastId: 'username-error'});
+    if (signUpFirstname.length <= 5) {
+      toast.error('FirstName must be 6 characters.', {toastId: 'first-name-error'});
+    } else if (signUpLastname.length <= 5) {
+      toast.error('Lastname must be 6 characters.', {toastId: 'last-name-error'});
     } else if (signUpPassword.length <=5) {
       toast.error('Password must be 6 characters.', {toastId: 'password-error'});
     } else if (signUpConfirmPassword.length <= 5) {
@@ -17,7 +21,12 @@ const Signup = () => {
     } else if (signUpPassword !== signUpConfirmPassword) {
       toast.error('passwords must be same.', {toastId: 'match-password-error'});
     } else {
-      dispatch(registerUser({signUpUsername, signUpEmail, signUpPassword}));
+      navigate('/');// dummy
+      console.log(signUpFirstname, signUpLastname, signUpEmail, signUpPassword );
+      const res=await dispatch(registerUser({signUpFirstname, signUpLastname, signUpEmail, signUpPassword}));
+      if (res.payload?.status === 200) {
+        navigate('/');
+      }
     }
   };
   return (
@@ -34,9 +43,9 @@ const Signup = () => {
           <div>
             <input
               type="text"
-              placeholder="Username"
-              value={signUpUsername}
-              onChange={(e) => dispatch(setUsername(e.target.value))}
+              placeholder="firstname"
+              value={signUpFirstname}
+              onChange={(e) => dispatch(setFirstname(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
                focus:ring-blue-500 focus:outline-none"
               required
@@ -45,9 +54,9 @@ const Signup = () => {
           <div>
             <input
               type="text"
-              placeholder="Username"
-              value={signUpUsername}
-              onChange={(e) => dispatch(setUsername(e.target.value))}
+              placeholder="lastname"
+              value={signUpLastname}
+              onChange={(e) => dispatch(setLastname(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
                focus:ring-blue-500 focus:outline-none"
               required
@@ -82,17 +91,6 @@ const Signup = () => {
               placeholder="Confirm password"
               value={signUpConfirmPassword}
               onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
-              className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
-               focus:ring-blue-500 focus:outline-none"
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Username"
-              value={signUpUsername}
-              onChange={(e) => dispatch(setUsername(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
                focus:ring-blue-500 focus:outline-none"
               required

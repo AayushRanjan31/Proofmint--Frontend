@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import {useSelector} from 'react-redux';
 import {ToastContainer} from 'react-toastify';
 import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
+
 import DocumentsTable from './components/DocumentsTable';
 import Signup from './components/SignupPage';
 import LoginPages from './components/LoginPage';
@@ -15,21 +16,20 @@ import AuthLayout from './layout/AuthLayout';
 import AppLayout from './layout/AppLayout';
 
 function App() {
-  const [login, setLogin] = useState(false);
-
+  const {isLoggedIn} = useSelector((state) => state.auth);
   const router = createBrowserRouter(
-    login ?
-      [
-        {
-          path: '/',
-          element: <AppLayout />,
-          children: [
-            {path: '/', element: <DocumentsTable />},
-            {path: 'upload', element: <UploadDocument />},
-            {path: 'setting', element: <Setting />},
-          ],
-        },
-      ] :
+    isLoggedIn ?
+       [
+         {
+           path: '/',
+           element: <AppLayout />,
+           children: [
+             {path: '/', element: <DocumentsTable />},
+             {path: '/upload', element: <UploadDocument />},
+             {path: 'setting', element: <Setting />},
+           ],
+         },
+       ]:
         [
           {
             path: '/',
