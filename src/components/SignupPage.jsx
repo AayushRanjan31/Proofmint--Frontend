@@ -84,11 +84,11 @@ const Signup = () => {
           <button
             type="submit"
             className="w-full py-[10px] text-white bg-blue-600 rounded-lg
-             hover:bg-blue-700 transition cursor-pointer rounded mb-3"
+             hover:bg-blue-700 transition cursor-pointer  mb-3"
           >
             Sign up
           </button>
-         <Link to={'/'} ><p className="text-center">Already have an account? Login In</p></Link>
+         <p className="text-center">Already have an account?<Link to={'/'} >Login In</Link> </p>
         </form>
       </div>
     </div>

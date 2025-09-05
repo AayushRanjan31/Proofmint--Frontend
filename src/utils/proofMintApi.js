@@ -87,20 +87,4 @@ export const saveFinalCertificateApi = async (blob) => {
 export async function fetchDocuments(){
   const response = await axios.get('');
   return response;
-} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

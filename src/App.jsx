@@ -1,27 +1,24 @@
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DocumentsTable from "./components/DocumentsTable";
-import Signup from './components/SignupPage';
-import LoginPages from './components/LoginPage';
+import Signup from "./components/SignupPage";
+import LoginPages from "./components/LoginPage";
 import UploadDocument from "./pages/UploadDocument";
 import Setting from "./pages/Setting";
 import VerifyDocument from "./components/VerifyDocument";
 
 import AuthLayout from "./layout/AuthLayout";
 import AppLayout from "./layout/AppLayout";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const [login, setLogin] = useState(false);
-
+  const [login, setLogin] = useState(true);
   const router = createBrowserRouter(
-    login
+    !login
       ? [
           {
-            path: "/",              
+            path: "/",
             element: <AuthLayout />,
             children: [
               { index: true, element: <LoginPages /> },
@@ -29,10 +26,11 @@ function App() {
               { path: "verifydocument", element: <VerifyDocument /> },
             ],
           },
+          { path: "*", element: <NotFound /> }
         ]
       : [
           {
-            path: "/",           
+            path: "/",
             element: <AppLayout />,
             children: [
               { path: "/", element: <DocumentsTable /> },
@@ -40,6 +38,7 @@ function App() {
               { path: "setting", element: <Setting /> },
             ],
           },
+          { path: "*", element: <NotFound /> }
         ]
   );
 

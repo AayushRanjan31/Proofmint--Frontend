@@ -14,7 +14,6 @@ const Login = () => {
     else {
       dispatch(loginUser({ loginEmail, loginPassword }))
     }
-
   };
   return (
     <div className="flex items-center justify-center min-h-[90vh]">
@@ -54,7 +53,7 @@ const Login = () => {
           <button
             type="submit"
             className="w-full py-[10px] text-white bg-blue-600 rounded-lg
-             hover:bg-blue-700 transition cursor-pointer rounded mb-3"
+             hover:bg-blue-700 transition cursor-pointer mb-3"
           >
             Login
           </button>
