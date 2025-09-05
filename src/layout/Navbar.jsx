@@ -18,7 +18,6 @@ function NavbarPage() {
     setClickUser(false);
   };
 
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (

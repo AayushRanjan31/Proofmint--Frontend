@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Link} from "react-router-dom";
 
 const Login = () => {
-  const {loginEmail, loginPassword} = useSelector((state) => state.auth);
+  const {loginEmail, loginPassword,isLoggedIn} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +14,9 @@ const Login = () => {
     }
     else {
     let res=await dispatch(loginUser({ loginEmail, loginPassword }));
+    if(res.payload?.status==200){
+     
+    }
     }
   };
   return (
