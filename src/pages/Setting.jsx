@@ -35,19 +35,9 @@ const Setting = () => {
             <h3 className="mt-4 mb-3 text-lg font-semibold">
                             Profile
             </h3>
-            <div className="flex flex-col gap-2">
-               <input
-                type="text"
-                value={userName}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
-                <input
-                type="text"
-                value={userEmail}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
+            <div>
+              <p>{userName}</p>
+              <p>{userEmail}</p>
             </div>
           </div>
 

@@ -6,8 +6,6 @@ import { toast } from 'react-toastify';
 import { Link} from "react-router-dom";
 import { useEffect } from "react";
 
-
-
 const Login = () => {
   const {loginEmail, loginPassword,isLoggedIn} = useSelector((state) => state.auth);
   useEffect(()=>{

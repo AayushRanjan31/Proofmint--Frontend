@@ -17,7 +17,7 @@ export async function login(email, password) {
   console.log(email, password);
 
   const response = await axios.post(
-      `https://168e9a002d82.ngrok-free.app/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
+      `${baseUrl}/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
         'Content-Type': 'application/json',
       },
       },
@@ -29,7 +29,7 @@ export async function login(email, password) {
 //get all documents
 export async function fetchDocuments() {
   const res = await axios.get(`${baseUrl}/api/v1/documents`);
-  return res;
+  return res.data;
 }
 
 //upload document
@@ -41,7 +41,7 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   formData.append('username', username);
 
   const response = await axios.post(
-      `https://168e9a002d82.ngrok-free.app/api/v1/document/upload`,
+      `${baseUrl}/api/v1/document/upload`,
       formData,
       {
         headers: {
@@ -59,26 +59,26 @@ export const saveFinalCertificateApi = async (blob,documentId) => {
   const formData = new FormData();
   formData.append('file', blob);
   formData.append('certificateId', documentId);
-  const response = await axios.post(`https://168e9a002d82.ngrok-free.app/api/v1/document/stamps`, formData, {
+  const response = await axios.post(`${baseUrl}/api/v1/document/stamps`, formData, {
     headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true,
   });
   return response.data;
 };
 
 // // verify document 
-export async function getCertificateDetails() {
-  const certificate=await axios.get(`${baseUrl}/api/v1/documents/${docu}`);
-  return certificate;
+export async function getCertificateDetails(documentId) {
+  const certificate=await axios.get(`${baseUrl}/api/v1/documents/${documentId}`);
+  return certificate.data;
 }
 
 export const logout = async() => {
-  await axios.post(`${API_BASE_URL}/api/v1/auth/logout`);
+  await axios.post(`${baseUrl}/api/v1/auth/logout`);
 } 
 
 
 export const fetchUser = async() => {
   const res = await axios.get(`${baseUrl}/api/v1/admin/`);
-  return res;
+  return res.data;
 } 
 
 

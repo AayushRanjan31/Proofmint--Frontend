@@ -13,6 +13,7 @@ import AppLayout from "./layout/AppLayout";
 import NotFound from "./pages/NotFound";
 import CertificateWithStamp from "./components/UploadStamp";
 import { checkAuth } from "./redux/slices/authSlice";
+import ManageUser from "./components/ManageUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +29,20 @@ function App() {
 
   const router = createBrowserRouter(
     isLoggedIn
-      ? [
+      ? 
+       [
+          {
+            path: "/",
+            element: <AuthLayout />,
+            children: [
+              { index: true, element: <LoginPages /> },
+              { path: "signUp", element: <Signup /> },
+              { path: "verifydocument", element: <VerifyDocument /> },
+            ],
+          },
+          { path: "*", element: <NotFound /> },
+        ]:
+        [
           {
             path: "/",
             element: <AppLayout />,
@@ -37,18 +51,7 @@ function App() {
               { path: "upload", element: <UploadDocument /> },
               { path: "setting", element: <Setting /> },
               { path: "stamp", element: <CertificateWithStamp /> },
-            ],
-          },
-          { path: "*", element: <NotFound /> },
-        ]
-      : [
-          {
-            path: "/",
-            element: <AuthLayout />,
-            children: [
-              { index: true, element: <LoginPages /> },
-              { path: "signUp", element: <Signup /> },
-              { path: "verifydocument", element: <VerifyDocument /> },
+              { path: "manageUser", element: <ManageUser />}
             ],
           },
           { path: "*", element: <NotFound /> },

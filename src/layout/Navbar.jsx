@@ -1,6 +1,5 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import logo from '../../public/icon.png';
 import '../styles/navbarCustom.css';
 import {FaUserCircle} from 'react-icons/fa';
 import {useState, useEffect, useRef} from 'react';
@@ -45,12 +44,12 @@ function NavbarPage() {
       <Container fluid className="flex justify-between items-center">
         {/* Logo */}
         <Navbar.Brand className={`flex gap-2 justify-center items-center ${isLoggedIn && 'ml-[26%] md:ml-[2px] flex justify-center items-center gap-2' } `}>
-          <img src={logo} alt="Logo" style={{height: '40px'}} /> 
+          <img src="/icon.png" alt="Logo" style={{height: '40px'}} /> 
           <p className='text-[var(--text-color)] text-2xl font-bold mt-3'>Proofmint</p>
         </Navbar.Brand>
 
         {/* Buttons */}
-        {isLoggedIn && (
+        {!isLoggedIn && (
           <div className="relative" ref={dropdownRef}>
             <FaUserCircle
               size={30}

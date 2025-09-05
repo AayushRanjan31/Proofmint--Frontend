@@ -18,7 +18,9 @@ const uploadDocumentSlice = createSlice({
     filePath: null,
     documentUrl:"",
     qrUrl:"",
-    documentId:""
+    documentId:"",
+    expiryDate:"",
+    title:""
   },
   reducers: {
     setFilePath: (state, action) => {
@@ -35,20 +37,30 @@ const uploadDocumentSlice = createSlice({
     },
     setDocumentId:(state,action)=>{
       state.documentId=action.payload
-    }
+    },
+    setExpiryDate:(state,action)=>{
+        state.expiryDate=action.payload
+    },
+    setTitle:(state,action)=>{
+        state.title=action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(uploadDocument.fulfilled, (state, action) => {
       state.file = '';
+      state.title="";
+      state.expiryDate="";
       toast.success('uploaded successfully.', {toastId: 'upload-success'});
 
     }).addCase(uploadDocument.rejected, (state, action)=>{
       state.file='';
+       state.title="";
+      state.expiryDate="";
       toast.error('upload failed ,Please upload again!.', {toastId: 'upload-error'});
     })
     ;
   },
 });
 
-export const {setFilePath, setFile,setDocumentUrl,setQrUrl,setDocumentId} = uploadDocumentSlice.actions;
+export const {setFilePath, setFile,setDocumentUrl,setQrUrl,setDocumentId,setTitle,setExpiryDate} = uploadDocumentSlice.actions;
 export default uploadDocumentSlice.reducer;

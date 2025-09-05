@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../utils/proofMintApi";
+import { fetchUser } from "../redux/slices/adminSlice";
 import { useEffect } from "react";
 
 
