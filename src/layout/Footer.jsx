@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   return (
-    <div className="w-full shadow p-3 mt-10 bg-white">
+    <div className="w-full p-3 mt-10 bg-[#ececec]">
       <div className="flex justify-end">
         {location.pathname === "/" || location.pathname === "/signUp" ? (
           <Link to={"/verifydocument"}>

@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-
 import DocumentsTable from "./components/DocumentsTable";
 import Signup from "./components/SignupPage";
 import LoginPages from "./components/LoginPage";
@@ -12,7 +10,6 @@ import VerifyDocument from "./components/VerifyDocument";
 import AuthLayout from "./layout/AuthLayout";
 import AppLayout from "./layout/AppLayout";
 import NotFound from "./pages/NotFound";
-import { useState } from "react";
 
 function App() {
  const { isLoggedIn} = useSelector((state) => state.auth);
