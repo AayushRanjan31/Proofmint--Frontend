@@ -3,13 +3,12 @@ import {fetchDocuments} from '../../utils/proofMintApi';
 
 export const allFetchDocument = createAsyncThunk('documents/fetchDocuments', async () => {
   const data = await fetchDocuments();
+  
   return data;
 });
 
 const initialState = {
-  documents: [],
-  // loading: false,
-  // error: null,
+  documents:null,
 };
 
 const documentSlice = createSlice({

@@ -5,9 +5,13 @@ const data = {
   issued: 'Issued',
   imageurl: 'https://i0.wp.com/100transcripts.com/wp-content/uploads/2024/10/Provisional-Certificate-PC-1.jpg?fit=1322%2C1600&ssl=1',
 };
+import { useSelector } from 'react-redux';
 import {AiOutlineFileExclamation} from 'react-icons/ai';
-
+ 
+ 
 const IssuedCertificate = () => {
+  const {certificate} = useSelector((state) => state.verifyDocument);
+  console.log(certificate)
   return (
     <div>
       <div className="flex items-center justify-center min-h-screen bg-gray-50">

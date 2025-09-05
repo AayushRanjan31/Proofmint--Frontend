@@ -6,10 +6,12 @@ import '../styles/navbarCustom.css';
 import {Link, useLocation} from 'react-router-dom';
 import {FaUserCircle} from 'react-icons/fa';
 import {useState, useEffect, useRef} from 'react';
+import { useSelector } from 'react-redux';
 
 function NavbarPage() {
+  const {  userName}=useSelector((state)=>state.userDetails)
   const location = useLocation();
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const [clickUser, setClickUser] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -52,7 +54,7 @@ function NavbarPage() {
             />
             {clickUser && (
               <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md p-2 z-50">
-                <p className="px-2 py-1 font-medium text-gray-700">Tarun Kumar</p>
+                <p className="px-2 py-1 font-medium text-gray-700">{userName}</p>
                 <hr />
                 <button
                   onClick={handleLogout}

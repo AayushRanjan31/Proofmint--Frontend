@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setTheme} from '../redux/slices/settingSlice';
 
 const Setting = () => {
+  const {userName,userEmail}=useSelector((state)=>state.userDetails)
   const {theme} = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const handleToggle = () => {
@@ -27,20 +28,8 @@ const Setting = () => {
                             Profile
             </h3>
             <div className="flex flex-col gap-2">
-              <input
-                type="text"
-                name="name"
-                // value={form.name}
-                className="w-full p-2 border rounded-lg"
-                placeholder="Username"
-              />
-              <input
-                type="email"
-                name="email"
-                // value={form.email}
-                className="w-full p-2 border rounded-lg"
-                placeholder="Email Address"
-              />
+              <div>{userName}</div>
+              <div>{userEmail}</div>
             </div>
           </div>
 

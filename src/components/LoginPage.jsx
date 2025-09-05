@@ -1,11 +1,18 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setLoginEmail, setLoginPassword } from "../redux/slices/authSlice";
+import { setLoginEmail, setLoginPassword,setLoggedIn } from "../redux/slices/authSlice";
+import { setUserName,setUserEmail,setUserId } from "../redux/slices/userDetails";
 import { loginUser } from "../redux/slices/authSlice";
 import { toast } from 'react-toastify';
 import { Link} from "react-router-dom";
+import { useEffect } from "react";
+
+
 
 const Login = () => {
   const {loginEmail, loginPassword,isLoggedIn} = useSelector((state) => state.auth);
+  useEffect(()=>{
+ console.log(isLoggedIn)
+  },[isLoggedIn])
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,8 +21,12 @@ const Login = () => {
     }
     else {
     let res=await dispatch(loginUser({ loginEmail, loginPassword }));
-    if(res.payload?.status==200){
-     
+    if(res.payload?.status==true){
+  
+    dispatch(setLoggedIn())
+    dispatch(setUserName(res.payload.userData.firstName))
+    dispatch(setUserEmail(res.payload.userData.email))
+    dispatch(setUserId(res.payload.userData.id))
     }
     }
   };

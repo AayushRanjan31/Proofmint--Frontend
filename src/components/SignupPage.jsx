@@ -1,10 +1,10 @@
-import { setFirstname,setLastname,setEmail, setPassword, setConfirmPassword, registerUser } from "../redux/slices/authSlice";
+import { setNumber,setFirstname,setLastname,setEmail, setPassword, setConfirmPassword, registerUser } from "../redux/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 const Signup = () => {
-  const { signUpFirstname,signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword } = useSelector((state) => state.auth);
+  const {number,signUpFirstname,signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword } = useSelector((state) => state.auth);
   const dispatch = useDispatch()  
   const navigate=useNavigate()
   const handleSubmit =async (e) => {
@@ -25,10 +25,9 @@ const Signup = () => {
       toast.error('passwords must be same.', { toastId: 'match-password-error' });
     }
     else {
-     navigate("/")//dummy
-     console.log(signUpFirstname,signUpLastname, signUpEmail, signUpPassword )
-     let res=await  dispatch(registerUser({ signUpFirstname,signUpLastname, signUpEmail, signUpPassword }))
-     if(res.payload?.status === 200) {
+     console.log(signUpFirstname,signUpLastname, signUpEmail, signUpPassword,number )
+     let res=await  dispatch(registerUser({ signUpFirstname,signUpLastname, signUpEmail, signUpPassword,number }))
+     if(res.payload?.status ===true) {
      navigate("/");   
    }
 
@@ -96,6 +95,17 @@ const Signup = () => {
               placeholder="Confirm password"
               value={signUpConfirmPassword}
               onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
+              className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
+               focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+           <div>
+            <input
+              type="text"
+              placeholder="phone number"
+              value={number}
+              onChange={(e) => dispatch(setNumber(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
                focus:ring-blue-500 focus:outline-none"
               required

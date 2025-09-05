@@ -5,7 +5,7 @@ import {allFetchDocument} from '../redux/slices/documentSlice';
 const DocumentsTable = () => {
   const dispatch = useDispatch();
   const {documents} = useSelector((state) => state.documents);
-
+  const documentss=[]
   useEffect(() => {
     dispatch(allFetchDocument());
   }, [dispatch]);
@@ -29,7 +29,7 @@ const DocumentsTable = () => {
               </tr>
             </thead>
             <tbody>
-              {documents.map((doc, idx) => (
+              {documentss.map((doc, idx) => (
                 <tr key={idx} className="text-[var(--text-color)]">
                   <td className="p-3 border-b">{doc.title}</td>
                   <td className="p-3 border-b">{doc.documentId}</td>
@@ -52,7 +52,7 @@ const DocumentsTable = () => {
         </div>
 
         <div className="space-y-4 lg:hidden">
-          {documents.map((doc, idx) => (
+          {documentss.map((doc, idx) => (
             <div
               key={idx}
               className="p-4 border rounded-lg shadow-sm bg-gray-50"
