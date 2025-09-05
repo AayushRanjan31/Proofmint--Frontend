@@ -26,8 +26,15 @@ const Signup = () => {
     }
     else {
      console.log(signUpFirstname,signUpLastname, signUpEmail, signUpPassword,number )
-     let res=await  dispatch(registerUser({ signUpFirstname,signUpLastname, signUpEmail, signUpPassword,number }))
-     if(res.payload?.status ===true) {
+     let res=await  dispatch(registerUser({ signUpFirstname,signUpLastname, signUpEmail, signUpPassword,number })).unwrap()
+     console.log(res)
+     if(res.status ===true) {
+  dispatch(setFirstname(""));
+  dispatch(setLastname(""));
+  dispatch(setEmail(""));
+  dispatch(setPassword(""));
+  dispatch(setConfirmPassword(""));
+  dispatch(setNumber(""));
      navigate("/");   
    }
 

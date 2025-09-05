@@ -79,13 +79,8 @@ const Authentication = createSlice({
         toast.error('Failed to login,Please try again.', { toastId: 'login-error' });
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-         state.signUpFirstname="";
-        state.signUpLastname="";
-        state.signUpEmail = "";
-        state.signUpPassword = "";
-        state.signUpConfirmPassword = "";
+        
         toast.success('Registration successful', { toastId: 'registration-success' });
-        navigate('/login')
       })
       .addCase(registerUser.rejected, (state) => {
         state.signUpFirstname="";
