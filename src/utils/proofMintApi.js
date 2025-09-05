@@ -89,7 +89,6 @@ export const saveFinalCertificateApi = async (blob) => {
   return response.data;
 };
 
-
 // verify document
 export async function getCertificateDetails(documentId) {
   const certificate=await axios.get('https://7cce039f1894.ngrok-free.app/');
