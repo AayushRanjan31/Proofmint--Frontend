@@ -1,5 +1,6 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { House, Upload, Gear, List } from "react-bootstrap-icons";
 function Sidebar() {
@@ -37,13 +38,15 @@ function Sidebar() {
           }}
         >
           <Nav defaultActiveKey="/" className="gap-2 py-4 flex-column">
-            <Nav.Link href="/" className="text-white d-flex align-items-center fs-5">
+            <Nav.Link as={Link} to="/" className="text-white d-flex align-items-center fs-5">
               <House className="me-2" /> Dashboard
             </Nav.Link>
-            <Nav.Link href="/upload" className="text-white d-flex align-items-center fs-5">
+
+            <Nav.Link as={Link} to="/upload" className="text-white d-flex align-items-center fs-5">
               <Upload className="me-2" /> Upload a File
             </Nav.Link>
-            <Nav.Link href="/setting" className="text-white d-flex align-items-center fs-5">
+
+            <Nav.Link as={Link} to="/setting" className="text-white d-flex align-items-center fs-5">
               <Gear className="me-2" /> Settings
             </Nav.Link>
           </Nav>

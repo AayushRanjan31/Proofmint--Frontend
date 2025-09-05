@@ -1,15 +1,10 @@
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { allDocument } from "../redux/slices/documentSlice";
+import { useSelector } from "react-redux";
 
 const DocumentsTable = () => {
-  // const dispatch = useDispatch();
-  // const {documents, loading, error} = useSelector((state) => state.document);
 
-  //   useEffect(() => {
-  //   dispatch(allDocument()); 
-  // }, [dispatch]);
-  const documents = [
+    const {documents} = useSelector((state) => state.document);
+ 
+  const document = [
     {
       title: "Certificate of Completion",
       documentId: "4y589y24582y5",
@@ -42,7 +37,7 @@ const DocumentsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {documents.map((doc, idx) => (
+            {document.map((doc, idx) => (
               <tr key={idx} className="hover:bg-gray-50">
                 <td className="p-3 border-b">{doc.title}</td>
                 <td className="p-3 border-b">{doc.documentId}</td>
@@ -65,7 +60,7 @@ const DocumentsTable = () => {
       </div>
 
       <div className="space-y-4 lg:hidden">
-        {documents.map((doc, idx) => (
+        {document.map((doc, idx) => (
           <div
             key={idx}
             className="p-4 border rounded-lg shadow-sm bg-gray-50"

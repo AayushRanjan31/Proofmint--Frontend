@@ -24,7 +24,7 @@ const VerifyDocument = () => {
         onChange={(e) => dispatch(setDocumentId(e.target.value))}
       />
       <button
-        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer rounded"
+        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer "
         onClick={() => handleGetCertificate(documentId)}
       >
                 Verify

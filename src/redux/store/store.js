@@ -5,7 +5,7 @@ import verifyDocumentReducer from '../slices/verifyDocument';
 import Authentication from '../slices/authSlice'
 import uploadDocumentReducer from '../slices/uploadDocument'
 import settings from "../slices/settingSlice"
-// import documentReducer from '../slices/documentSlice'
+import documentReducer from '../slices/documentSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     auth: Authentication,
     uploadDocument: uploadDocumentReducer,
     Settings:settings,
-    // documents: documentReducer
+    document: documentReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

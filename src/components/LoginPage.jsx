@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLoginEmail, setLoginPassword } from "../redux/slices/authSlice";
 import { loginUser } from "../redux/slices/authSlice";
 import { toast } from 'react-toastify';
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+
 const Login = () => {
   const { loginEmail, loginPassword } = useSelector((state) => state.auth);
   const dispatch = useDispatch()
@@ -12,8 +13,7 @@ const Login = () => {
       toast.error('Password must be 6 characters.', { toastId: 'fetch-error' });
     }
     else {
-     dispatch(loginUser({ loginEmail, loginPassword }));
-
+    let res=await dispatch(loginUser({ loginEmail, loginPassword }));
     }
 
   };
