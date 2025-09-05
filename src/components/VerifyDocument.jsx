@@ -7,7 +7,7 @@ import {getCerificate} from '../redux/slices/verifyDocument';
 const VerifyDocument = () => {
   const dispatch = useDispatch();
   const {documentId, certificate} = useSelector((state) => state.verifyDocument);
-  const handleGetCertificate=(documentId)=>{
+  const handleGetCertificate=()=>{
     dispatch(getCerificate(documentId));
   };
   return (
@@ -26,7 +26,7 @@ const VerifyDocument = () => {
       />
       <button
         className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
-        onClick={() => dispatch(setVerified())}
+        onClick={() =>handleGetCertificate()}
       >
                 Verify
         </button>

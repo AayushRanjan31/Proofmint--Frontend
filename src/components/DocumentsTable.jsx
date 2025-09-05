@@ -4,12 +4,14 @@ import {allFetchDocument} from '../redux/slices/documentSlice';
 
 const DocumentsTable = () => {
   const dispatch = useDispatch();
+  const {userName,userEmail,userId}=useSelector((state)=>state.userDetails);
+  console.log(userName,userEmail,userId);
   const {documents} = useSelector((state) => state.documents);
   const documentss=[]
   useEffect(() => {
     dispatch(allFetchDocument());
+    console.log()
   }, [dispatch]);
-
 
   return (
     <div className='lg:flex lg:justify-center md:ml-[280px] mt-10'>

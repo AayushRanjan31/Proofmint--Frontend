@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-
 import DocumentsTable from "./components/DocumentsTable";
 import Signup from "./components/SignupPage";
 import LoginPages from "./components/LoginPage";
@@ -12,14 +11,37 @@ import VerifyDocument from "./components/VerifyDocument";
 import AuthLayout from "./layout/AuthLayout";
 import AppLayout from "./layout/AppLayout";
 import NotFound from "./pages/NotFound";
-import { useState } from "react";
+import CertificateWithStamp from "./components/UploadStamp";
+import { checkAuth } from "./redux/slices/authSlice";
 
 function App() {
-  const [login, setLogin] = useState(true);
- const { isLoggedIn} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { isLoggedIn, isAuthChecked } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuth()); // reads token from localStorage
+  }, [dispatch]);
+
+  if (!isAuthChecked) {
+    return <div>Loading...</div>; 
+  }
+
   const router = createBrowserRouter(
-    !login
+    isLoggedIn
       ? [
+          {
+            path: "/",
+            element: <AppLayout />,
+            children: [
+              { path: "/", element: <DocumentsTable /> },
+              { path: "upload", element: <UploadDocument /> },
+              { path: "setting", element: <Setting /> },
+              { path: "stamp", element: <CertificateWithStamp /> },
+            ],
+          },
+          { path: "*", element: <NotFound /> },
+        ]
+      : [
           {
             path: "/",
             element: <AuthLayout />,
@@ -29,20 +51,7 @@ function App() {
               { path: "verifydocument", element: <VerifyDocument /> },
             ],
           },
-          { path: "*", element: <NotFound /> }
-        ]
-      : 
-       [
-          {
-            path: "/",
-            element: <AppLayout />,
-            children: [
-              { path: "/", element: <DocumentsTable /> },
-              { path: "/upload", element: <UploadDocument /> },
-              { path: "setting", element: <Setting /> },
-            ],
-          },
-          { path: "*", element: <NotFound /> }
+          { path: "*", element: <NotFound /> },
         ]
   );
 

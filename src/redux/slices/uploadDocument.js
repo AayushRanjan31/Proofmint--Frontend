@@ -16,6 +16,9 @@ const uploadDocumentSlice = createSlice({
   initialState: {
     file: null,
     filePath: null,
+    documentUrl:"",
+    qrUrl:"",
+    documentId:""
   },
   reducers: {
     setFilePath: (state, action) => {
@@ -24,11 +27,21 @@ const uploadDocumentSlice = createSlice({
     setFile: (state, action) => {
       state.file = action.payload;
     },
+    setDocumentUrl:(state,action)=>{
+      state.documentUrl=action.payload
+    },
+     setQrUrl:(state,action)=>{
+      state.qrUrl=action.payload
+    },
+    setDocumentId:(state,action)=>{
+      state.documentId=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(uploadDocument.fulfilled, (state, action) => {
       state.file = '';
       toast.success('uploaded successfully.', {toastId: 'upload-success'});
+
     }).addCase(uploadDocument.rejected, (state, action)=>{
       state.file='';
       toast.error('upload failed ,Please upload again!.', {toastId: 'upload-error'});
@@ -37,5 +50,5 @@ const uploadDocumentSlice = createSlice({
   },
 });
 
-export const {setFilePath, setFile} = uploadDocumentSlice.actions;
+export const {setFilePath, setFile,setDocumentUrl,setQrUrl,setDocumentId} = uploadDocumentSlice.actions;
 export default uploadDocumentSlice.reducer;

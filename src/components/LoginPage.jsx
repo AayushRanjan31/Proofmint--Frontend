@@ -22,8 +22,7 @@ const Login = () => {
     else {
     let res=await dispatch(loginUser({ loginEmail, loginPassword }));
     if(res.payload?.status==true){
-  
-    dispatch(setLoggedIn())
+    dispatch(setLoggedIn(true))
     dispatch(setUserName(res.payload.userData.firstName))
     dispatch(setUserEmail(res.payload.userData.email))
     dispatch(setUserId(res.payload.userData.id))

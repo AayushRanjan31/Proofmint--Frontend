@@ -1,10 +1,11 @@
 import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
-import {uploadDocument, setFile, setFilePath} from '../redux/slices/uploadDocument';
-import {useState} from 'react';
+import {uploadDocument, setFile, setFilePath,setDocumentUrl,setQrUrl,setDocumentId} from '../redux/slices/uploadDocument';
+import { useNavigate } from 'react-router-dom';
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const {file} = useSelector((state) => state.uploadDocument);
 
   const MAX_FILE_SIZE = 15 * 1024 * 1024;
@@ -34,20 +35,26 @@ const UploadDocument = () => {
     dispatch(setFile(selectedFile));
   };
 
-  const handleUpload = () => {
+  const handleUpload = async() => {
     if (file) {
-      console.log(file);
-      dispatch(
+     let res= await  dispatch(
           uploadDocument({
             file: file,
             title: 'aadhar',
             expiry: '2025-12-26',
             username: 'satyamani',
-          }),
+          })
       );
 
       const filePath = URL.createObjectURL(file);
       dispatch(setFilePath(filePath));
+      console.log(res.payload?.status)
+       if(res.payload?.status==true){
+        dispatch(setDocumentUrl(res.payload.imageData.url))
+        dispatch(setQrUrl(res.payload.imageData.qrCode))
+        dispatch(setDocumentId(res.payload.imageData.certificateId))
+        navigate("/stamp")
+      }
     } else {
       alert('Please upload a file first!');
     }
