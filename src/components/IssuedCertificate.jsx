@@ -5,14 +5,13 @@ const data = {
   issued: 'Issued',
   imageurl: 'https://res.cloudinary.com/dsmx5xh6y/raw/upload/v1756988567/proofmint/candidate_test_summer_camp_v1%20(2)-1756988563153',
 };
+import { useSelector } from 'react-redux';
 import {AiOutlineFileExclamation} from 'react-icons/ai';
-
-
+ 
+ 
 const IssuedCertificate = () => {
-  const gviewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(
-      data.imageurl,
-  )}&embedded=true`;
-
+  const {certificate} = useSelector((state) => state.verifyDocument);
+  console.log(certificate)
   return (
     <div>
       <div className="flex items-center justify-center min-h-screen bg-gray-50 mt-10 p-2">

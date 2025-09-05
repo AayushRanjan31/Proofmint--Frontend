@@ -1,37 +1,41 @@
-import {useSelector, useDispatch} from 'react-redux';
-import {setLoginEmail, setLoginPassword, setLoggedIn} from '../redux/slices/authSlice';
-import {setUserName, setUserEmail, setUserId} from '../redux/slices/userDetails';
-import {loginUser} from '../redux/slices/authSlice';
-import {toast} from 'react-toastify';
-import {Link} from 'react-router-dom';
-import {useEffect} from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { setLoginEmail, setLoginPassword,setLoggedIn } from "../redux/slices/authSlice";
+import { setUserName,setUserEmail,setUserId } from "../redux/slices/userDetails";
+import { loginUser } from "../redux/slices/authSlice";
+import { toast } from 'react-toastify';
+import { Link} from "react-router-dom";
+import { useEffect } from "react";
+
+
 
 const Login = () => {
-  const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
+  const {loginEmail, loginPassword,isLoggedIn} = useSelector((state) => state.auth);
   useEffect(()=>{
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
+ console.log(isLoggedIn)
+  },[isLoggedIn])
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginPassword.length <= 5) {
-      toast.error('Password must be 6 characters.', {toastId: 'fetch-error'});
-    } else {
-      const res=await dispatch(loginUser({loginEmail, loginPassword}));
-      if (res.payload?.status==true) {
-        dispatch(setLoggedIn());
-        dispatch(setUserName(res.payload.userData.firstName));
-        dispatch(setUserEmail(res.payload.userData.email));
-        dispatch(setUserId(res.payload.userData.id));
-      }
+      toast.error('Password must be 6 characters.', { toastId: 'fetch-error' });
+    }
+    else {
+    let res=await dispatch(loginUser({ loginEmail, loginPassword }));
+    if(res.payload?.status==true){
+  
+    dispatch(setLoggedIn())
+    dispatch(setUserName(res.payload.userData.firstName))
+    dispatch(setUserEmail(res.payload.userData.email))
+    dispatch(setUserId(res.payload.userData.id))
+    }
     }
   };
   return (
 
-    <div className="flex items-center justify-center min-h-[90vh]">
+    <div className="flex items-center justify-center min-h-[81vh]">
 
 
-      <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-xl m-3">
+      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-xl m-3">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
 

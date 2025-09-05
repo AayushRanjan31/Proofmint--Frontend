@@ -1,20 +1,18 @@
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import logo from '../../public/icon.png';
 import '../styles/navbarCustom.css';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {FaUserCircle} from 'react-icons/fa';
 import {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoggedIn} from '../redux/slices/authSlice';
 import { logout } from '../utils/proofMintApi';
+import { useNavigate } from 'react-router-dom';
 
 function NavbarPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {userName}=useSelector((state)=>state.userDetails);
-  const location = useLocation();
   const [clickUser, setClickUser] = useState(false);
   const dropdownRef = useRef(null);
   const {isLoggedIn} = useSelector((state) => state.auth);
@@ -43,7 +41,7 @@ function NavbarPage() {
   }, []);
 
   return (
-    <Navbar expand="sm" className="custom-navbar shadow-md">
+    <Navbar expand="sm" className="custom-navbar shadow border-b-1 border-gray-100">
       <Container fluid className="flex justify-between items-center">
         {/* Logo */}
         <Navbar.Brand className={`flex gap-2 justify-center items-center ${isLoggedIn && 'ml-[26%] md:ml-[2px] flex justify-center items-center gap-2' } `}>
@@ -52,7 +50,7 @@ function NavbarPage() {
         </Navbar.Brand>
 
         {/* Buttons */}
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <div className="relative" ref={dropdownRef}>
             <FaUserCircle
               size={30}
@@ -72,26 +70,7 @@ function NavbarPage() {
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            {location.pathname === '/' || location.pathname === '/signUp' ? (
-              <Link to={'/verifydocument'}>
-                <Button variant="outline-primary">Verify Document</Button>
-              </Link>
-            ) : (
-              <div className="gap-2 md:flex">
-                <div className="hidden md:flex">
-                  <Link to={'/signUp'}>
-                    <Button variant="outline-primary">Sign Up</Button>
-                  </Link>
-                </div>
-                <Link to={'/'}>
-                  <Button variant="outline-primary">Login</Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
+        ) }
       </Container>
     </Navbar>
   );
