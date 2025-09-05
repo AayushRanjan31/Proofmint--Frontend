@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUp, login } from '../../utils/proofMintApi';
-import { toast } from 'react-toastify';
-import Cookies from "js-cookie";
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {signUp, login} from '../../utils/proofMintApi';
+import {toast} from 'react-toastify';
+import Cookies from 'js-cookie';
 
 
 export const registerUser = createAsyncThunk('register', async ({ signUpFirstname,signUpLastname, signUpEmail, signUpPassword }) => {
   const signUpData = await signUp(signUpFirstname,signUpLastname,signUpEmail, signUpPassword);
   return signUpData;
 });
-export const loginUser = createAsyncThunk('login', async ({ loginEmail, loginPassword }) => {
+export const loginUser = createAsyncThunk('login', async ({loginEmail, loginPassword}) => {
   const loginData = await login(loginEmail, loginPassword);
   return loginData;
 });
@@ -49,18 +49,18 @@ const Authentication = createSlice({
     setLoginPassword: (state, action) => {
       state.loginPassword = action.payload;
     },
-    setToken:(state,action)=>{
+    setToken: (state, action)=>{
       state.token=action.payload;
     },
-    setLoggedIn:(state,action)=>{
-      state.isLoggedIn=action.payload
-    }
+    setLoggedIn: (state, action)=>{
+      state.isLoggedIn=action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.loginEmail = "";
-      state.loginPassword = "";
-      toast.success('Login successful.', { toastId: 'login-success' });
+      state.loginEmail = '';
+      state.loginPassword = '';
+      toast.success('Login successful.', {toastId: 'login-success'});
 
     const token = Cookies.get("token");
     if (token){

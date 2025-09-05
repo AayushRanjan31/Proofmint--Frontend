@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --color-very-dark-blue-bg: hsl(207, 26%, 17%);
-  --color-lightgray: #D3D3D3 ;
-  --color-LIGHT-SLATE-GREY: #778899;
-  --color-white: hsl(0, 0%, 100%);
-  --color-dark-blue: hsl(208, 25%, 10%);
-  --color-gray:hsl(220, 9%, 46%);
-  --bs-primary:#0d6efd;
-
-  --color-bg: var(--color-lightgray);
-  --component-bg : var(--color-white);
-  --navbar-bg: var(--color-white);
+  --color-bg: #F8FAFC; 
+  --component-bg: #FFFFFF; 
+  --navbar-bg: #FFFFFF; 
+  --sidebar-bg: #1E293B; 
+   --text-color: #000000;
+   --btn-color: #e8e8e8;
 }
 
 .dark {
-    --color-bg: var(--color-very-dark-blue-bg);
-    --component-bg : var(--color-LIGHT-SLATE-GREY);
-    --navbar-bg: var(--color-gray);
+  --color-bg: #242424; 
+  --component-bg: #4f4f50; 
+  --navbar-bg: #1d1d1d; 
+   --sidebar-bg: #050911; 
+  --text-color: #ffffff;
+   --btn-color: #969696;
 }
+
+
 
 body {
   margin: 0;

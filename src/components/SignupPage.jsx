@@ -56,7 +56,7 @@ const Signup = () => {
               required
             />
           </div>
-            <div>
+          <div>
             <input
               type="text"
               placeholder="lastname"
@@ -109,11 +109,10 @@ const Signup = () => {
           >
             Sign up
           </button>
-         <Link to={'/'} ><p className="text-center">Already have an account? Login In</p></Link>
+          <p className="text-center">Already have an account? <Link to={'/'} >Login In </Link></p>
         </form>
       </div>
     </div>
   );
-
-}
+};
 export default Signup;
