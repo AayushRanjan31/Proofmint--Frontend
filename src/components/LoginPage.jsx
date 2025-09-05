@@ -1,19 +1,28 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {setLoginEmail, setLoginPassword} from '../redux/slices/authSlice';
+import {setLoginEmail, setLoginPassword, setLoggedIn} from '../redux/slices/authSlice';
+import {setUserName, setUserEmail, setUserId} from '../redux/slices/userDetails';
 import {loginUser} from '../redux/slices/authSlice';
 import {toast} from 'react-toastify';
 import {Link} from 'react-router-dom';
+import {useEffect} from 'react';
 
 const Login = () => {
   const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
+  useEffect(()=>{
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginPassword.length <= 5) {
       toast.error('Password must be 6 characters.', {toastId: 'fetch-error'});
     } else {
-      const res= await dispatch(loginUser({loginEmail, loginPassword}));
-      if (res.payload?.status==200) {
+      const res=await dispatch(loginUser({loginEmail, loginPassword}));
+      if (res.payload?.status==true) {
+        dispatch(setLoggedIn());
+        dispatch(setUserName(res.payload.userData.firstName));
+        dispatch(setUserEmail(res.payload.userData.email));
+        dispatch(setUserId(res.payload.userData.id));
       }
     }
   };
@@ -26,7 +35,7 @@ const Login = () => {
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
 
-            <span className="text-4xl font-bold text-gray-800">ProofMint</span>
+            <p className="pb-1 md:text-5xl text-4xl font-bold text-gray-800">ProofMint</p>
           </div>
           <h2 className="mt-4 text-xl font-semibold text-gray-700">Login</h2>
         </div>

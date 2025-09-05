@@ -3,13 +3,14 @@ const data = {
   college: 'aditya university',
   date: '03-09-2025',
   issued: 'Issued',
-  imageurl: "https://res.cloudinary.com/dsmx5xh6y/raw/upload/v1756988567/proofmint/candidate_test_summer_camp_v1%20(2)-1756988563153",
+  imageurl: 'https://res.cloudinary.com/dsmx5xh6y/raw/upload/v1756988567/proofmint/candidate_test_summer_camp_v1%20(2)-1756988563153',
 };
 import {AiOutlineFileExclamation} from 'react-icons/ai';
 
+
 const IssuedCertificate = () => {
-    const gviewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(
-    data.imageurl
+  const gviewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(
+      data.imageurl,
   )}&embedded=true`;
 
   return (
@@ -24,14 +25,14 @@ const IssuedCertificate = () => {
                             <h2 className="mt-3 text-xl font-semibold text-gray-700">{data.college}</h2>
                             <h2 className="mt-3 text-xl font-semibold text-gray-700">{data.date}</h2>
                             <h2 className="mt-3 text-xl font-semibold text-gray-700 mb-5">Status:{data.issued}</h2>
-                                  <iframe
-      src={gviewUrl}
-      width="100%"
-      height="600px"
-      title="Document Preview"
-      style={{ border: "none" }}
-    />
-  
+                            <iframe
+                              src={gviewUrl}
+                              width="100%"
+                              height="600px"
+                              title="Document Preview"
+                              style={{border: 'none'}}
+                            />
+
 
                           </div>
                         </> : <>

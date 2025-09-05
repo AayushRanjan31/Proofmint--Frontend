@@ -1,11 +1,11 @@
-import {setFirstname, setLastname, setEmail, setPassword, setConfirmPassword, registerUser} from '../redux/slices/authSlice';
+import {setNumber, setFirstname, setLastname, setEmail, setPassword, setConfirmPassword, registerUser} from '../redux/slices/authSlice';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 
 const Signup = () => {
-  const {signUpFirstname, signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword} = useSelector((state) => state.auth);
+  const {number, signUpFirstname, signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate=useNavigate();
   const handleSubmit =async (e) => {
@@ -21,10 +21,16 @@ const Signup = () => {
     } else if (signUpPassword !== signUpConfirmPassword) {
       toast.error('passwords must be same.', {toastId: 'match-password-error'});
     } else {
-      navigate('/');// dummy
-      console.log(signUpFirstname, signUpLastname, signUpEmail, signUpPassword );
-      const res=await dispatch(registerUser({signUpFirstname, signUpLastname, signUpEmail, signUpPassword}));
-      if (res.payload?.status === 200) {
+      console.log(signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number );
+      const res=await dispatch(registerUser({signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number})).unwrap();
+      console.log(res);
+      if (res.status ===true) {
+        dispatch(setFirstname(''));
+        dispatch(setLastname(''));
+        dispatch(setEmail(''));
+        dispatch(setPassword(''));
+        dispatch(setConfirmPassword(''));
+        dispatch(setNumber(''));
         navigate('/');
       }
     }
@@ -34,16 +40,16 @@ const Signup = () => {
       <div className="w-full max-w-sm p-5 md:p-8 bg-white shadow-md rounded-xl m-3">
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center space-x-2">
-            <span className="text-4xl font-bold text-gray-800">ProofMint</span>
+            <p className="pb-1 md:text-5xl text-4xl font-extrabold text-gray-800">ProofMint</p>
           </div>
-          <h2 className="mt-4 text-xl font-semibold text-gray-700">Signup</h2>
+          <h2 className="mt-4 text-xl font-bold text-gray-700">Signup</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <input
               type="text"
-              placeholder="firstname"
+              placeholder="First Name"
               value={signUpFirstname}
               onChange={(e) => dispatch(setFirstname(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
@@ -54,7 +60,7 @@ const Signup = () => {
           <div>
             <input
               type="text"
-              placeholder="lastname"
+              placeholder="Last Name"
               value={signUpLastname}
               onChange={(e) => dispatch(setLastname(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
@@ -88,9 +94,20 @@ const Signup = () => {
           <div>
             <input
               type="password"
-              placeholder="Confirm password"
+              placeholder="Confirm Password"
               value={signUpConfirmPassword}
               onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
+              className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
+               focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Phone Number"
+              value={number}
+              onChange={(e) => dispatch(setNumber(e.target.value))}
               className="w-full px-4 py-3 border  border-gray-400  rounded-lg focus:ring-2
                focus:ring-blue-500 focus:outline-none"
               required

@@ -3,7 +3,7 @@ import {GrHomeRounded} from 'react-icons/gr';
 import {FiUpload} from 'react-icons/fi';
 import {IoSettingsOutline} from 'react-icons/io5';
 import {GiHamburgerMenu} from 'react-icons/gi';
-
+import { FaUserGear } from "react-icons/fa6";
 import {NavLink} from 'react-router-dom';
 
 function Sidebar() {
@@ -23,7 +23,7 @@ function Sidebar() {
       {/* Hamburger button - shows ONLY on mobile (<=450px) */}
       {isMobile && (
         <button
-          className="fixed z-50 p-1 mx-2 rounded top-8 text-white bg-dark"
+          className="fixed z-50 p-1 mx-3 rounded top-8 text-[#FFFFFF] bg-[#000000]"
           onClick={toggleSidebar}
         >
           <GiHamburgerMenu size={22} />
@@ -40,12 +40,12 @@ function Sidebar() {
             transition: 'left 0.3s',
           }}
         >
-          <div className="py-12 flex flex-col gap-4 ">
+          <div className="py-12 px-3 flex flex-col gap-4">
             <NavLink
               to="/"
               className={({isActive}) =>
-                `!no-underline w-full py-3 rounded-xl flex gap-2 justify-center items-center text-2xl font-bold text-white ${
-                  isActive && 'bg-[#111c2e]'
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
             >
@@ -55,19 +55,32 @@ function Sidebar() {
             <NavLink
               to="/upload"
               className={({isActive}) =>
-                `!no-underline w-full py-3 rounded-xl flex gap-2 justify-center items-center text-2xl font-bold text-white ${
-                  isActive && 'bg-[#111c2e]'
+                `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
             >
               <FiUpload />
               <span>Upload a File</span>
             </NavLink>
+
+                   <NavLink
+              to="/manageUser"
+              className={({isActive}) =>
+                `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  isActive && 'bg-[var(--side-btn-bg)]'
+                }`
+              }
+            >
+              <FaUserGear />
+              <span>Manage User</span>
+            </NavLink>
+
             <NavLink
               to="/setting"
               className={({isActive}) =>
-                `!no-underline w-full py-3 rounded-xl flex gap-2 justify-center items-center text-2xl font-bold text-white ${
-                  isActive && 'bg-[#111c2e]'
+                `!no-underline  py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
             >

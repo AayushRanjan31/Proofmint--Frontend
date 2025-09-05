@@ -14,6 +14,8 @@ import VerifyDocument from './components/VerifyDocument';
 
 import AuthLayout from './layout/AuthLayout';
 import AppLayout from './layout/AppLayout';
+import NotFound from './pages/NotFound';
+import ManageUser from './components/ManageUser';
 
 function App() {
   const {isLoggedIn} = useSelector((state) => state.auth);
@@ -23,10 +25,12 @@ function App() {
          {
            path: '/',
            element: <AppLayout />,
+           errorElement: <NotFound />,
            children: [
              {path: '/', element: <DocumentsTable />},
              {path: '/upload', element: <UploadDocument />},
              {path: 'setting', element: <Setting />},
+             {path: '/manageUser', element:<ManageUser />}
            ],
          },
        ]:
@@ -34,6 +38,7 @@ function App() {
           {
             path: '/',
             element: <AuthLayout />,
+            errorElement: <NotFound />,
             children: [
               {index: true, element: <LoginPages />},
               {path: 'signUp', element: <Signup />},
@@ -41,6 +46,7 @@ function App() {
             ],
           },
         ],
+        { path: '*', element: <NotFound /> }
   );
 
   return (

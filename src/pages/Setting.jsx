@@ -2,10 +2,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setTheme} from '../redux/slices/settingSlice';
 
 const Setting = () => {
+  const {userName, userEmail}=useSelector((state)=>state.userDetails);
   const {theme} = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const handleToggle = () => {
-    console.log('sdnvosfo');
     const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(setTheme(newTheme));
     if (newTheme === 'dark') {
@@ -21,25 +21,23 @@ const Setting = () => {
         className={'m-8 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
       >
         <div className="flex flex-col">
-          <h1 className="font-semibold">Settings</h1>
+          <p className="pb-1 md:text-5xl text-4xl font-bold">Settings</p>
           <div>
             <h3 className="mt-4 mb-3 text-lg font-semibold">
                             Profile
             </h3>
             <div className="flex flex-col gap-2">
-              <input
+               <input
                 type="text"
-                name="name"
-                // value={form.name}
+                value={userName}
                 className="w-full p-2 border rounded-lg"
-                placeholder="Username"
+                disabled
               />
-              <input
-                type="email"
-                name="email"
-                // value={form.email}
+                <input
+                type="text"
+                value={userEmail}
                 className="w-full p-2 border rounded-lg"
-                placeholder="Email Address"
+                disabled
               />
             </div>
           </div>

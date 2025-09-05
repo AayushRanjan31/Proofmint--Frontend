@@ -11,16 +11,16 @@ const DocumentsTable = () => {
   }, [dispatch]);
 
   return (
-    <div className="lg:flex lg:justify-center md:ml-[280px] mt-10">
-      <div className="m-8 shadow rounded-lg p-5 bg-[var(--component-bg)] lg:w-[70vw]">
+    <div className="lg:flex lg:justify-center md:ml-[280px]">
+      <div className="m-4 p-5 lg:w-[70vw]">
         <div className="flex items-center justify-between mb-4 text-[var(--text-color)]">
-          <h2 className="pb-1 font-semibold">Documents</h2>
+          <p className="pb-3 md:text-5xl text-4xl font-bold">Documents</p>
         </div>
 
         <div className="hidden overflow-x-auto lg:block">
           <table className="w-full border-collapse">
             <thead>
-              <tr className="text-left bg-gray-100">
+              <tr className="text-left bg-[var(--table-bg)] text-[var(--text-color)]">
                 <th className="p-3 border-b">Title</th>
                 <th className="p-3 border-b">Document ID</th>
                 <th className="p-3 border-b">Status</th>
