@@ -19,7 +19,7 @@ function App() {
   const { isLoggedIn, isAuthChecked } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(checkAuth()); // reads token from localStorage
+    dispatch(checkAuth()); 
   }, [dispatch]);
 
   if (!isAuthChecked) {

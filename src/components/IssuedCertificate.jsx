@@ -3,7 +3,7 @@ const data = {
   college: 'aditya university',
   date: '03-09-2025',
   issued: 'Issued',
-  imageurl: 'https://i0.wp.com/100transcripts.com/wp-content/uploads/2024/10/Provisional-Certificate-PC-1.jpg?fit=1322%2C1600&ssl=1',
+  imageurl: 'https://res.cloudinary.com/dsmx5xh6y/raw/upload/v1756988567/proofmint/candidate_test_summer_camp_v1%20(2)-1756988563153',
 };
 import { useSelector } from 'react-redux';
 import {AiOutlineFileExclamation} from 'react-icons/ai';
@@ -14,7 +14,7 @@ const IssuedCertificate = () => {
   console.log(certificate)
   return (
     <div>
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 mt-10 p-2">
         <div className="w-full max-w-4xl p-8 bg-white shadow-md rounded-xl ml-5 mr-5">
           {
                         data ? <>
@@ -24,11 +24,14 @@ const IssuedCertificate = () => {
                             <h2 className="mt-3 text-xl font-semibold text-gray-700">{data.college}</h2>
                             <h2 className="mt-3 text-xl font-semibold text-gray-700">{data.date}</h2>
                             <h2 className="mt-3 text-xl font-semibold text-gray-700 mb-5">Status:{data.issued}</h2>
-                            <img
-                              src={data.imageurl}
-                              alt="certificate"
-                              className="w-full max-w-[700px] h-auto mb-8 object-contain"
+                            <iframe
+                              src={gviewUrl}
+                              width="100%"
+                              height="600px"
+                              title="Document Preview"
+                              style={{border: 'none'}}
                             />
+
 
                           </div>
                         </> : <>

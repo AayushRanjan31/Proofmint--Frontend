@@ -6,6 +6,7 @@ import settings from '../slices/settingSlice';
 import documentReducer from '../slices/documentSlice';
 import userDetails from '../slices/userDetails';
 
+
 export const store = configureStore({
   reducer: {
     verifyDocument: verifyDocumentReducer,
@@ -14,6 +15,7 @@ export const store = configureStore({
     settings: settings,
     documents: documentReducer,
     userDetails:userDetails
+
 
   },
   middleware: (getDefaultMiddleware) =>

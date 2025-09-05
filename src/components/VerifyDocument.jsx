@@ -11,9 +11,10 @@ const VerifyDocument = () => {
     dispatch(getCerificate(documentId));
   };
   return (
+    <div className='min-h-[81vh]'>
     <div className='md:flex md:justify-center'>
       <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-2 bg-white md:w-[40vw] mt-20">
-        <h1 className="font-semibold pb-1">Verify Document</h1>
+        <p className="pb-3 md:text-5xl text-4xl font-bold">Verify Document</p>
         <p className="text-gray-500 text-sm">
           Enter your Document ID or scan the QR code to verify.
         </p>
@@ -44,8 +45,8 @@ const VerifyDocument = () => {
         }
 
       </div>
-
     </div>
+      </div>
   );
 };
 

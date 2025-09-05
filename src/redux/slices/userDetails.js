@@ -24,3 +24,4 @@ const userDetails = createSlice({
 });
 export const {setUserName,setUserEmail,setUserId} =userDetails.actions;
 export default userDetails.reducer;
+

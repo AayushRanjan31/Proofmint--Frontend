@@ -71,4 +71,14 @@ export async function getCertificateDetails() {
   return certificate;
 }
 
+export const logout = async() => {
+  await axios.post(`${API_BASE_URL}/api/v1/auth/logout`);
+} 
+
+
+export const fetchUser = async() => {
+  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
+  return res;
+} 
+
 

@@ -1,3 +1,4 @@
+import Footer from './Footer';
 import NavbarPage from './Navbar';
 import {Outlet} from 'react-router-dom';
 
@@ -6,7 +7,7 @@ const AuthLayout = () => {
     <div>
       <NavbarPage/>
       <Outlet/>
-
+      <Footer/>
     </div>
   );
 };
