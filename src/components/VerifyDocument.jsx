@@ -17,17 +17,17 @@ const VerifyDocument = () => {
         <p className="text-gray-500 text-sm">
           Enter your Document ID or scan the QR code to verify.
         </p>
-        <input
-          type="text"
-          placeholder="Document ID"
-          className="border border-gray-300 p-2 text-lg rounded-md mb-3"
-          value={documentId}
-          onChange={(e) => dispatch(setDocumentId(e.target.value))}
-        />
-        <button
-          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
-          onClick={() => handleGetCertificate(documentId)}
-        >
+      <input
+        type="text"
+        placeholder="Document ID"
+        className="border border-gray-300 p-2 text-lg rounded-md mb-3"
+        value={documentId}
+        onChange={(e) => dispatch(setDocumentId(e.target.value))}
+      />
+      <button
+        className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
+        onClick={() => dispatch(setVerified())}
+      >
                 Verify
         </button>
         <div className="flex items-center my-3">
