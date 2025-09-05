@@ -1,10 +1,7 @@
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+
 
 import DocumentsTable from "./components/DocumentsTable";
 import Signup from "./components/SignupPage";
@@ -12,17 +9,10 @@ import LoginPages from "./components/LoginPage";
 import UploadDocument from "./pages/UploadDocument";
 import Setting from "./pages/Setting";
 import VerifyDocument from "./components/VerifyDocument";
-import Signup from './components/SignupPage';
-import LoginPages from './components/LoginPage';
-import UploadDocument from './pages/UploadDocument';
-import Setting from './pages/Setting';
-import VerifyDocument from './components/VerifyDocument';
-
 import AuthLayout from "./layout/AuthLayout";
 import AppLayout from "./layout/AppLayout";
 import NotFound from "./pages/NotFound";
-import AuthLayout from './layout/AuthLayout';
-import AppLayout from './layout/AppLayout';
+import { useState } from "react";
 
 function App() {
   const [login, setLogin] = useState(true);
@@ -41,9 +31,7 @@ function App() {
           },
           { path: "*", element: <NotFound /> }
         ]
-      : [
-    isLoggedIn
-      ? 
+      : 
        [
           {
             path: "/",
@@ -55,17 +43,6 @@ function App() {
             ],
           },
           { path: "*", element: <NotFound /> }
-        ]
-        :[
-          {
-            path: '/',
-            element: <AuthLayout />,
-            children: [
-              {index: true, element: <LoginPages />},
-              {path: 'signUp', element: <Signup />},
-              {path: 'verifydocument', element: <VerifyDocument />},
-            ],
-          },
         ]
   );
 

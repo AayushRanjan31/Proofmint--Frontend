@@ -24,7 +24,7 @@ const documentSlice = createSlice({
         .addCase(allFetchDocument.fulfilled, (state, action) => {
           state.documents = action.payload;
         })
-        .addCase(allFetchDocument.rejected, (state) => {
+        .addCase(allFetchDocument.rejected, (state,action) => {
           state.error = action.error.message;
         });
   },
