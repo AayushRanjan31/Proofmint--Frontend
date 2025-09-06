@@ -20,7 +20,9 @@ const uploadDocumentSlice = createSlice({
     qrUrl:"",
     documentId:"",
     expiryDate:"",
-    title:""
+    title:"",
+    loading: false,
+    saveWithQr:false,
   },
   reducers: {
     setExpiryDate:(state,action)=>{
@@ -52,19 +54,23 @@ const uploadDocumentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(uploadDocument.fulfilled, (state, action) => {
+    builder.
+    addCase(uploadDocument.pending, (state) => {
+        state.loading = true; 
+      }).
+    addCase(uploadDocument.fulfilled, (state, action) => {
       state.file = '';
       state.title="";
       state.expiryDate="";
       toast.success('uploaded successfully.', {toastId: 'upload-success'});
+      state.loading = false; 
 
     }).addCase(uploadDocument.rejected, (state, action)=>{
       state.file='';
        state.title="";
       state.expiryDate="";
       toast.error('upload failed ,Please upload again!.', {toastId: 'upload-error'});
-    })
-    ;
+    });
   },
 });
 

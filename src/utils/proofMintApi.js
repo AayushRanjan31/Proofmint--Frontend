@@ -5,7 +5,7 @@ const baseUrl = config.api.baseUrl;
 
 // signup 
 export async function signUp(firstName,lastName, email, password,number) {
-  const response = await axios.post(`${baseUrl}/api/v1/auth/signup`, {firstName,lastName,email,password,number},{
+  const response = await axios.post(`https://1e00ea89d054.ngrok-free.app/api/v1/auth/signup`, {firstName,lastName,email,password,number},{
     withCredentials: true,
     headers: {'Content-Type': 'application/json'},
   });
@@ -17,7 +17,7 @@ export async function login(email, password) {
   console.log(email, password);
 
   const response = await axios.post(
-      `${baseUrl}/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
+      `https://1e00ea89d054.ngrok-free.app/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
         'Content-Type': 'application/json',
       },
       },
@@ -28,7 +28,7 @@ export async function login(email, password) {
 
 //get all documents
 export async function fetchDocuments() {
-  const res = await axios.get(`${baseUrl}/api/v1/documents`);
+  const res = await axios.get(`https://1e00ea89d054.ngrok-free.app/api/v1/documents`,{},{withCredentials:true});
   return res.data;
 }
 
@@ -41,7 +41,7 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   formData.append('username', username);
 
   const response = await axios.post(
-      `${baseUrl}/api/v1/document/upload`,
+      `https://1e00ea89d054.ngrok-free.app/api/v1/document/upload`,
       formData,
       {
         headers: {
@@ -59,7 +59,7 @@ export const saveFinalCertificateApi = async (blob,documentId) => {
   const formData = new FormData();
   formData.append('file', blob);
   formData.append('certificateId', documentId);
-  const response = await axios.post(`${baseUrl}/api/v1/document/stamps`, formData, {
+  const response = await axios.post(`https://1e00ea89d054.ngrok-free.app/api/v1/document/stamps`, formData, {
     headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true,
   });
   return response.data;
@@ -67,17 +67,18 @@ export const saveFinalCertificateApi = async (blob,documentId) => {
 
 // // verify document 
 export async function getCertificateDetails(documentId) {
-  const certificate=await axios.get(`${baseUrl}/api/v1/documents/${documentId}`);
+  const certificate=await axios.post(`https://1e00ea89d054.ngrok-free.app/api/v1/documents/verify`,{documentId});
   return certificate.data;
 }
 
 export const logout = async() => {
-  await axios.post(`${baseUrl}/api/v1/auth/logout`);
+  await axios.post(`https://1e00ea89d054.ngrok-free.app/api/v1/auth/logout`,{},{withCredentials:true});
+
 } 
 
 
 export const fetchUser = async() => {
-  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
+  const res = await axios.get(`https://1e00ea89d054.ngrok-free.app/api/v1/admin/`);
   return res.data;
 } 
 

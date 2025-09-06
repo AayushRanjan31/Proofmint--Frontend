@@ -11,15 +11,19 @@ import { useNavigate } from 'react-router-dom';
 function NavbarPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {userName}=useSelector((state)=>state.userDetails);
+  
   const [clickUser, setClickUser] = useState(false);
   const dropdownRef = useRef(null);
   const {isLoggedIn} = useSelector((state) => state.auth);
+  const user=localStorage.getItem("userName")
 
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
     setClickUser(false);
     logout();
+    localStorage.removeItem("userName")
+    localStorage.removeItem("userEmail")
+    localStorage.removeItem("token")
      navigate('/');
   };
 
@@ -58,7 +62,7 @@ function NavbarPage() {
             />
             {clickUser && (
               <div className="absolute right-0 mt-2 w-40 bg-[var(--component-bg)] shadow-lg rounded-md p-2 z-50">
-                <p className="px-2 py-1 font-medium text-[var(--text-color)]">{userName}</p>
+                <p className="px-2 py-1 font-medium text-[var(--text-color)]">{user}</p>
                 <hr />
                 <button
                   onClick={()=> handleLogout()}

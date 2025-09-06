@@ -4,10 +4,11 @@ import { setUserName, setUserEmail, setUserId } from "../redux/slices/userDetail
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { loginEmail, loginPassword, isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   useEffect(() => {
     console.log(isLoggedIn);
@@ -25,6 +26,8 @@ const Login = () => {
     dispatch(setUserName(res.payload.userData.firstName))
     dispatch(setUserEmail(res.payload.userData.email))
     dispatch(setUserId(res.payload.userData.id))
+    navigate('/')
+    console.log(localStorage.getItem("token"))
     }
     }
   };

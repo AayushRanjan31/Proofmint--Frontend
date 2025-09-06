@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Draggable from "react-draggable";
 import html2canvas from "html2canvas";
 import { saveFinalCertificateApi } from "../utils/proofMintApi";
@@ -7,12 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function CertificateWithStamp() {
   const certRef = useRef(null);
-  const nodeRef = useRef(null);
+  const qrRef = useRef(null); 
   const navigate = useNavigate();
+  const [saving, setSaving] = useState(false);
 
-  const { documentUrl, qrUrl } = useSelector((state) => state.uploadDocument);
-  const { documentId } = useSelector((state) => state.uploadDocument);
-  console.log("Doc URL:", documentUrl, "QR URL:", qrUrl);
+  const { documentUrl, qrUrl, documentId } = useSelector(
+    (state) => state.uploadDocument
+  );
 
   const isImage = documentUrl?.match(/\.(jpeg|jpg|png)$/i);
 
@@ -25,20 +26,22 @@ export default function CertificateWithStamp() {
 
   const handleSaveFinal = async () => {
     if (!certRef.current) return;
-
-    const canvas = await html2canvas(certRef.current, { scale: 2 });
-    const blob = await new Promise((resolve) =>
-      canvas.toBlob(resolve, "image/png")
-    );
+    setSaving(true);
 
     try {
+      const canvas = await html2canvas(certRef.current, {
+        scale: 2,
+        useCORS: true,
+      });
+
+      const blob = await new Promise((resolve) =>
+        canvas.toBlob(resolve, "image/png")
+      );
+
       let res = await saveFinalCertificateApi(blob, documentId);
 
       if (res?.status === true) {
         alert("Certificate saved successfully!");
-        console.log(res.status);
-
-        // ✅ Navigate only after success
         navigate("/");
       } else {
         alert("Save failed: Server error");
@@ -46,6 +49,8 @@ export default function CertificateWithStamp() {
     } catch (err) {
       console.error("Error saving final cert:", err);
       alert("Save failed");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -73,15 +78,14 @@ export default function CertificateWithStamp() {
             style={{ border: "1px solid #ccc", borderRadius: "8px" }}
           />
         )}
-
         {qrUrl && (
           <Draggable
-            nodeRef={nodeRef}
+            nodeRef={qrRef}
             defaultPosition={{ x: 50, y: 50 }}
             bounds="parent"
           >
             <img
-              ref={nodeRef}
+              ref={qrRef}
               src={qrUrl}
               alt="qr"
               className="absolute w-24 cursor-move top-0 left-0 z-10"
@@ -93,9 +97,10 @@ export default function CertificateWithStamp() {
       {documentUrl && qrUrl && (
         <button
           onClick={handleSaveFinal}
-          className="px-6 py-2 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition mt-4"
+          className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition mt-4"
+          disabled={saving}
         >
-          Save with QR
+          {saving ? "Saving, please wait..." : "Save with QR"}
         </button>
       )}
     </div>

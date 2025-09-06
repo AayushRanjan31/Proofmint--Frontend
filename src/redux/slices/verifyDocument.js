@@ -1,11 +1,14 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {getCertificateDetails} from '../../utils/proofMintApi';
 
-export const getCerificate = createAsyncThunk('getCertificate', async (documentId) => {
-  const certificateDetails = await getCertificateDetails(documentId);
-  console.log(certificateDetails.data);
-  return certificateDetails;
-});
+export const getCerificate = createAsyncThunk(
+  'getCertificate',
+  async (documentId) => {
+    const certificateDetails = await getCertificateDetails(documentId);
+    return certificateDetails; 
+  }
+);
+
 
 const initialState = {
   documentId: '',
@@ -20,11 +23,12 @@ const verifyDocument = createSlice({
       state.documentId = action.payload;
     },
   },
-  extraReducers: (builder)=>{
-    builder.addCase(getCerificate.fulfilled, (state, action)=>{
-      state.certificate=action.payload;
-    });
-  },
+ extraReducers: (builder) => {
+  builder.addCase(getCerificate.fulfilled, (state, action) => {
+    state.certificate = action.payload;
+  });
+}
+
 });
 
 export const {setDocumentId} = verifyDocument.actions;

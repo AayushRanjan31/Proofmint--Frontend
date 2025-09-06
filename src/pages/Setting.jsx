@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const Setting = () => {
-  const {userName, userEmail}=useSelector((state)=>state.userDetails);
+  const user=localStorage.getItem("userName")
+  const email=localStorage.getItem("userEmail")
   const {theme} = useSelector((state) => state.settings);
   const [newPassword, setNewPassword] = useState('')
   const dispatch = useDispatch();
@@ -36,8 +37,8 @@ const Setting = () => {
                             Profile
             </h3>
             <div>
-              <p>{userName}</p>
-              <p>{userEmail}</p>
+              <p>{user}</p>
+              <p>{email}</p>
             </div>
           </div>
 

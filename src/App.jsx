@@ -23,40 +23,37 @@ function App() {
     dispatch(checkAuth()); 
   }, [dispatch]);
 
-  if (!isAuthChecked) {
-    return <div>Loading...</div>; 
-  }
 
   const router = createBrowserRouter(
-    !isLoggedIn
-      ? 
-       [
-          {
-            path: "/",
-            element: <AuthLayout />,
-            children: [
-              { index: true, element: <LoginPages /> },
-              { path: "signUp", element: <Signup /> },
-              { path: "verifydocument", element: <VerifyDocument /> },
-            ],
-          },
-          { path: "*", element: <NotFound /> },
-        ]:
-        [
-          {
-            path: "/",
-            element: <AppLayout />,
-            children: [
-              { path: "/", element: <DocumentsTable /> },
-              { path: "upload", element: <UploadDocument /> },
-              { path: "setting", element: <Setting /> },
-              { path: "stamp", element: <CertificateWithStamp /> },
-              { path: "manageUser", element: <ManageUser />}
-            ],
-          },
-          { path: "*", element: <NotFound /> },
-        ]
-  );
+  isLoggedIn
+    ? [
+        {
+          path: "/",
+          element: <AppLayout />,
+          children: [
+            { path: "/", element: <DocumentsTable /> },
+            { path: "upload", element: <UploadDocument /> },
+            { path: "setting", element: <Setting /> },
+            { path: "stamp", element: <CertificateWithStamp /> },
+            { path: "manageUser", element: <ManageUser /> },
+          ],
+        },
+        { path: "*", element: <NotFound /> },
+      ]
+    : [
+        {
+          path: "/",
+          element: <AuthLayout />,
+          children: [
+            { index: true, element: <LoginPages /> },
+            { path: "signUp", element: <Signup /> },
+            { path: "verifydocument", element: <VerifyDocument /> },
+          ],
+        },
+        { path: "*", element: <NotFound /> },
+      ]
+);
+
 
   return (
     <>
