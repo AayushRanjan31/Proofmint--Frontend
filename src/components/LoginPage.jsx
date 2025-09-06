@@ -13,6 +13,11 @@ const Login = () => {
     console.log(isLoggedIn);
   }, [isLoggedIn]);
 
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginPassword.length < 8) {
@@ -27,6 +32,7 @@ const Login = () => {
       }
     }
   };
+
 
   return (
 
@@ -61,6 +67,12 @@ const Login = () => {
                focus:ring-blue-500 focus:outline-none"
               required
             />
+            {/* Forgot password link */}
+            <div className="text-right mt-2">
+              <Link to="forgetPassword" className="text-blue-600 hover:underline text-sm">
+                Forgot Password?
+              </Link>
+            </div>
             {/* Forgot password link */}
             <div className="text-right mt-2">
               <Link to="forgetPassword" className="text-blue-600 hover:underline text-sm">

@@ -78,7 +78,7 @@ export const logout = async () => {
 
 export const fetchUser = async () => {
   const res = await axios.get(`${baseUrl}/api/v1/admin/`);
-  return res.data;
+  return res;
 };
 
 export const changePassword = async (password, newPassword, email) => {
@@ -86,7 +86,6 @@ export const changePassword = async (password, newPassword, email) => {
     email,
     password,
     newPassword,
-  },{withCredentials:true});
+  }, {withCredentials: true});
 };
-
 

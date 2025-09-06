@@ -17,6 +17,7 @@ const ResetPassword = () => {
   const passwordRegex =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
