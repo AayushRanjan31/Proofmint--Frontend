@@ -1,46 +1,43 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "../redux/slices/resetPasswordSlice";
+import {
+  resetPassword,
+  setConfirmPassword,
+  setNewPassword,
+} from "../redux/slices/resetPasswordSlice";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 import { Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const ResetPassword = () => {
+const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const { token } = useParams();
+  const { resetPasswordEmail } = useSelector((state) => state.forgotPassword);
   const { loading } = useSelector((state) => state.resetPassword);
-
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  // Regex for strong password
-  const passwordRegex =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
+  const { newPassword, confirmPassword } = useSelector(
+    (state) => state.resetPassword
+  );
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!newPassword || !confirmPassword) {
-      toast.error("All fields are required");
-      return;
-    }
-    if (!passwordRegex.test(newPassword)) {
-      toast.error(
-        "Password must be at least 8 characters, include 1 number, 1 letter, and 1 special character"
-      );
+      toast.error('All fields are required');
       return;
     }
     if (newPassword !== confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords do not match", { toastId: "password" });
       return;
     }
 
-    dispatch(resetPassword({ token, newPassword }))
+    dispatch(resetPassword({ email: resetPasswordEmail, newPassword }))
       .unwrap()
       .then(() => {
-        toast.success("Password reset successfully!");
+        toast.success("Password reset successfully!", { toastId: "password1" });
+        navigate("/");
+        dispatch(setConfirmPassword(""));
+        dispatch(setNewPassword(""));
       })
-      .catch(() => {});
+      .catch((err) => {
+        toast.error(err, { toastId: "error" });
+      });
   };
 
   return (
@@ -59,7 +56,7 @@ const ResetPassword = () => {
             type="password"
             placeholder="New Password"
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e) => dispatch(setNewPassword(e.target.value))}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg 
               focus:ring-2 focus:ring-purple-500 focus:border-transparent 
               shadow-sm text-gray-700 placeholder-gray-400"
@@ -70,7 +67,7 @@ const ResetPassword = () => {
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg 
               focus:ring-2 focus:ring-purple-500 focus:border-transparent 
               shadow-sm text-gray-700 placeholder-gray-400"
@@ -80,10 +77,10 @@ const ResetPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-purple-600 rounded font-medium 
+            className="w-full py-3 text-white bg-purple-600 rounded font-medium
               hover:bg-purple-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? "Resetting..." : "Reset Password"}
+            {loading ? 'Resetting...' : 'Reset Password'}
           </button>
         </form>
       </div>
@@ -91,4 +88,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordPage;

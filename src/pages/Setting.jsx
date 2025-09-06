@@ -1,13 +1,15 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {setTheme} from '../redux/slices/settingSlice';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import {useState} from 'react';
+import {toast} from 'react-toastify';
+import {changePassword} from '../utils/proofMintApi';
 
 const Setting = () => {
   const user=localStorage.getItem("userName")
   const email=localStorage.getItem("userEmail")
   const {theme} = useSelector((state) => state.settings);
-  const [newPassword, setNewPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('');
+  const [prevPassword, setprevPassword] = useState('');
   const dispatch = useDispatch();
   const handleToggle = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -19,11 +21,28 @@ const Setting = () => {
     }
   };
 
-  const handleNewPassword = () => {
-    if (newPassword.length <=5) {
-          toast.error('Password must be 6 characters.', { toastId: 'password-error' });
-     }
-  }
+  const handleNewPassword = async () => {
+    if (newPassword.length < 8) {
+      toast.error('Password must be 8 characters.', {toastId: 'password-error'});
+      return;
+    }
+
+    try {
+      const res = await changePassword(prevPassword, newPassword, userEmail);
+      if (res.data.status) {
+        toast.success('Password changed successfully!');
+      } else {
+        toast.error(res.data.message || 'Something went wrong.');
+      }
+    } catch (err) {
+      toast.error(err.message || 'Failed to change password', {
+        toastId: 'change-password-error',
+      });
+    }
+    setNewPassword('');
+    setprevPassword('');
+  };
+
 
   return (
     <div className="mt-20 md:flex md:justify-center md:ml-70 md:mt-10">
@@ -36,30 +55,39 @@ const Setting = () => {
             <h3 className="mt-4 mb-3 text-lg font-semibold">
                             Profile
             </h3>
-            <div>
-              <p>{user}</p>
-              <p>{email}</p>
+            <div className="flex flex-col gap-2">
+           <p>{user}</p>
+           <p>{email}</p>
+           <p></p>
             </div>
           </div>
 
-            <div>
+          <div>
             <h3 className="mt-4 mb-3 text-lg font-semibold">
                             Security
             </h3>
             <div className="flex flex-col gap-3">
-               <input
+              <input
+                type="text"
+                value={prevPassword}
+                className="w-full p-2 border rounded-lg"
+                onChange={(e) => setprevPassword(e.target.value)}
+                placeholder='Current Password'
+              />
+              <input
                 type="text"
                 value={newPassword}
                 className="w-full p-2 border rounded-lg"
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder='New Password'
               />
-                <button
-          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded cursor-pointer w-[160px]"
-          onClick={() => handleNewPassword()}
-        >
-       Change Password
-        </button>
+              <button
+                className={`py-2 ${newPassword === '' || prevPassword === '' || newPassword.length < 8 || prevPassword.length < 8 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600 '} text-white font-medium rounded w-[160px]`}
+                onClick={() => handleNewPassword()}
+                disabled={newPassword === '' || prevPassword === '' || newPassword.length < 8 || prevPassword.length < 8}
+              >
+         Update Password
+              </button>
             </div>
           </div>
 

@@ -3,7 +3,7 @@ import {GrHomeRounded} from 'react-icons/gr';
 import {FiUpload} from 'react-icons/fi';
 import {IoSettingsOutline} from 'react-icons/io5';
 import {GiHamburgerMenu} from 'react-icons/gi';
-import { FaUserGear } from "react-icons/fa6";
+import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
 
 function Sidebar() {
@@ -64,7 +64,7 @@ function Sidebar() {
               <span>Upload a File</span>
             </NavLink>
 
-                   <NavLink
+            <NavLink
               to="/manageUser"
               className={({isActive}) =>
                 `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${

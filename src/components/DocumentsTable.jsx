@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { allFetchDocument } from '../redux/slices/documentSlice';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {allFetchDocument} from '../redux/slices/documentSlice';
 
 const DocumentsTable = () => {
   const dispatch = useDispatch();
-  const { documents, error } = useSelector((state) => state.documents);
+  const {documents, error} = useSelector((state) => state.documents);
 
   useEffect(() => {
     dispatch(allFetchDocument());

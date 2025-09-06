@@ -1,16 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { toast } from "react-toastify";
-
+import {resettingPassword} from "../../utils/proofMintApi"
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
-  async ({ token, newPassword }, { rejectWithValue }) => {
+  async ({ email, newPassword }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        `/${token}`,
-        { password: newPassword },
-        { headers: { "Content-Type": "application/json" } }
-      );
+      const res=resettingPassword({email,newPassword})
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -21,10 +16,12 @@ export const resetPassword = createAsyncThunk(
 );
 
 const resetPasswordSlice = createSlice({
-  name: "resetPassword",
+  name: 'resetPassword',
   initialState: {
     loading: false,
     success: false,
+    newPassword:"",
+    confirmPassword:"",
     error: null,
   },
   reducers: {
@@ -33,6 +30,12 @@ const resetPasswordSlice = createSlice({
       state.success = false;
       state.error = null;
     },
+    setNewPassword:(state,action)=>{
+      state.newPassword=action.payload
+    },
+    setConfirmPassword:(state,action)=>{
+      state.confirmPassword=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -44,15 +47,14 @@ const resetPasswordSlice = createSlice({
       .addCase(resetPassword.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
-        toast.success("Password reset successfully!");
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        toast.error(action.payload || "Failed to reset password");
+        toast.error("Failed to reset password",{toastId:"reset"});
       });
   },
 });
 
-export const { resetState } = resetPasswordSlice.actions;
+export const { resetState,setConfirmPassword,setNewPassword } = resetPasswordSlice.actions;
 export default resetPasswordSlice.reducer;

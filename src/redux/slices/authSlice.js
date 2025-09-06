@@ -1,19 +1,19 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signUp, login } from '../../utils/proofMintApi';
-import { toast } from 'react-toastify';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {signUp, login} from '../../utils/proofMintApi';
+import {toast} from 'react-toastify';
 
 export const registerUser = createAsyncThunk(
-  'register',
-  async ({ signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number }) => {
-    const signUpData = await signUp(
-      signUpFirstname,
-      signUpLastname,
-      signUpEmail,
-      signUpPassword,
-      number
-    );
-    return signUpData;
-  }
+    'register',
+    async ({signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number}) => {
+      const signUpData = await signUp(
+          signUpFirstname,
+          signUpLastname,
+          signUpEmail,
+          signUpPassword,
+          number,
+      );
+      return signUpData;
+    },
 );
 
 export const loginUser = createAsyncThunk(

@@ -1,24 +1,24 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyOtp, setOtpDigit, setActiveIndex, setOtpArray } from "../redux/slices/otpSlice";
+import { verifyOtp, setOtpDigit, setActiveIndex, setOtpArray, resetOtpState } from "../redux/slices/otpSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const OtpVerification = () => {
+const OtpVerificationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, otpArray, activeIndex } = useSelector((state) => state.otp);
+  const {loading, otpArray, activeIndex} = useSelector((state) => state.otp);
   const inputRefs = useRef([]);
-
+  const {  resetPasswordEmail } = useSelector((state) => state.forgotPassword);
   // Auto-focus current active index
   useEffect(() => {
     inputRefs.current[activeIndex]?.focus();
   }, [activeIndex]);
-
+ useEffect(()=>{console.log(resetPasswordEmail)},[resetPasswordEmail])
   // Typing
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
-      dispatch(setOtpDigit({ index, value }));
+      dispatch(setOtpDigit({index, value}));
       if (value && index < 5) {
         dispatch(setActiveIndex(index + 1));
       }
@@ -27,13 +27,13 @@ const OtpVerification = () => {
 
   // Keyboard navigation
   const handleKeyDown = (e, index) => {
-    if (e.key === "ArrowLeft" && index > 0) {
+    if (e.key === 'ArrowLeft' && index > 0) {
       dispatch(setActiveIndex(index - 1));
     }
-    if (e.key === "ArrowRight" && otpArray[index] && index < 5) {
+    if (e.key === 'ArrowRight' && otpArray[index] && index < 5) {
       dispatch(setActiveIndex(index + 1));
     }
-    if (e.key === "Backspace" && !otpArray[index] && index > 0) {
+    if (e.key === 'Backspace' && !otpArray[index] && index > 0) {
       dispatch(setActiveIndex(index - 1));
     }
   };
@@ -41,33 +41,40 @@ const OtpVerification = () => {
   // Paste OTP
   const handlePaste = (e, index) => {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").slice(0, 6).split("");
-    let copy = [...otpArray];
+    const pasted = e.clipboardData.getData('text').slice(0, 6).split('');
+    const copy = [...otpArray];
     let count = 0;
     for (let i = index; i < copy.length && count < pasted.length; i++) {
       copy[i] = pasted[count++];
     }
     dispatch(setOtpArray(copy));
 
-    let next = Math.min(index + pasted.length, otpArray.length - 1);
+    const next = Math.min(index + pasted.length, otpArray.length - 1);
     dispatch(setActiveIndex(next));
   };
 
+  useEffect(()=>{console.log(resetPasswordEmail)},[resetPasswordEmail])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const otp = otpArray.join("");
+    const otp = otpArray.join('');
     if (!otp || otp.length !== 6) {
-      toast.error("Please enter a valid 6-digit OTP");
+      toast.error("Please enter a valid 6-digit OTP",{toastId:"verify"});
       return;
     }
 
-    dispatch(verifyOtp(otp))
+    console.log(resetPasswordEmail)
+    dispatch(verifyOtp({email:resetPasswordEmail,otp}))
       .unwrap()
       .then(() => {
-        toast.success("OTP verified successfully!");
+        toast.success("OTP verified successfully!",{toastId:"verify"});
         navigate("/resetPassword");
+        dispatch(resetOtpState())
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.log(err)
+      });
   };
 
   return (
@@ -92,7 +99,7 @@ const OtpVerification = () => {
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={(e) => handlePaste(e, index)}
-                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg 
+                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg
                   focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
               />
             ))}
@@ -101,10 +108,10 @@ const OtpVerification = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium 
+            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
               hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? "Verifying..." : "Verify OTP"}
+            {loading ? 'Verifying...' : 'Verify OTP'}
           </button>
         </form>
       </div>
@@ -112,4 +119,4 @@ const OtpVerification = () => {
   );
 };
 
-export default OtpVerification;
+export default OtpVerificationPage;

@@ -1,15 +1,15 @@
-import { useSelector } from 'react-redux';
-import { AiOutlineFileExclamation } from 'react-icons/ai';
+import {useSelector} from 'react-redux';
+import {AiOutlineFileExclamation} from 'react-icons/ai';
 
 const IssuedCertificate = () => {
-  const { certificate } = useSelector((state) => state.verifyDocument);
+  const {certificate} = useSelector((state) => state.verifyDocument);
 
   // Function to check if the certificate URL is an image
-const isImage = certificate.previewUrl?.match(/.(jpeg|jpg|png)$/i);
+  const isImage = certificate.previewUrl?.match(/.(jpeg|jpg|png)$/i);
 
   // Google Docs Viewer URL for non-image files
   const viewUrl = `https://docs.google.com/gview?url=${encodeURIComponent(
-    certificate.previewUrl
+      certificate.previewUrl,
   )}&embedded=true`;
 
   return (
@@ -19,23 +19,23 @@ const isImage = certificate.previewUrl?.match(/.(jpeg|jpg|png)$/i);
           <p>{certificate.stamped}</p>
           {certificate ? (
             <div className="flex flex-col items-center mb-6">
-{isImage && (
-          <img
-            src={certificate.previewUrl}
-            alt="Uploaded Document"
-            className="w-full max-w-full object-contain border rounded"
-          />
-        )}
+              {isImage && (
+                <img
+                  src={certificate.previewUrl}
+                  alt="Uploaded Document"
+                  className="w-full max-w-full object-contain border rounded"
+                />
+              )}
 
-        {!isImage && viewUrl && (
-          <iframe
-            src={viewUrl}
-            width="100%"
-            height="100%"
-            title="Document Preview"
-            style={{ border: "1px solid #ccc", borderRadius: "8px" }}
-          />
-        )}
+              {!isImage && viewUrl && (
+                <iframe
+                  src={viewUrl}
+                  width="100%"
+                  height="100%"
+                  title="Document Preview"
+                  style={{border: '1px solid #ccc', borderRadius: '8px'}}
+                />
+              )}
             </div>
           ) : (
             <div className="flex flex-col items-center gap-4">

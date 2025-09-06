@@ -18,11 +18,11 @@ export default function CertificateWithStamp() {
   const isImage = documentUrl?.match(/\.(jpeg|jpg|png)$/i);
 
   const viewUrl =
-    !isImage && documentUrl
-      ? `https://docs.google.com/gview?url=${encodeURIComponent(
-          documentUrl
-        )}&embedded=true`
-      : null;
+    !isImage && documentUrl ?
+      `https://docs.google.com/gview?url=${encodeURIComponent(
+          documentUrl,
+      )}&embedded=true` :
+      null;
 
   const handleSaveFinal = async () => {
     if (!certRef.current) return;
@@ -44,7 +44,7 @@ export default function CertificateWithStamp() {
         alert("Certificate saved successfully!");
         navigate("/");
       } else {
-        alert("Save failed: Server error");
+        alert('Save failed: Server error');
       }
     } catch (err) {
       console.error("Error saving final cert:", err);
@@ -59,7 +59,7 @@ export default function CertificateWithStamp() {
       <div
         ref={certRef}
         className="relative inline-block mt-4"
-        style={{ width: "100%", maxWidth: "800px", height: "600px" }}
+        style={{width: '100%', maxWidth: '800px', height: '600px'}}
       >
         {isImage && (
           <img
@@ -75,7 +75,7 @@ export default function CertificateWithStamp() {
             width="100%"
             height="100%"
             title="Document Preview"
-            style={{ border: "1px solid #ccc", borderRadius: "8px" }}
+            style={{border: '1px solid #ccc', borderRadius: '8px'}}
           />
         )}
         {qrUrl && (

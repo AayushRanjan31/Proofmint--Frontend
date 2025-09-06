@@ -1,44 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { otpVerification } from "../../utils/proofMintApi";
 
 export const verifyOtp = createAsyncThunk(
   "auth/verifyOtp",
-  async (otp, { rejectWithValue }) => {
+  async ({ email, otp }, { rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        "", 
-        { otp },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      return res.data;
+      console.log(email, otp);
+      const res = await otpVerification({ email, otp });
+      return res.data; 
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || "Invalid OTP"
-      );
+      return rejectWithValue(error.response?.data?.message || "Invalid OTP");
     }
   }
 );
 
 const otpSlice = createSlice({
-  name: "otp",
+  name: 'otp',
   initialState: {
     loading: false,
     success: false,
     error: null,
     otpArray: Array(6).fill(""),
-    activeIndex: 0,             
+    activeIndex: 0,
   },
   reducers: {
     resetOtpState: (state) => {
       state.loading = false;
       state.success = false;
       state.error = null;
-      state.otpArray = Array(6).fill("");
+      state.otpArray = Array(6).fill('');
       state.activeIndex = 0;
     },
     setOtpDigit: (state, action) => {
-      const { index, value } = action.payload;
+      const {index, value} = action.payload;
       state.otpArray[index] = value;
     },
     setActiveIndex: (state, action) => {
@@ -58,15 +53,17 @@ const otpSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
+        toast.success("OTP Verified Successfully!",{toastId:"verify"});
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-        toast.error(action.payload || "Invalid OTP");
+        toast.error( "Invalid OTP");
       });
   },
 });
 
-export const { resetOtpState, setOtpDigit, setActiveIndex, setOtpArray } =
+export const {resetOtpState, setOtpDigit, setActiveIndex, setOtpArray} =
   otpSlice.actions;
+
 export default otpSlice.reducer;

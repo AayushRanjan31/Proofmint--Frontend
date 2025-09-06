@@ -1,32 +1,42 @@
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword, setResetPasswordEmail } from "../redux/slices/forgetPasswordSlice";
+import { setResetPasswordEmail, forgotPassword } from "../redux/slices/forgetPasswordSlice";
 import { toast } from "react-toastify";
 import { Mail } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { setLoginEmail, setLoginPassword } from "../redux/slices/authSlice";
+import { resetOtpState } from "../redux/slices/otpSlice";
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, resetPasswordEmail } = useSelector((state) => state.forgotPassword);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(resetOtpState())
     if (!resetPasswordEmail) {
-      toast.error("Please enter your email", { toastId: "forgot-error" });
+      toast.error("Please enter your email",{toastId:"error"});
       return;
     }
 
-    // 👉 API call can go here later: dispatch(forgotPassword(resetPasswordEmail))
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+    if (!emailRegex.test(resetPasswordEmail)) {
+      toast.error("Please enter a valid email address",{toastId:"email"});
+      return;
+    }
 
-    toast.success("OTP sent to your email!");
-    navigate("/otpVerification");
+    try {
+      dispatch(setResetPasswordEmail(resetPasswordEmail));
+      const res=await dispatch(forgotPassword(resetPasswordEmail)).unwrap();
+      console.log("API response:", res);
+      navigate("/otpVerification");
+    } catch (error) {
+      console.log(error);
+      toast.error(error || "Failed to send OTP", { toastId: "error" });
+    }
   };
-
   const handleClick = () => {
-    dispatch(setLoginPassword(""));
-    dispatch(setLoginEmail(""));
+    dispatch(setLoginPassword(''));
+    dispatch(setLoginEmail(''));
   };
 
   return (
@@ -49,25 +59,24 @@ const ForgotPassword = () => {
               placeholder="Enter your email"
               value={resetPasswordEmail}
               onChange={(e) => dispatch(setResetPasswordEmail(e.target.value))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg
+              focus:ring-2 focus:ring-blue-500 focus:border-transparent
               shadow-sm text-gray-700 placeholder-gray-400"
               required
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium 
+            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
             hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? "Sending..." : "Send Reset Link"}
+            {loading ? "Sending..." : "Send OTP"}
           </button>
         </form>
 
         <p className="text-center text-sm text-gray-500 pt-3">
-          Remembered your password?{" "}
+          Remembered your password?{' '}
           <Link
             to="/"
             className="text-blue-600 hover:underline font-medium"
@@ -81,4 +90,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordPage;
