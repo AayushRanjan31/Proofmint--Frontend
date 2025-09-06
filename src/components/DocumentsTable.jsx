@@ -10,6 +10,8 @@ const DocumentsTable = () => {
     dispatch(allFetchDocument());
   }, [dispatch]);
 
+  const docsArray = Array.isArray(documents) ? documents : [];
+
   return (
     <div className="lg:flex lg:justify-center md:ml-[280px]">
       <div className="m-4 p-5 lg:w-[70vw]">
@@ -28,17 +30,21 @@ const DocumentsTable = () => {
               </tr>
             </thead>
 
-            { error ? (
-              <tbody>
+            <tbody>
+              {error ? (
                 <tr>
                   <td colSpan="4" className="text-center text-red-500 p-4">
                     {error}
                   </td>
                 </tr>
-              </tbody>
-            ) : (
-              <tbody>
-                {documents.map((doc, idx) => (
+              ) : docsArray.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="text-center text-gray-500 p-4">
+                    No documents found
+                  </td>
+                </tr>
+              ) : (
+                docsArray.map((doc, idx) => (
                   <tr key={idx} className="text-[var(--text-color)]">
                     <td className="p-3 border-b">{doc.title}</td>
                     <td className="p-3 border-b">{doc.documentId}</td>
@@ -55,18 +61,19 @@ const DocumentsTable = () => {
                     </td>
                     <td className="p-3 border-b">{doc.issuedAt}</td>
                   </tr>
-                ))}
-              </tbody>
-            )}
+                ))
+              )}
+            </tbody>
           </table>
         </div>
 
-
         <div className="space-y-4 lg:hidden">
-          { error ? (
-            <h1 className="text-center text-red-500 ">{error}</h1>
+          {error ? (
+            <h1 className="text-center text-red-500">{error}</h1>
+          ) : docsArray.length === 0 ? (
+            <h1 className="text-center text-gray-500">No documents found</h1>
           ) : (
-            documents.map((doc, idx) => (
+            docsArray.map((doc, idx) => (
               <div
                 key={idx}
                 className="p-4 border rounded-lg shadow-sm bg-gray-50"

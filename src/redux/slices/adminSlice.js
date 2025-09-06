@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {fetchUser} from '../../utils/proofMintApi';
+import {fetchUser as fetchUserApi} from '../../utils/proofMintApi';
 
 export const fetchUser = createAsyncThunk('documents/fetchDocuments', async () => {
-  const data = await fetchUser();
+  const data = await fetchUserApi();
   return data;
 });
 

@@ -5,7 +5,9 @@ import uploadDocumentReducer from '../slices/uploadDocument';
 import settings from '../slices/settingSlice';
 import documentReducer from '../slices/documentSlice';
 import userDetails from '../slices/userDetails';
-
+import forgotPassword from '../slices/forgetPasswordSlice';
+import resetPassword from '../slices/resetPasswordSlice';
+import otp from '../slices/otpSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,9 +16,10 @@ export const store = configureStore({
     uploadDocument: uploadDocumentReducer,
     settings: settings,
     documents: documentReducer,
-    userDetails:userDetails
-
-
+    userDetails: userDetails,
+    forgotPassword: forgotPassword,
+    resetPassword: resetPassword,
+    otp: otp,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
