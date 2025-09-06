@@ -5,6 +5,7 @@ import {IoSettingsOutline} from 'react-icons/io5';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
+import { GrDocumentConfig } from "react-icons/gr";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +76,6 @@ function Sidebar() {
               <FaUserGear />
               <span>Manage User</span>
             </NavLink>
-
             <NavLink
               to="/setting"
               className={({isActive}) =>

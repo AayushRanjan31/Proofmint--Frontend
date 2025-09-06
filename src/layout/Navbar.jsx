@@ -11,7 +11,6 @@ import {useNavigate} from 'react-router-dom';
 function NavbarPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
   const [clickUser, setClickUser] = useState(false);
   const dropdownRef = useRef(null);
   const {isLoggedIn} = useSelector((state) => state.auth);
