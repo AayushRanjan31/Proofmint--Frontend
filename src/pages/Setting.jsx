@@ -5,7 +5,8 @@ import {toast} from 'react-toastify';
 import {changePassword} from '../utils/proofMintApi';
 
 const Setting = () => {
-  const {userName, userEmail}=useSelector((state)=>state.userDetails);
+  const user=localStorage.getItem("userName")
+  const email=localStorage.getItem("userEmail")
   const {theme} = useSelector((state) => state.settings);
   const [newPassword, setNewPassword] = useState('');
   const [prevPassword, setprevPassword] = useState('');
@@ -55,18 +56,9 @@ const Setting = () => {
                             Profile
             </h3>
             <div className="flex flex-col gap-2">
-              <input
-                type="text"
-                value={userName}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
-              <input
-                type="text"
-                value={userEmail}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
+           <p>{user}</p>
+           <p>{email}</p>
+           <p></p>
             </div>
           </div>
 

@@ -14,8 +14,9 @@ const IssuedCertificate = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 mt-10 p-2">
+      <div className="flex items-center justify-center   bg-gray-50 mt-10 p-2">
         <div className="w-full max-w-4xl p-8 bg-white shadow-md rounded-xl ml-5 mr-5">
+          <p>{certificate.stamped}</p>
           {certificate ? (
             <div className="flex flex-col items-center mb-6">
               {isImage && (

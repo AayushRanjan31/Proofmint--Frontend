@@ -50,22 +50,25 @@ const DocumentsTable = () => {
                     <td className="p-3 border-b">{doc.documentId}</td>
                     <td className="p-3 border-b">
                       <span
-                        className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                          doc.status === 'Issued' ?
-                            'bg-green-100 text-green-700' :
-                            'bg-red-100 text-red-700'
-                        }`}
+                        className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped'
+                            ? 'bg-green-100 text-green-700'
+                            : doc.status === 'uploaded'
+                              ? 'bg-red-100 text-blue-700'
+                              : 'bg-red-100 text-red-700'
+                          }`}
                       >
                         {doc.status}
                       </span>
+
                     </td>
-                    <td className="p-3 border-b">{doc.issuedAt}</td>
+                    <td className="p-3 border-b">{doc.createdAt.slice(0, 10)}</td>
                   </tr>
                 ))
               )}
             </tbody>
           </table>
         </div>
+
 
         <div className="space-y-4 lg:hidden">
           {error ? (
@@ -82,17 +85,16 @@ const DocumentsTable = () => {
                 <p className="text-gray-600">Document ID: {doc.documentId}</p>
                 <p className="mt-1">
                   <span
-                    className={`px-2 py-1 rounded-lg text-sm font-medium ${
-                      doc.status === 'Issued' ?
-                        'bg-green-100 text-green-700' :
-                        'bg-red-100 text-red-700'
-                    }`}
+                    className={`px-2 py-1 rounded-lg text-sm font-medium ${doc.status === 'Issued'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-red-100 text-red-700'
+                      }`}
                   >
                     {doc.status}
                   </span>
                 </p>
                 <p className="mt-1 text-sm text-gray-500">
-                  Issued: {doc.issuedAt}
+                  Issued: {doc.createdAt.slice(0, 10)}
                 </p>
               </div>
             ))

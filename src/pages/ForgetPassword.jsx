@@ -1,36 +1,46 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {forgotPassword, setResetPasswordEmail} from '../redux/slices/forgetPasswordSlice';
-import {toast} from 'react-toastify';
-import {Mail} from 'lucide-react';
-import {useNavigate, Link} from 'react-router-dom';
-import {setLoginEmail, setLoginPassword} from '../redux/slices/authSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { setResetPasswordEmail, forgotPassword } from "../redux/slices/forgetPasswordSlice";
+import { toast } from "react-toastify";
+import { Mail } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { setLoginEmail, setLoginPassword } from "../redux/slices/authSlice";
+import { resetOtpState } from "../redux/slices/otpSlice";
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {loading, resetPasswordEmail} = useSelector((state) => state.forgotPassword);
-
-  const handleSubmit = (e) => {
+  const { loading, resetPasswordEmail } = useSelector((state) => state.forgotPassword);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(resetOtpState())
     if (!resetPasswordEmail) {
-      toast.error('Please enter your email', {toastId: 'forgot-error'});
+      toast.error("Please enter your email",{toastId:"error"});
       return;
     }
 
-    // 👉 API call can go here later: dispatch(forgotPassword(resetPasswordEmail))
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+    if (!emailRegex.test(resetPasswordEmail)) {
+      toast.error("Please enter a valid email address",{toastId:"email"});
+      return;
+    }
 
-    toast.success('OTP sent to your email!');
-    navigate('/otpVerification');
+    try {
+      dispatch(setResetPasswordEmail(resetPasswordEmail));
+      const res=await dispatch(forgotPassword(resetPasswordEmail)).unwrap();
+      console.log("API response:", res);
+      navigate("/otpVerification");
+    } catch (error) {
+      console.log(error);
+      toast.error(error || "Failed to send OTP", { toastId: "error" });
+    }
   };
-
   const handleClick = () => {
     dispatch(setLoginPassword(''));
     dispatch(setLoginEmail(''));
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[92.5vh] bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="flex items-center justify-center min-h-[92vh] bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 m-3">
         <div className="text-center mb-6">
           <div className="flex justify-center items-center mb-2">
@@ -55,14 +65,13 @@ const ForgotPassword = () => {
               required
             />
           </div>
-
           <button
             type="submit"
             disabled={loading}
             className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
             hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? 'Sending...' : 'Send Reset Link'}
+            {loading ? "Sending..." : "Send OTP"}
           </button>
         </form>
 
@@ -81,4 +90,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordPage;

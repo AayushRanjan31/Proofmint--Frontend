@@ -1,23 +1,18 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import axios from 'axios';
-import {toast} from 'react-toastify';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import { otpVerification } from "../../utils/proofMintApi";
 
 export const verifyOtp = createAsyncThunk(
-    'auth/verifyOtp',
-    async (otp, {rejectWithValue}) => {
-      try {
-        const res = await axios.post(
-            '',
-            {otp},
-            {headers: {'Content-Type': 'application/json'}},
-        );
-        return res.data;
-      } catch (error) {
-        return rejectWithValue(
-            error.response?.data?.message || 'Invalid OTP',
-        );
-      }
-    },
+  "auth/verifyOtp",
+  async ({ email, otp }, { rejectWithValue }) => {
+    try {
+      console.log(email, otp);
+      const res = await otpVerification({ email, otp });
+      return res.data; 
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Invalid OTP");
+    }
+  }
 );
 
 const otpSlice = createSlice({
@@ -26,7 +21,7 @@ const otpSlice = createSlice({
     loading: false,
     success: false,
     error: null,
-    otpArray: Array(6).fill(''),
+    otpArray: Array(6).fill(""),
     activeIndex: 0,
   },
   reducers: {
@@ -50,23 +45,25 @@ const otpSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(verifyOtp.pending, (state) => {
-          state.loading = true;
-          state.error = null;
-          state.success = false;
-        })
-        .addCase(verifyOtp.fulfilled, (state) => {
-          state.loading = false;
-          state.success = true;
-        })
-        .addCase(verifyOtp.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.payload;
-          toast.error(action.payload || 'Invalid OTP');
-        });
+      .addCase(verifyOtp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(verifyOtp.fulfilled, (state) => {
+        state.loading = false;
+        state.success = true;
+        toast.success("OTP Verified Successfully!",{toastId:"verify"});
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        toast.error( "Invalid OTP");
+      });
   },
 });
 
 export const {resetOtpState, setOtpDigit, setActiveIndex, setOtpArray} =
   otpSlice.actions;
+
 export default otpSlice.reducer;
