@@ -26,7 +26,7 @@ const Authentication = createSlice({
     loginEmail: "",
     loginPassword: "",
     token:"",
-    isLoggedIn:false,
+    isLoggedIn:true,
     number:""
   },
   reducers: {

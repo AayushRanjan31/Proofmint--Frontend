@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 const Setting = () => {
   const {userName, userEmail}=useSelector((state)=>state.userDetails);
   const {theme} = useSelector((state) => state.settings);
-  const [newPassword, setNewPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('');
+  const [prevPassword, setprevPassword] = useState('')
   const dispatch = useDispatch();
   const handleToggle = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -56,6 +57,13 @@ const Setting = () => {
                             Security
             </h3>
             <div className="flex flex-col gap-3">
+                 <input
+                type="text"
+                value={prevPassword}
+                className="w-full p-2 border rounded-lg"
+                onChange={(e) => setprevPassword(e.target.value)}
+                placeholder='Current Password'
+              />
                <input
                 type="text"
                 value={newPassword}

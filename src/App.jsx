@@ -10,6 +10,7 @@ import VerifyDocument from "./components/VerifyDocument";
 import AuthLayout from "./layout/AuthLayout";
 import AppLayout from "./layout/AppLayout";
 import NotFound from "./pages/NotFound";
+import ManageUser from "./components/ManageUser";
 
 function App() {
  const { isLoggedIn} = useSelector((state) => state.auth);
@@ -23,6 +24,7 @@ function App() {
               { index: true, element: <LoginPages /> },
               { path: "signUp", element: <Signup /> },
               { path: "verifydocument", element: <VerifyDocument /> },
+              {path: "manageUser" , element: <ManageUser/>}
             ],
           },
           { path: "*", element: <NotFound /> }
