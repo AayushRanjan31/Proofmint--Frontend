@@ -6,7 +6,6 @@ const Setting = () => {
   const {theme} = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const handleToggle = () => {
-    console.log('sdnvosfo');
     const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(setTheme(newTheme));
     if (newTheme === 'dark') {

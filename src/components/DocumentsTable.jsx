@@ -29,7 +29,7 @@ const DocumentsTable = () => {
               </tr>
             </thead>
             <tbody>
-              {documentss.map((doc, idx) => (
+              {documents?.map((doc, idx) => (
                 <tr key={idx} className="text-[var(--text-color)]">
                   <td className="p-3 border-b">{doc.title}</td>
                   <td className="p-3 border-b">{doc.documentId}</td>
@@ -52,7 +52,7 @@ const DocumentsTable = () => {
         </div>
 
         <div className="space-y-4 lg:hidden">
-          {documentss.map((doc, idx) => (
+          {documents?.map((doc, idx) => (
             <div
               key={idx}
               className="p-4 border rounded-lg shadow-sm bg-gray-50"

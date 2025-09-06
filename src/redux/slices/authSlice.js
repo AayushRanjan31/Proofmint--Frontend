@@ -30,7 +30,7 @@ const Authentication = createSlice({
     number:""
   },
   reducers: {
-     setFirstname: (state, action) => {
+    setFirstname: (state, action) => {
       state.signUpFirstname = action.payload;
     },
     setLastname: (state, action) => {
