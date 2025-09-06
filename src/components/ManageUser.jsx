@@ -29,7 +29,6 @@ const ManageUser = () => {
                 <th className="p-3">Name</th>
                 <th className="p-3">Email</th>
                 <th className="p-3">Role</th>
-                <th className="p-3">Created At</th>
                 <th className="p-3 text-right">Action</th>
               </tr>
             </thead>
@@ -37,14 +36,13 @@ const ManageUser = () => {
               {userData?.map((data) => (
                 <tr key={data.id} className="hover:bg-gray-50 transition">
                   <td className="p-3">{data.id}</td>
-                  <td className="p-3 font-medium text-gray-900">{data.name}</td>
+                  <td className="p-3 font-medium text-gray-900">{data.firstName}</td>
                   <td className="p-3 text-gray-600">{data.email}</td>
                   <td className="p-3">
                     <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-600">
                       {data.role}
                     </span>
                   </td>
-                  <td className="p-3 text-gray-500">{data.createdAt || data.createdby}</td>
                   <td className="p-3 text-right relative">
                     <div className="inline-block">
                       <button
@@ -87,9 +85,6 @@ const ManageUser = () => {
                 </span>
               </div>
               <p className="text-sm text-gray-600">{data.email}</p>
-              <p className="text-xs text-gray-500 mt-1">
-                Created: {data.createdAt || data.createdby}
-              </p>
               <div className="flex gap-2 mt-3">
                 <button
                   onClick={() => handleDelete(data.id)}

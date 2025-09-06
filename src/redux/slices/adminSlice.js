@@ -3,7 +3,7 @@ import { fetchUser } from "../../utils/proofMintApi";
 
 export const fetchAllUser = createAsyncThunk("admin/fetchUser", async () => {
   const data = await fetchUser();
-  return data;
+  return data.users;
 });
 
 const initialState = {
