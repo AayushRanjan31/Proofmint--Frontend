@@ -4,7 +4,7 @@ import { setUserName, setUserEmail, setUserId } from "../redux/slices/userDetail
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-
+import {setResetPasswordEmail} from "../redux/slices/forgetPasswordSlice"
 const Login = () => {
   const { loginEmail, loginPassword, isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const Login = () => {
             />
             {/* Forgot password link */}
             <div className="text-right mt-2">
-              <Link to="forgetPassword" className="text-blue-600 hover:underline text-sm">
+              <Link to="forgetPassword" onClick={()=>{dispatch(setResetPasswordEmail(""))}} className="text-blue-600 hover:underline text-sm">
                 Forgot Password?
               </Link>
             </div>

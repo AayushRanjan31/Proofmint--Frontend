@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DocumentsTable from "./components/DocumentsTable";
 import Signup from "./components/SignupPage";
@@ -14,6 +13,10 @@ import NotFound from "./pages/NotFound";
 import CertificateWithStamp from "./components/UploadStamp";
 import { checkAuth } from "./redux/slices/authSlice";
 import ManageUser from "./components/ManageUser";
+import ForgotPasswordPage from "./pages/ForgetPassword";
+import ResetPasswordPage from "./pages/ResetPassword";
+import OtpVerificationPage from "./pages/OtpVerification";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +41,9 @@ function App() {
               { index: true, element: <LoginPages /> },
               { path: "signUp", element: <Signup /> },
               { path: "verifydocument", element: <VerifyDocument /> },
+              { path:"forgetPassword",element:<ForgotPasswordPage/>},
+              { path:"resetPassword",element:<ResetPasswordPage/>},
+              { path:"otpVerification",element:<OtpVerificationPage/>}
             ],
           },
           { path: "*", element: <NotFound /> },

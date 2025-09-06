@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath,setDocumentUrl,setQrUrl,setDocumentId,setTitle,setExpiryDate} from '../redux/slices/uploadDocument';
 import { useNavigate } from 'react-router-dom';
 
-
 const UploadDocument = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate()
