@@ -26,22 +26,19 @@ export async function login(email, password) {
   return response.data;
 };
 
+//get all documents
 export async function fetchDocuments() {
-  const res = await axios.get('https://7cce039f1894.ngrok-free.app/api/v1/documents',{withCredentials:true});
+  const res = await axios.get(`${baseUrl}/api/v1/documents`);
   return res.data;
 }
 
+//upload document
 export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('title', title);
   formData.append('expiry', expiry);
   formData.append('username', username);
-
-  console.log('FormData entries:');
-  for (const pair of formData.entries()) {
-    console.log(pair[0] + ': ' + pair[1]);
-  }
 
   const response = await axios.post(
       `${baseUrl}/api/v1/document/upload`,
@@ -57,26 +54,31 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   return response.data;
 };
 
-
-// Get certificate from back
-export const getCertificateWithQrApi = async () => {
-  const response = await axios.get(`${API_BASE_URL}/certificate`);
-  return response.data;
-};
-
-// stamp certificate to backend
-export const saveFinalCertificateApi = async (blob) => {
+// stamp document to backend
+export const saveFinalCertificateApi = async (blob,documentId) => {
   const formData = new FormData();
-  formData.append('finalCert', blob, 'certificate_with_qr.png');
-
-  const response = await axios.post(`${API_BASE_URL}/save-final`, formData, {
+  formData.append('file', blob);
+  formData.append('certificateId', documentId);
+  const response = await axios.post(`${baseUrl}/api/v1/document/stamps`, formData, {
     headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true,
   });
   return response.data;
 };
 
-// verify document
+// // verify document 
 export async function getCertificateDetails(documentId) {
-  const certificate=await axios.get('https://7cce039f1894.ngrok-free.app/');
-  return certificate;
+  const certificate=await axios.get(`${baseUrl}/api/v1/documents/${documentId}`);
+  return certificate.data;
 }
+
+export const logout = async() => {
+  await axios.post(`${baseUrl}/api/v1/auth/logout`);
+} 
+
+
+export const fetchUser = async() => {
+  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
+  return res.data;
+} 
+
+

@@ -3,12 +3,12 @@ import {fetchDocuments} from '../../utils/proofMintApi';
 
 export const allFetchDocument = createAsyncThunk('documents/fetchDocuments', async () => {
   const data = await fetchDocuments();
-  
+
   return data;
 });
-
 const initialState = {
-  documents:null,
+  documents: [],
+  error: null,
 };
 
 const documentSlice = createSlice({
@@ -18,15 +18,17 @@ const documentSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addCase(allFetchDocument.pending, (state) => {
-          state.loading = true;
+          state.error = null;
         })
         .addCase(allFetchDocument.fulfilled, (state, action) => {
           state.documents = action.payload;
+          state.error = null;
         })
-        .addCase(allFetchDocument.rejected, (state,action) => {
-          state.error = action.error.message;
+        .addCase(allFetchDocument.rejected, (state, action) => {
+          state.error = action.error.message || 'Failed to fetch documents';
         });
   },
 });
+
 
 export default documentSlice.reducer;

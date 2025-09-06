@@ -16,8 +16,11 @@ const uploadDocumentSlice = createSlice({
   initialState: {
     file: null,
     filePath: null,
-    expiryDate:'',
-    title:''
+    documentUrl:"",
+    qrUrl:"",
+    documentId:"",
+    expiryDate:"",
+    title:""
   },
   reducers: {
     setExpiryDate:(state,action)=>{
@@ -32,22 +35,38 @@ const uploadDocumentSlice = createSlice({
     setFile: (state, action) => {
       state.file = action.payload;
     },
+    setDocumentUrl:(state,action)=>{
+      state.documentUrl=action.payload
+    },
+     setQrUrl:(state,action)=>{
+      state.qrUrl=action.payload
+    },
+    setDocumentId:(state,action)=>{
+      state.documentId=action.payload
+    },
+    setExpiryDate:(state,action)=>{
+        state.expiryDate=action.payload
+    },
+    setTitle:(state,action)=>{
+        state.title=action.payload
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(uploadDocument.fulfilled, (state) => {
-      state.file = null;
-      state.expiryDate='';
-      state.title='';
+    builder.addCase(uploadDocument.fulfilled, (state, action) => {
+      state.file = '';
+      state.title="";
+      state.expiryDate="";
       toast.success('uploaded successfully.', {toastId: 'upload-success'});
-    }).addCase(uploadDocument.rejected, (state)=>{
-      state.file=null;
-      state.expiryDate='';
-      state.title='';
+
+    }).addCase(uploadDocument.rejected, (state, action)=>{
+      state.file='';
+       state.title="";
+      state.expiryDate="";
       toast.error('upload failed ,Please upload again!.', {toastId: 'upload-error'});
     })
     ;
   },
 });
 
-export const {setFilePath, setFile,setTitle,setExpiryDate} = uploadDocumentSlice.actions;
+export const {setFilePath, setFile,setDocumentUrl,setQrUrl,setDocumentId,setTitle,setExpiryDate} = uploadDocumentSlice.actions;
 export default uploadDocumentSlice.reducer;

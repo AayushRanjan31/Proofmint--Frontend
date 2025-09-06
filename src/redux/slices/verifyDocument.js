@@ -3,6 +3,7 @@ import {getCertificateDetails} from '../../utils/proofMintApi';
 
 export const getCerificate = createAsyncThunk('getCertificate', async (documentId) => {
   const certificateDetails = await getCertificateDetails(documentId);
+  console.log(certificateDetails.data);
   return certificateDetails;
 });
 

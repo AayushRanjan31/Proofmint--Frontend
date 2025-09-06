@@ -1,9 +1,12 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {setTheme} from '../redux/slices/settingSlice';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Setting = () => {
-  const {userName,userEmail}=useSelector((state)=>state.userDetails)
+  const {userName, userEmail}=useSelector((state)=>state.userDetails);
   const {theme} = useSelector((state) => state.settings);
+  const [newPassword, setNewPassword] = useState('')
   const dispatch = useDispatch();
   const handleToggle = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -15,20 +18,47 @@ const Setting = () => {
     }
   };
 
+  const handleNewPassword = () => {
+    if (newPassword.length <=5) {
+          toast.error('Password must be 6 characters.', { toastId: 'password-error' });
+     }
+  }
+
   return (
     <div className="mt-20 md:flex md:justify-center md:ml-70 md:mt-10">
       <div
         className={'m-8 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
       >
         <div className="flex flex-col">
-          <h1 className="font-semibold">Settings</h1>
+          <p className="pb-1 md:text-5xl text-4xl font-bold">Settings</p>
           <div>
             <h3 className="mt-4 mb-3 text-lg font-semibold">
                             Profile
             </h3>
-            <div className="flex flex-col gap-2">
-              <div>{userName}</div>
-              <div>{userEmail}</div>
+            <div>
+              <p>{userName}</p>
+              <p>{userEmail}</p>
+            </div>
+          </div>
+
+            <div>
+            <h3 className="mt-4 mb-3 text-lg font-semibold">
+                            Security
+            </h3>
+            <div className="flex flex-col gap-3">
+               <input
+                type="text"
+                value={newPassword}
+                className="w-full p-2 border rounded-lg"
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder='New Password'
+              />
+                <button
+          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded cursor-pointer w-[160px]"
+          onClick={() => handleNewPassword()}
+        >
+       Change Password
+        </button>
             </div>
           </div>
 

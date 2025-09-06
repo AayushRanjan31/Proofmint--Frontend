@@ -1,11 +1,15 @@
 import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
-import {uploadDocument, setFile, setFilePath,setTitle,setExpiryDate} from '../redux/slices/uploadDocument';
+import {uploadDocument, setFile, setFilePath,setDocumentUrl,setQrUrl,setDocumentId,setTitle,setExpiryDate} from '../redux/slices/uploadDocument';
+import { useNavigate } from 'react-router-dom';
+
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const {file,title,expiryDate} = useSelector((state) => state.uploadDocument);
   const {userName}=useSelector((state)=>state.userDetails)
+
   const MAX_FILE_SIZE = 15 * 1024 * 1024;
 
   const handleFileChange = (e) => {
@@ -32,20 +36,27 @@ const UploadDocument = () => {
     }
     dispatch(setFile(selectedFile));
   };
-  const handleUpload = () => {
+
+  const handleUpload = async() => {
     if (file) {
-      console.log(file);
-      dispatch(
+     let res= await  dispatch(
           uploadDocument({
             file: file,
             title: title,
             expiry: expiryDate,
             username: userName,
-          }),
+          })
       );
 
       const filePath = URL.createObjectURL(file);
       dispatch(setFilePath(filePath));
+      console.log(res.payload?.status)
+       if(res.payload?.status==true){
+        dispatch(setDocumentUrl(res.payload.imageData.url))
+        dispatch(setQrUrl(res.payload.imageData.qrCode))
+        dispatch(setDocumentId(res.payload.imageData.certificateId))
+        navigate("/stamp")
+      }
     } else {
       alert('Please upload a file first!');
     }
@@ -79,7 +90,7 @@ const UploadDocument = () => {
         <div className="flex gap-4 w-full justify-center">
         <input
           type="text"
-          onChange={(e) => {setTitle(e.target.value)}}
+          onChange={(e) => dispatch(setTitle(e.target.value))}
           className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg 
                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
           placeholder="Please enter title"
@@ -100,8 +111,7 @@ const UploadDocument = () => {
         Upload File
         </button>
       </div>
-    </div>
-  );
+    </div> );
 };
 
 export default UploadDocument;

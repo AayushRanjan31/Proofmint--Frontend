@@ -4,18 +4,22 @@
   --color-bg: #F8FAFC; 
   --component-bg: #FFFFFF; 
   --navbar-bg: #FFFFFF; 
-  --sidebar-bg: #1E293B; 
+  --sidebar-bg: #1b4c59; 
    --text-color: #000000;
    --btn-color: #e8e8e8;
+   --table-bg: #f0f0f0;
+   --side-btn-bg: #0d7a9e;
 }
 
 .dark {
-  --color-bg: #242424; 
-  --component-bg: #4f4f50; 
-  --navbar-bg: #1d1d1d; 
+  --color-bg: #383636; 
+  --component-bg: #444448; 
+  --navbar-bg: #868686; 
    --sidebar-bg: #050911; 
   --text-color: #ffffff;
    --btn-color: #969696;
+   --table-bg: #343434;
+    --side-btn-bg: #075772;
 }
 
 
