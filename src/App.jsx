@@ -2,7 +2,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useEffect} from 'react';
 import {ToastContainer} from 'react-toastify';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import DocumentsTable from './components/DocumentsTable';
 import Signup from './components/SignupPage';
 import LoginPages from './components/LoginPage';
 import UploadDocument from './pages/UploadDocument';
@@ -14,6 +13,7 @@ import NotFound from './pages/NotFound';
 import CertificateWithStamp from './components/UploadStamp';
 import {checkAuth} from './redux/slices/authSlice';
 import ManageUser from './components/ManageUser';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function App() {
             path: '/',
             element: <AppLayout />,
             children: [
-              {path: '/', element: <DocumentsTable />},
+              {path: '/', element: <Dashboard />},
               {path: 'upload', element: <UploadDocument />},
               {path: 'setting', element: <Setting />},
               {path: 'stamp', element: <CertificateWithStamp />},

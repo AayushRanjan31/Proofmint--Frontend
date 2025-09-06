@@ -28,7 +28,9 @@ export async function login(email, password) {
 
 // get all documents
 export async function fetchDocuments() {
-  const res = await axios.get(`${baseUrl}/api/v1/documents`);
+  const res = await axios.get(`${baseUrl}/api/v1/documents`, {withCredentials: true, headers: {
+        'Content-Type': 'application/json',
+      }});
   return res.data;
 }
 
@@ -72,12 +74,21 @@ export async function getCertificateDetails(documentId) {
 }
 
 export const logout = async () => {
-  await axios.post(`${baseUrl}/api/v1/auth/logout`);
+  await axios.post(
+    `${baseUrl}/api/v1/auth/logout`,
+    {}, 
+    {
+      withCredentials: true, 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 };
 
 
 export const fetchUser = async () => {
-  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
+  const res = await axios.get(`${baseUrl}/api/v1/admin`,{withCredentials:true});
   return res;
 };
 

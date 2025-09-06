@@ -1,8 +1,8 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {fetchUser as fetchUserApi} from '../../utils/proofMintApi';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchUser } from "../../utils/proofMintApi";
 
-export const fetchUser = createAsyncThunk('documents/fetchDocuments', async () => {
-  const data = await fetchUserApi();
+export const fetchAllUser = createAsyncThunk("admin/fetchUser", async () => {
+  const data = await fetchUser();
   return data;
 });
 
@@ -12,23 +12,22 @@ const initialState = {
 };
 
 const adminSlice = createSlice({
-  name: 'documents',
+  name: "admin",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-        .addCase(fetchUser.pending, (state) => {
-          state.error = null;
-        })
-        .addCase(fetchUser.fulfilled, (state, action) => {
-          state.userData = action.payload;
-          state.error = null;
-        })
-        .addCase(fetchUser.rejected, (state, action) => {
-          state.error = action.error.message || 'Failed to fetch documents';
-        });
+      .addCase(fetchAllUser.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(fetchAllUser.fulfilled, (state, action) => {
+        state.userData = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchAllUser.rejected, (state, action) => {
+        state.error = action.error.message || "Failed to fetch users";
+      });
   },
 });
-
 
 export default adminSlice.reducer;

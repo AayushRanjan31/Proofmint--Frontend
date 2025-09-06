@@ -8,6 +8,7 @@ import userDetails from '../slices/userDetails';
 import forgotPassword from '../slices/forgetPasswordSlice';
 import resetPassword from '../slices/resetPasswordSlice';
 import otp from '../slices/otpSlice';
+import admin from '../slices/adminSlice';
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     forgotPassword: forgotPassword,
     resetPassword: resetPassword,
     otp: otp,
+    admin: admin
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
