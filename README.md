@@ -17,7 +17,7 @@ The system includes a public verification portal that allows anyone with the doc
 ---
 
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Frontend Framework:** React 
 - **Styling:** TailwindCSS, Bootstrap 5, Material UI (MUI), Ant Design
 - **State Management:** Redux Toolkit, React Redux  
