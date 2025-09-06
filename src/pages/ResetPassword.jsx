@@ -19,7 +19,7 @@ const ResetPasswordPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword) {
-      toast.error("All fields are required");
+      toast.error('All fields are required');
       return;
     }
     if (newPassword !== confirmPassword) {
@@ -77,10 +77,10 @@ const ResetPasswordPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-purple-600 rounded font-medium 
+            className="w-full py-3 text-white bg-purple-600 rounded font-medium
               hover:bg-purple-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? "Resetting..." : "Reset Password"}
+            {loading ? 'Resetting...' : 'Reset Password'}
           </button>
         </form>
       </div>

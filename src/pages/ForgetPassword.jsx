@@ -35,8 +35,8 @@ const ForgotPasswordPage = () => {
     }
   };
   const handleClick = () => {
-    dispatch(setLoginPassword(""));
-    dispatch(setLoginEmail(""));
+    dispatch(setLoginPassword(''));
+    dispatch(setLoginEmail(''));
   };
 
   return (
@@ -59,8 +59,8 @@ const ForgotPasswordPage = () => {
               placeholder="Enter your email"
               value={resetPasswordEmail}
               onChange={(e) => dispatch(setResetPasswordEmail(e.target.value))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg
+              focus:ring-2 focus:ring-blue-500 focus:border-transparent
               shadow-sm text-gray-700 placeholder-gray-400"
               required
             />
@@ -68,7 +68,7 @@ const ForgotPasswordPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium 
+            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
             hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
           >
             {loading ? "Sending..." : "Send OTP"}
@@ -76,7 +76,7 @@ const ForgotPasswordPage = () => {
         </form>
 
         <p className="text-center text-sm text-gray-500 pt-3">
-          Remembered your password?{" "}
+          Remembered your password?{' '}
           <Link
             to="/"
             className="text-blue-600 hover:underline font-medium"

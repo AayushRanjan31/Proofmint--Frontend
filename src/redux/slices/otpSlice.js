@@ -16,7 +16,7 @@ export const verifyOtp = createAsyncThunk(
 );
 
 const otpSlice = createSlice({
-  name: "otp",
+  name: 'otp',
   initialState: {
     loading: false,
     success: false,
@@ -29,11 +29,11 @@ const otpSlice = createSlice({
       state.loading = false;
       state.success = false;
       state.error = null;
-      state.otpArray = Array(6).fill("");
+      state.otpArray = Array(6).fill('');
       state.activeIndex = 0;
     },
     setOtpDigit: (state, action) => {
-      const { index, value } = action.payload;
+      const {index, value} = action.payload;
       state.otpArray[index] = value;
     },
     setActiveIndex: (state, action) => {
@@ -63,7 +63,7 @@ const otpSlice = createSlice({
   },
 });
 
-export const { resetOtpState, setOtpDigit, setActiveIndex, setOtpArray } =
+export const {resetOtpState, setOtpDigit, setActiveIndex, setOtpArray} =
   otpSlice.actions;
 
 export default otpSlice.reducer;

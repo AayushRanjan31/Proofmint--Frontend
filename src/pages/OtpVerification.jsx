@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const OtpVerificationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, otpArray, activeIndex } = useSelector((state) => state.otp);
+  const {loading, otpArray, activeIndex} = useSelector((state) => state.otp);
   const inputRefs = useRef([]);
   const {  resetPasswordEmail } = useSelector((state) => state.forgotPassword);
   // Auto-focus current active index
@@ -18,7 +18,7 @@ const OtpVerificationPage = () => {
   // Typing
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
-      dispatch(setOtpDigit({ index, value }));
+      dispatch(setOtpDigit({index, value}));
       if (value && index < 5) {
         dispatch(setActiveIndex(index + 1));
       }
@@ -27,13 +27,13 @@ const OtpVerificationPage = () => {
 
   // Keyboard navigation
   const handleKeyDown = (e, index) => {
-    if (e.key === "ArrowLeft" && index > 0) {
+    if (e.key === 'ArrowLeft' && index > 0) {
       dispatch(setActiveIndex(index - 1));
     }
-    if (e.key === "ArrowRight" && otpArray[index] && index < 5) {
+    if (e.key === 'ArrowRight' && otpArray[index] && index < 5) {
       dispatch(setActiveIndex(index + 1));
     }
-    if (e.key === "Backspace" && !otpArray[index] && index > 0) {
+    if (e.key === 'Backspace' && !otpArray[index] && index > 0) {
       dispatch(setActiveIndex(index - 1));
     }
   };
@@ -41,15 +41,15 @@ const OtpVerificationPage = () => {
   // Paste OTP
   const handlePaste = (e, index) => {
     e.preventDefault();
-    const pasted = e.clipboardData.getData("text").slice(0, 6).split("");
-    let copy = [...otpArray];
+    const pasted = e.clipboardData.getData('text').slice(0, 6).split('');
+    const copy = [...otpArray];
     let count = 0;
     for (let i = index; i < copy.length && count < pasted.length; i++) {
       copy[i] = pasted[count++];
     }
     dispatch(setOtpArray(copy));
 
-    let next = Math.min(index + pasted.length, otpArray.length - 1);
+    const next = Math.min(index + pasted.length, otpArray.length - 1);
     dispatch(setActiveIndex(next));
   };
 
@@ -58,7 +58,7 @@ const OtpVerificationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const otp = otpArray.join("");
+    const otp = otpArray.join('');
     if (!otp || otp.length !== 6) {
       toast.error("Please enter a valid 6-digit OTP",{toastId:"verify"});
       return;
@@ -99,7 +99,7 @@ const OtpVerificationPage = () => {
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={(e) => handlePaste(e, index)}
-                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg 
+                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg
                   focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
               />
             ))}
@@ -108,10 +108,10 @@ const OtpVerificationPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium 
+            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
               hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
           >
-            {loading ? "Verifying..." : "Verify OTP"}
+            {loading ? 'Verifying...' : 'Verify OTP'}
           </button>
         </form>
       </div>

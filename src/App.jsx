@@ -20,19 +20,18 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
-  const { isLoggedIn, isAuthChecked } = useSelector((state) => state.auth);
+  const {isLoggedIn, isAuthChecked} = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(checkAuth()); 
+    dispatch(checkAuth());
   }, [dispatch]);
 
   if (!isAuthChecked) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   const router = createBrowserRouter(
-    !isLoggedIn
-      ? 
+    !isLoggedIn ?
        [
           {
             path: "/",
@@ -50,18 +49,18 @@ function App() {
         ]:
         [
           {
-            path: "/",
+            path: '/',
             element: <AppLayout />,
             children: [
-              { path: "/", element: <DocumentsTable /> },
-              { path: "upload", element: <UploadDocument /> },
-              { path: "setting", element: <Setting /> },
-              { path: "stamp", element: <CertificateWithStamp /> },
-              { path: "manageUser", element: <ManageUser />}
+              {path: '/', element: <DocumentsTable />},
+              {path: 'upload', element: <UploadDocument />},
+              {path: 'setting', element: <Setting />},
+              {path: 'stamp', element: <CertificateWithStamp />},
+              {path: 'manageUser', element: <ManageUser />},
             ],
           },
-          { path: "*", element: <NotFound /> },
-        ]
+          {path: '*', element: <NotFound />},
+        ],
   );
 
   return (

@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { allFetchDocument } from '../redux/slices/documentSlice';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {allFetchDocument} from '../redux/slices/documentSlice';
 
 const DocumentsTable = () => {
   const dispatch = useDispatch();
-  const { documents, error } = useSelector((state) => state.documents);
+  const {documents, error} = useSelector((state) => state.documents);
 
   useEffect(() => {
     dispatch(allFetchDocument());
@@ -51,9 +51,9 @@ const DocumentsTable = () => {
                     <td className="p-3 border-b">
                       <span
                         className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                          doc.status === 'Issued'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
+                          doc.status === 'Issued' ?
+                            'bg-green-100 text-green-700' :
+                            'bg-red-100 text-red-700'
                         }`}
                       >
                         {doc.status}
@@ -83,9 +83,9 @@ const DocumentsTable = () => {
                 <p className="mt-1">
                   <span
                     className={`px-2 py-1 rounded-lg text-sm font-medium ${
-                      doc.status === 'Issued'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'
+                      doc.status === 'Issued' ?
+                        'bg-green-100 text-green-700' :
+                        'bg-red-100 text-red-700'
                     }`}
                   >
                     {doc.status}

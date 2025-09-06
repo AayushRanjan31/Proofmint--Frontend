@@ -6,8 +6,13 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import {setResetPasswordEmail} from "../redux/slices/forgetPasswordSlice"
 const Login = () => {
-  const { loginEmail, loginPassword, isLoggedIn } = useSelector((state) => state.auth);
+  const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
+
 
   useEffect(() => {
     console.log(isLoggedIn);
@@ -15,19 +20,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loginPassword.length <= 5) {
-      toast.error('Password must be 6 characters.', { toastId: 'fetch-error' });
-    }
-    else {
-    let res=await dispatch(loginUser({ loginEmail, loginPassword }));
-    if(res.payload?.status==true){
-    dispatch(setLoggedIn(true))
-    dispatch(setUserName(res.payload.userData.firstName))
-    dispatch(setUserEmail(res.payload.userData.email))
-    dispatch(setUserId(res.payload.userData.id))
-    }
+    if (loginPassword.length < 8) {
+      toast.error('Password must be 8 characters.', {toastId: 'fetch-error'});
+    } else {
+      const res=await dispatch(loginUser({loginEmail, loginPassword}));
+      if (res.payload?.status==true) {
+        dispatch(setLoggedIn(true));
+        dispatch(setUserName(res.payload.userData.firstName));
+        dispatch(setUserEmail(res.payload.userData.email));
+        dispatch(setUserId(res.payload.userData.id));
+      }
     }
   };
+
 
   return (
 
@@ -77,7 +82,7 @@ const Login = () => {
             Login
           </button>
           <p className="text-center">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <Link to="/signUp" className="text-blue-600 hover:underline">
               Sign Up
             </Link>

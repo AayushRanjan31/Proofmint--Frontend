@@ -14,17 +14,17 @@ export const forgotPassword = createAsyncThunk(
 );
 
 const forgotPasswordSlice = createSlice({
-  name: "forgotPassword",
+  name: 'forgotPassword',
   initialState: {
     loading: false,
     success: false,
     error: null,
-    resetPasswordEmail:"",
+    resetPasswordEmail: '',
   },
   reducers: {
-    setResetPasswordEmail:(state,action)=>{
-        state.resetPasswordEmail=action.payload;
-    }
+    setResetPasswordEmail: (state, action)=>{
+      state.resetPasswordEmail=action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,5 +45,5 @@ const forgotPasswordSlice = createSlice({
   },
 });
 
-export const {setResetPasswordEmail}=forgotPasswordSlice.actions
+export const {setResetPasswordEmail}=forgotPasswordSlice.actions;
 export default forgotPasswordSlice.reducer;

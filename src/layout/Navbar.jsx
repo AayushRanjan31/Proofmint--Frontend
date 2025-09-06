@@ -5,8 +5,8 @@ import {FaUserCircle} from 'react-icons/fa';
 import {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoggedIn} from '../redux/slices/authSlice';
-import { logout } from '../utils/proofMintApi';
-import { useNavigate } from 'react-router-dom';
+import {logout} from '../utils/proofMintApi';
+import {useNavigate} from 'react-router-dom';
 
 function NavbarPage() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function NavbarPage() {
     dispatch(setLoggedIn(false));
     setClickUser(false);
     logout();
-     navigate('/');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function NavbarPage() {
       <Container fluid className="flex justify-between items-center">
         {/* Logo */}
         <Navbar.Brand className={`flex gap-2 justify-center items-center ${isLoggedIn && 'ml-[26%] md:ml-[2px] flex justify-center items-center gap-2' } `}>
-          <img src="/icon.png" alt="Logo" style={{height: '40px'}} /> 
+          <img src="/icon.png" alt="Logo" style={{height: '40px'}} />
           <p className='text-[var(--text-color)] text-2xl font-bold mt-3'>Proofmint</p>
         </Navbar.Brand>
 

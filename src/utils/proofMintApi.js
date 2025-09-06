@@ -4,14 +4,10 @@ const baseUrl = config.api.baseUrl;
 
 // signup
 export async function signUp(firstName, lastName, email, password, number) {
-  const response = await axios.post(
-    `${baseUrl}/api/v1/auth/signup`,
-    { firstName, lastName, email, password, number },
-    {
-      withCredentials: true,
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  const response = await axios.post(`${baseUrl}/api/v1/auth/signup`, {firstName, lastName, email, password, number}, {
+    withCredentials: true,
+    headers: {'Content-Type': 'application/json'},
+  });
   return response.data;
 }
 
@@ -33,14 +29,14 @@ export async function login(email, password) {
   return response.data;
 }
 
-//get all documents
+// get all documents
 export async function fetchDocuments() {
   const res = await axios.get(`${baseUrl}/api/v1/documents`);
   return res.data;
 }
 
-//upload document
-export const uploadDocumentApi = async ({ file, title, expiry, username }) => {
+// upload document
+export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("title", title);
@@ -89,9 +85,18 @@ export const logout = async () => {
   await axios.post(`${baseUrl}/api/v1/auth/logout`);
 };
 
+
 export const fetchUser = async () => {
   const res = await axios.get(`${baseUrl}/api/v1/admin/`);
-  return res.data;
+  return res;
+};
+
+export const changePassword = async (password, newPassword, email) => {
+  return axios.post(`${baseUrl}/api/v1/auth/update/password`, {
+    email,
+    password,
+    newPassword,
+  }, {withCredentials: true});
 };
 
 //forget-password
@@ -128,3 +133,5 @@ export const otpVerification =async ({email,otp})=>{
   console.log(res.data)
   return res.data
  }
+
+
