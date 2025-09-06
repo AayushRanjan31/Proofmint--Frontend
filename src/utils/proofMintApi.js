@@ -4,7 +4,7 @@ const baseUrl = config.api.baseUrl;
 
 // signup 
 export async function signUp(firstName,lastName, email, password,number) {
-  const response = await axios.post(`https://ce6ffe5474db.ngrok-free.app/api/v1/auth/signup`, {firstName,lastName,email,password,number},{
+  const response = await axios.post(`${baseUrl}/api/v1/auth/signup`, {firstName,lastName,email,password,number},{
     withCredentials: true,
     headers: {'Content-Type': 'application/json'},
   });
@@ -16,7 +16,7 @@ export async function login(email, password) {
   console.log(email, password);
 
   const response = await axios.post(
-      `https://ce6ffe5474db.ngrok-free.app/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
+      `${baseUrl}/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
         'Content-Type': 'application/json',
       },
       },
@@ -27,7 +27,7 @@ export async function login(email, password) {
 
 // get all documents
 export async function fetchDocuments() {
-  const response = await axios.get(`https://ce6ffe5474db.ngrok-free.app/api/v1/documents`, {withCredentials: true
+  const response = await axios.get(`${baseUrl}/api/v1/documents`, {withCredentials: true
      ,headers: {
         'Content-Type': 'application/json',
       }, },);
@@ -43,7 +43,7 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   formData.append("username", username);
 
   const response = await axios.post(
-      `https://ce6ffe5474db.ngrok-free.app/api/v1/document/upload`,
+      `${baseUrl}/api/v1/document/upload`,
       formData,
       {
         headers: {
@@ -61,7 +61,7 @@ export const saveFinalCertificateApi = async (blob, documentId) => {
   const formData = new FormData();
   formData.append('file', blob);
   formData.append('certificateId', documentId);
-  const response = await axios.post(`https://ce6ffe5474db.ngrok-free.app/api/v1/document/stamps`, formData, {
+  const response = await axios.post(`${baseUrl}/api/v1/document/stamps`, formData, {
     headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true,
   });
   return response.data;
@@ -69,24 +69,24 @@ export const saveFinalCertificateApi = async (blob, documentId) => {
 
 // // verify document
 export async function getCertificateDetails(documentId) {
-  const certificate=await axios.post(`https://ce6ffe5474db.ngrok-free.app/api/v1/documents/verify`,{documentId});
+  const certificate=await axios.post(`${baseUrl}/api/v1/documents/verify`,{documentId});
   return certificate.data;
 }
 
 export const logout = async() => {
-  await axios.post(`https://ce6ffe5474db.ngrok-free.app/api/v1/auth/logout`,{},{withCredentials:true});
+  await axios.post(`${baseUrl}/api/v1/auth/logout`,{},{withCredentials:true});
 
 } 
 
 
 export const fetchUser = async() => {
-  const res = await axios.get(`https://ce6ffe5474db.ngrok-free.app/api/v1/admin/`);
+  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
   return res.data;
 } 
 
 
 export const changePassword = async (password, newPassword, email) => {
-  return axios.post(`https://ce6ffe5474db.ngrok-free.app/api/v1/auth/update/password`, {
+  return axios.post(`${baseUrl}/api/v1/auth/update/password`, {
     email,
     password,
     newPassword,
@@ -96,7 +96,7 @@ export const changePassword = async (password, newPassword, email) => {
 //forget-password
 export const forgetPassword = async (email) => {
   const res = await axios.post(
-    `https://ce6ffe5474db.ngrok-free.app/api/v1/auth/forgot/password`,
+    `${baseUrl}/api/v1/auth/forgot/password`,
     { email: email },
     {
       headers: { "Content-Type": "application/json" },
@@ -107,7 +107,7 @@ export const forgetPassword = async (email) => {
 
 export const otpVerification =async ({email,otp})=>{
   const res = await axios.post(
-    `https://ce6ffe5474db.ngrok-free.app/api/v1/auth/verify/otp`,
+    `${baseUrl}/api/v1/auth/verify/otp`,
     { email,otp },
     {
       headers: { "Content-Type": "application/json" },
@@ -118,7 +118,7 @@ export const otpVerification =async ({email,otp})=>{
 }
  export const resettingPassword=async({email,newPassword})=>{
   const res= await axios.post(
-    `https://ce6ffe5474db.ngrok-free.app/api/v1/auth/change/password`,
+    `${baseUrl}/api/v1/auth/change/password`,
     {email,newPassword},
     {
       headers:{"Content-Type":"application/json"},
