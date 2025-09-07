@@ -5,7 +5,6 @@ import {IoSettingsOutline} from 'react-icons/io5';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
-import { GrDocumentConfig } from "react-icons/gr";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +23,7 @@ function Sidebar() {
       {/* Hamburger button - shows ONLY on mobile (<=450px) */}
       {isMobile && (
         <button
-          className="fixed z-50 p-1 mx-3 rounded top-8 text-[#FFFFFF] bg-[#000000]"
+          className="fixed z-50 p-1 mx-2 rounded top-5 text-[#FFFFFF] bg-[#000000]"
           onClick={toggleSidebar}
         >
           <GiHamburgerMenu size={22} />
@@ -33,7 +32,7 @@ function Sidebar() {
 
       {(isMobile ? isOpen : true) && (
         <div
-          className={`position-fixed max-[576px]:mt-[90px] min-[576px]:mt-[70px] top-0 vh-100 p-3 bg-[var(--sidebar-bg)] transition-all`}
+          className={`fixed max-[576px]:mt-[70px] min-[576px]:mt-[70px] top-0 vh-100 p-3 bg-[var(--sidebar-bg)] transition-all`}
           style={{
             width: '280px',
             left: isMobile ? (isOpen ? '0' : '-250px') : '0',

@@ -78,7 +78,7 @@ const VerifyDocument = () => {
   };
 
   return (
-    <div className="min-h-[81vh] flex justify-center items-start pt-10">
+    <div className="min-h-[81vh] flex justify-center items-start pt-10 mx-2">
       <div className="shadow flex flex-col p-5 rounded-xl gap-4 bg-white md:w-[40vw]">
         <p className="pb-3 md:text-5xl text-4xl font-bold">Verify Document</p>
         <p className="text-gray-500 text-sm mb-4">

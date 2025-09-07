@@ -63,7 +63,7 @@ const AdminDocument = () => {
                 </tr>
               ) : docsArray.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center text-gray-500 p-4">
+                  <td colSpan="6" className="text-center  text-gray-500">
                     No documents found
                   </td>
                 </tr>
@@ -101,10 +101,10 @@ const AdminDocument = () => {
                           <RiMore2Fill size={18} />
                         </button>
                         {openMenu === idx && (
-                          <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-100 shadow-lg rounded-md overflow-hidden z-10">
+                          <div className="absolute right-0 mt-2 w-32 bg-[var(--component-bg)] border border-gray-100 shadow-lg rounded-md overflow-hidden z-10">
                             <button
                               onClick={() => handleRevoke(doc.documentId)}
-                              className="flex items-center gap-2 w-full px-4 py-2 text-sm  hover:bg-red-50"
+                              className="flex items-center gap-2 w-full px-4 py-2 text-sm text-[var(--text-color)] hover:bg-gray-100 hover:text-black"
                             >
                               <FaBan size={20} /> Revoke
                             </button>
