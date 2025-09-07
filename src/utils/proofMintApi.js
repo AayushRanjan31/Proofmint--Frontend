@@ -133,3 +133,17 @@ export const otpVerification =async ({email,otp})=>{
   return res.data;
  }
 
+export const deleteADocument = async ({ docId }) => {
+  const res = await axios.delete(`${baseUrl}/api/v1/admin/delete/document`, {
+    data: { certificateId: docId }, // <-- send body in "data"
+    withCredentials: true,          // <-- send cookies
+    headers: { "Content-Type": "application/json" },
+  });
+  return res.data;
+};
+
+  export const revokeADocument=async({docId})=>{
+  const res=await axios.put(`${baseUrl}/api/v1/documents/revoke`,{certificateId:docId},{withCredentials:true});
+  return res.data;
+ }
+

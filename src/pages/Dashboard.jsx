@@ -1,12 +1,13 @@
 import { useState } from "react";
 import DocumentsTable from "../components/DocumentsTable";
 import AdminDocument from "../components/AdminDocument";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-    const [user , setUser] = useState("user")
+const { isAdmin } = useSelector((state) => state.auth);
  return (
     <>
-       {user === 'user' ? <DocumentsTable/> : <AdminDocument/>}
+       {isAdmin ? <AdminDocument/> : <DocumentsTable/> } 
     </>
  )
 }

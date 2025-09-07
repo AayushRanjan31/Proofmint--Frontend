@@ -4,6 +4,7 @@ import { setDocumentId, getCerificate, clearCertificate } from "../redux/slices/
 import IssuedCertificate from "./IssuedCertificate";
 import { useState, useRef, useEffect } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
+import { toast } from "react-toastify";
 
 const VerifyDocument = () => {
   const dispatch = useDispatch();
@@ -40,8 +41,16 @@ const VerifyDocument = () => {
               setErrorMessage("");
               dispatch(clearCertificate()); 
               dispatch(setDocumentId(docId));
-              dispatch(getCerificate(docId));
-              stopScan();
+              dispatch(getCerificate(docId))
+    .unwrap()
+    .then(() => {
+      toast.success("Certificate fetched successfully");
+      stopScan();
+    })
+    .catch((err) => {
+      setErrorMessage("Failed to fetch certificate");
+      toast.error(err?.message || "Failed to fetch certificate");
+    });
             } else {
               setErrorMessage("Document not found. Try again.");
               dispatch(clearCertificate()); 
@@ -74,8 +83,24 @@ const VerifyDocument = () => {
       return;
     }
     dispatch(clearCertificate()); 
-    dispatch(getCerificate(documentId));
+    dispatch(getCerificate(documentId))
+    .unwrap()
+    .then(() => {
+      toast.success("Certificate fetched successfully");
+      setErrorMessage("");
+    })
+    .catch((err) => {
+      setErrorMessage("Failed to fetch certificate");
+      toast.error(err?.message || "Failed to fetch certificate");
+    });
   };
+  useEffect(() => {
+  // Component did mount logic (if any)
+  return () => {
+    dispatch(clearCertificate()); // clear certificate
+    dispatch(setDocumentId("")); // clear document ID
+  };
+}, [dispatch]);
 
   return (
     <div className="min-h-[81vh] flex justify-center items-start pt-10">
