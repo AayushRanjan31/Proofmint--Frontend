@@ -12,15 +12,15 @@ const userDetails = createSlice({
   reducers: {
     setUserName: (state, action) => {
       state.userName = action.payload;
-      localStorage.setItem('userName', action.payload); // ✅ persist
+      localStorage.setItem('userName', action.payload);
     },
     setUserEmail: (state, action) => {
       state.userEmail = action.payload;
-      localStorage.setItem('userEmail', action.payload); // ✅ persist
+      localStorage.setItem('userEmail', action.payload);
     },
     setUserId: (state, action) => {
       state.userId = action.payload;
-      localStorage.setItem('userId', action.payload); // ✅ persist
+      localStorage.setItem('userId', action.payload);
     },
     clearUser: (state) => {
       state.userName = '';

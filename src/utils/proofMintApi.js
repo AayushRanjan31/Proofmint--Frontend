@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const baseUrl = config.api.baseUrl;
 
-// signup
+
 export async function signUp(firstName, lastName, email, password, number) {
   const response = await axios.post(`${baseUrl}/api/v1/auth/signup`, {firstName, lastName, email, password, number}, {
     withCredentials: true,
@@ -12,7 +12,7 @@ export async function signUp(firstName, lastName, email, password, number) {
   return response.data;
 }
 
-// login
+
 export async function login(email, password) {
   console.log(email, password);
 
@@ -26,7 +26,7 @@ export async function login(email, password) {
   return response.data;
 }
 
-// get all documents
+
 export async function fetchDocuments() {
   const response = await axios.get(`${baseUrl}/api/v1/documents`, {withCredentials: true,
     headers: {
@@ -35,7 +35,7 @@ export async function fetchDocuments() {
   return response.data;
 }
 
-// upload document
+
 export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   const formData = new FormData();
   formData.append('file', file);
@@ -57,7 +57,7 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   return response.data;
 };
 
-// stamp document to backend
+
 export const saveFinalCertificateApi = async (blob, documentId) => {
   const formData = new FormData();
   formData.append('file', blob);
@@ -68,7 +68,7 @@ export const saveFinalCertificateApi = async (blob, documentId) => {
   return response.data;
 };
 
-// // verify document
+
 export async function getCertificateDetails(documentId) {
   const certificate=await axios.post(`${baseUrl}/api/v1/documents/verify`, {documentId});
   return certificate.data;
@@ -93,7 +93,7 @@ export const changePassword = async (password, newPassword, email) => {
   }, {withCredentials: true});
 };
 
-// forget-password
+
 export const forgetPassword = async (email) => {
   const res = await axios.post(
       `${baseUrl}/api/v1/auth/forgot/password`,
@@ -135,8 +135,8 @@ export const deleteUser=async ({userId})=>{
 
 export const deleteADocument = async ({docId}) => {
   const res = await axios.delete(`${baseUrl}/api/v1/admin/delete/document`, {
-    data: {certificateId: docId}, // <-- send body in "data"
-    withCredentials: true, // <-- send cookies
+    data: {certificateId: docId},
+    withCredentials: true,
     headers: {'Content-Type': 'application/json'},
   });
   return res.data;
