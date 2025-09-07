@@ -84,14 +84,16 @@ const DocumentsTable = () => {
                 <h3 className="text-lg font-semibold">{doc.title}</h3>
                 <p className="text-gray-600">Document ID: {doc.documentId}</p>
                 <p className="mt-1">
-                  <span
-                    className={`px-2 py-1 rounded-lg text-sm font-medium ${doc.status === 'Issued'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-red-100 text-red-700'
-                      }`}
-                  >
-                    {doc.status}
-                  </span>
+                   <span
+                        className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped'
+                            ? 'bg-green-100 text-green-700'
+                            : doc.status === 'uploaded'
+                              ? 'bg-red-100 text-blue-700'
+                              : 'bg-red-100 text-red-700'
+                          }`}
+                      >
+                        {doc.status}
+                      </span>
                 </p>
                 <p className="mt-1 text-sm text-gray-500">
                   Issued: {doc.createdAt.slice(0, 10)}

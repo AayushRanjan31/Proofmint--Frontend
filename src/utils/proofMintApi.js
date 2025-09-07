@@ -80,7 +80,7 @@ export const logout = async() => {
 
 
 export const fetchUser = async() => {
-  const res = await axios.get(`${baseUrl}/api/v1/admin/`);
+  const res = await axios.get(`${baseUrl}/api/v1/admin`);
   return res.data;
 } 
 
