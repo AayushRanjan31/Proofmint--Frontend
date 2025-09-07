@@ -43,13 +43,13 @@ const ManageUser = () => {
                       {data.role}
                     </span>
                   </td>
-                  <td className="p-3 text-right relative">
+                  <td className="p-3 text-center relative">
                     <div className="inline-block">
                       <button
                         onClick={() =>
                           setOpenMenu(openMenu === data.id ? null : data.id)
                         }
-                        className="p-2 rounded-full hover:bg-gray-100"
+                        className=" rounded-full hover:bg-gray-100"
                       >
                         <RiMore2Fill size={18} />
                       </button>

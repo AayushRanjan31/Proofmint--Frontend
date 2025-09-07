@@ -28,7 +28,7 @@ const Setting = () => {
     }
 
     try {
-      const res = await changePassword(prevPassword, newPassword, userEmail);
+      const res = await changePassword(prevPassword, newPassword, email);
       if (res.data.status) {
         toast.success('Password changed successfully!');
       } else {

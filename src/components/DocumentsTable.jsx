@@ -53,7 +53,7 @@ const DocumentsTable = () => {
                         className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped'
                             ? 'bg-green-100 text-green-700'
                             : doc.status === 'uploaded'
-                              ? 'bg-red-100 text-blue-700'
+                              ? 'bg-blue-100 text-blue-700'
                               : 'bg-red-100 text-red-700'
                           }`}
                       >
