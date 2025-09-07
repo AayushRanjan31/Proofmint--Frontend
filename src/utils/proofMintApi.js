@@ -128,4 +128,8 @@ export const otpVerification =async ({email,otp})=>{
   return res.data
  }
 
+ export const deleteUser=async({userId})=>{
+  const res=await axios.delete(`${baseUrl}/api/v1/admin/${userId}`,{withCredentials:true});
+  return res.data;
+ }
 

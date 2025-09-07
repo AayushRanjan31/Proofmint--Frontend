@@ -9,6 +9,8 @@ const UploadDocument = () => {
   const { file, title, expiryDate, loading } = useSelector((state) => state.uploadDocument);
   const user = localStorage.getItem("userName");
   const MAX_FILE_SIZE = 15 * 1024 * 1024;
+  const formValid = file && title && expiryDate;
+
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -106,13 +108,16 @@ const UploadDocument = () => {
           />
         </div>
 
-        <button
-          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
-          onClick={handleUpload}
-          disabled={loading}  
-        >
-          {loading ? 'Uploading please wait....' : 'Upload File'}
-        </button>
+<button
+  className={`py-2 font-medium rounded-lg cursor-pointer 
+    ${formValid 
+      ? "bg-blue-500 hover:bg-blue-600 text-white" 
+      : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+  onClick={handleUpload}
+  disabled={!formValid || loading}
+>
+  {loading ? 'Uploading please wait....' : 'Upload File'}
+</button>
       </div>
     </div>
   );

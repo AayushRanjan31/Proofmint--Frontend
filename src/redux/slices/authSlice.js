@@ -52,16 +52,19 @@ const Authentication = createSlice({
     setNumber: (state, action) => { state.number = action.payload; },
     setIsAdmin: (state, action) => { state.isAdmin = action.payload; },
     checkAuth: (state) => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        state.isLoggedIn = true;
-        state.token = token;
-      } else {
-        state.isLoggedIn = false;
-        state.token = null;
-      }
-      
-    },
+  const token = localStorage.getItem('token');
+  const isAdmin = localStorage.getItem('isAdmin') === "true"; // 👈 restore boolean
+  if (token) {
+    state.isLoggedIn = true;
+    state.token = token;
+    state.isAdmin = isAdmin;
+  } else {
+    state.isLoggedIn = false;
+    state.token = null;
+    state.isAdmin = false;
+  }
+}
+
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +72,7 @@ const Authentication = createSlice({
         state.loginEmail = '';
         state.loginPassword = '';
         state.isAdmin = action.payload?.userData?.role === 'admin';
+        localStorage.setItem("isAdmin", state.isAdmin);
         state.isLoggedIn = true;
 
         const token = action.payload?.userData.email;

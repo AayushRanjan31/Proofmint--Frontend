@@ -6,10 +6,13 @@ import {GiHamburgerMenu} from 'react-icons/gi';
 import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
 import { GrDocumentConfig } from "react-icons/gr";
+import {useSelector} from "react-redux";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const isAdmin = useSelector((state) => state.auth?.isAdmin);
+
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 767);
@@ -65,17 +68,19 @@ function Sidebar() {
               <span>Upload a File</span>
             </NavLink>
 
-            <NavLink
-              to="/manageUser"
-              className={({isActive}) =>
-                `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
-                  isActive && 'bg-[var(--side-btn-bg)]'
-                }`
-              }
-            >
-              <FaUserGear />
-              <span>Manage User</span>
-            </NavLink>
+{isAdmin && (
+              <NavLink
+                to="/manageUser"
+                className={({isActive}) =>
+                  `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                    isActive && 'bg-[var(--side-btn-bg)]'
+                  }`
+                }
+              >
+                <FaUserGear />
+                <span>Manage User</span>
+              </NavLink>
+            )}
             <NavLink
               to="/setting"
               className={({isActive}) =>

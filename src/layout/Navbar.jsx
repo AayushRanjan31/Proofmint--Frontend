@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setLoggedIn} from '../redux/slices/authSlice';
 import {logout} from '../utils/proofMintApi';
 import {useNavigate} from 'react-router-dom';
+import { clearUser } from "../redux/slices/userDetails"; 
 
 function NavbarPage() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function NavbarPage() {
 
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
+    dispatch(clearUser()); 
     setClickUser(false);
     logout();
     localStorage.removeItem("userName")

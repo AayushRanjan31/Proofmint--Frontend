@@ -5,6 +5,7 @@ import { saveFinalCertificateApi } from "../utils/proofMintApi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 export default function CertificateWithStamp() {
   const certRef = useRef(null);
   const qrRef = useRef(null); 

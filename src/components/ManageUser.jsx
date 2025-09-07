@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RiMore2Fill, RiDeleteBin6Line } from "react-icons/ri";
-import { fetchAllUser } from "../redux/slices/adminSlice";
+import { fetchAllUser,removeUser } from "../redux/slices/adminSlice";
+import { toast } from "react-toastify";
+
 
 const ManageUser = () => {
   const [openMenu, setOpenMenu] = useState(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+  isOpen: false,
+  userId: null,
+  userName: "",
+});
+
   const dispatch = useDispatch();
   const { userData, error } = useSelector((state) => state.admin);
 
@@ -12,9 +20,31 @@ const ManageUser = () => {
     dispatch(fetchAllUser());
   }, [dispatch]);
 
-  const handleDelete = (id) => {
-    
-  };
+const handleDeleteClick = (id, name) => {
+  setConfirmDialog({
+    isOpen: true,
+    userId: id,
+    userName: name,
+  });
+};
+const handleConfirmDelete = () => {
+  dispatch(removeUser(confirmDialog.userId))
+    .unwrap()
+    .then(() => {
+      toast.success(`User ${confirmDialog.userName} deleted successfully`);
+      setConfirmDialog({ isOpen: false, userId: null, userName: "" }); // ✅ closes dialog
+    })
+    .catch(() => {
+      toast.error("Failed to delete user");
+      setConfirmDialog({ isOpen: false, userId: null, userName: "" }); // ✅ still closes
+    });
+};
+
+const handleCancelDelete = () => {
+  setConfirmDialog({ isOpen: false, userId: null, userName: "" });
+  setOpenMenu(null)
+};
+
 
   return (
     <div className="lg:flex lg:justify-center md:ml-[280px] mt-10">
@@ -56,7 +86,7 @@ const ManageUser = () => {
                       {openMenu === data.id && (
                         <div className="absolute right-0 mt-0 w-30 bg-white border border-gray-100 shadow-lg rounded-md overflow-hidden ">
                           <button
-                            onClick={() => handleDelete(data.id)}
+                            onClick={() => handleDeleteClick(data.id, data.firstName)}
                             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                           >
                             <RiDeleteBin6Line /> Delete
@@ -98,6 +128,37 @@ const ManageUser = () => {
         </div>
 
       </div>
+      {confirmDialog.isOpen && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="bg-white rounded-xl shadow-lg p-6 w-80">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">
+        Delete User
+      </h2>
+      <p className="text-sm text-gray-600 mb-6">
+        Do you really want to delete{" "}
+        <span className="font-medium text-red-600">
+          {confirmDialog.userName}
+        </span>
+        ?
+      </p>
+      <div className="flex justify-end gap-3">
+        <button
+          onClick={handleCancelDelete}
+          className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleConfirmDelete}
+          className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
+        >
+          Yes, Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

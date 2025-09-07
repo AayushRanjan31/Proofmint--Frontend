@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DocumentsTable from "./components/DocumentsTable";
 import Signup from "./components/SignupPage";
 import LoginPage from "./components/LoginPage";
 import UploadDocument from "./pages/UploadDocument";
@@ -17,10 +16,11 @@ import ForgotPasswordPage from "./pages/ForgetPassword";
 import ResetPasswordPage from "./pages/ResetPassword";
 import OtpVerificationPage from "./pages/OtpVerification";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const dispatch = useDispatch();
-  const {isLoggedIn} = useSelector((state) => state.auth);
+  const {isLoggedIn,isAdmin} = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(checkAuth());
@@ -34,11 +34,13 @@ function App() {
           path: "/",
           element: <AppLayout />,
           children: [
-            { path: "/", element: <DocumentsTable /> },
+            { path: "/", element: <Dashboard /> },
             { path: "upload", element: <UploadDocument /> },
             { path: "setting", element: <Setting /> },
             { path: "stamp", element: <CertificateWithStamp /> },
-            { path: "manageUser", element: <ManageUser /> },
+            ...(isAdmin
+              ? [{ path: "manageUser", element: <ManageUser /> }]
+              : []),
           ],
         },
         { path: "*", element: <NotFound /> },
