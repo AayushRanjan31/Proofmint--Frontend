@@ -17,11 +17,11 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'login',
-  async ({ loginEmail, loginPassword }) => {
-    const loginData = await login(loginEmail, loginPassword, { withCredentials: true });
-    return loginData;
-  }
+    'login',
+    async ({loginEmail, loginPassword}) => {
+      const loginData = await login(loginEmail, loginPassword, {withCredentials: true});
+      return loginData;
+    },
 );
 
 const Authentication = createSlice({
@@ -37,71 +37,91 @@ const Authentication = createSlice({
     number: '',
     isAdmin: '',
     token: localStorage.getItem('token') || null,
-    isLoggedIn:!!localStorage.getItem("token"),
+    isLoggedIn: !!localStorage.getItem('token'),
     isAuthChecked: false,
   },
   reducers: {
-    setFirstname: (state, action) => { state.signUpFirstname = action.payload; },
-    setLastname: (state, action) => { state.signUpLastname = action.payload; },
-    setEmail: (state, action) => { state.signUpEmail = action.payload; },
-    setPassword: (state, action) => { state.signUpPassword = action.payload; },
-    setConfirmPassword: (state, action) => { state.signUpConfirmPassword = action.payload; },
-    setLoginEmail: (state, action) => { state.loginEmail = action.payload; },
-    setLoginPassword: (state, action) => { state.loginPassword = action.payload; },
-    setLoggedIn: (state, action) => { state.isLoggedIn = action.payload; },
-    setNumber: (state, action) => { state.number = action.payload; },
-    setIsAdmin: (state, action) => { state.isAdmin = action.payload; },
+    setFirstname: (state, action) => {
+      state.signUpFirstname = action.payload;
+    },
+    setLastname: (state, action) => {
+      state.signUpLastname = action.payload;
+    },
+    setEmail: (state, action) => {
+      state.signUpEmail = action.payload;
+    },
+    setPassword: (state, action) => {
+      state.signUpPassword = action.payload;
+    },
+    setConfirmPassword: (state, action) => {
+      state.signUpConfirmPassword = action.payload;
+    },
+    setLoginEmail: (state, action) => {
+      state.loginEmail = action.payload;
+    },
+    setLoginPassword: (state, action) => {
+      state.loginPassword = action.payload;
+    },
+    setLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload;
+    },
+    setNumber: (state, action) => {
+      state.number = action.payload;
+    },
+    setIsAdmin: (state, action) => {
+      state.isAdmin = action.payload;
+    },
     checkAuth: (state) => {
-  const token = localStorage.getItem('token');
-  const isAdmin = localStorage.getItem('isAdmin') === "true"; // 👈 restore boolean
-  if (token) {
-    state.isLoggedIn = true;
-    state.token = token;
-    state.isAdmin = isAdmin;
-  } else {
-    state.isLoggedIn = false;
-    state.token = null;
-    state.isAdmin = false;
-  }
-}
+      const token = localStorage.getItem('token');
+      const isAdmin = localStorage.getItem('isAdmin') === 'true'; // 👈 restore boolean
+      if (token) {
+        state.isLoggedIn = true;
+        state.token = token;
+        state.isAdmin = isAdmin;
+      } else {
+        state.isLoggedIn = false;
+        state.token = null;
+        state.isAdmin = false;
+      }
+    },
 
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.loginEmail = '';
-        state.loginPassword = '';
-        state.isAdmin = action.payload?.userData?.role === 'admin';
-        localStorage.setItem("isAdmin", state.isAdmin);
-        state.isLoggedIn = true;
+        .addCase(loginUser.fulfilled, (state, action) => {
+          state.loginEmail = '';
+          state.loginPassword = '';
+          state.isAdmin = action.payload?.userData?.role === 'admin';
+          localStorage.setItem('isAdmin', state.isAdmin);
+          state.isLoggedIn = true;
 
-        const token = action.payload?.userData.email;
+          const token = action.payload?.userData.email;
           if (token) {
-          state.token = token;
-          localStorage.setItem('token', token);
-          localStorage.setItem('userEmail', action.payload.userData.email);
-          localStorage.setItem('userName', action.payload.userData.firstName);
-        }
-        toast.success('Login successful.', { toastId: 'login-success' });
-      })
-      .addCase(loginUser.rejected, (state) => {
-        state.loginEmail = '';
-        state.loginPassword = '';
-        state.isLoggedIn = false;
-        toast.error('Failed to login, Please try again.', { toastId: 'login-error' });
-      })
-      .addCase(registerUser.fulfilled, () => {
-        toast.success('Registration successful', { toastId: 'registration-success' });
-      })
-      .addCase(registerUser.rejected, (state) => {
-        state.signUpFirstname = '';
-        state.signUpLastname = '';
-        state.signUpEmail = '';
-        state.signUpPassword = '';
-        state.signUpConfirmPassword = '';
-        state.number = '';
-        toast.error('Failed to signUp. Please try again!', { toastId: 'registration-error' });
-      });
+            state.token = token;
+            localStorage.setItem('token', token);
+            localStorage.setItem('userEmail', action.payload.userData.email);
+            localStorage.setItem('userName', action.payload.userData.firstName);
+          }
+          toast.success('Login successful.', {toastId: 'login-success'});
+        })
+        .addCase(loginUser.rejected, (state) => {
+          state.loginEmail = '';
+          state.loginPassword = '';
+          state.isLoggedIn = false;
+          toast.error('Failed to login, Please try again.', {toastId: 'login-error'});
+        })
+        .addCase(registerUser.fulfilled, () => {
+          toast.success('Registration successful', {toastId: 'registration-success'});
+        })
+        .addCase(registerUser.rejected, (state) => {
+          state.signUpFirstname = '';
+          state.signUpLastname = '';
+          state.signUpEmail = '';
+          state.signUpPassword = '';
+          state.signUpConfirmPassword = '';
+          state.number = '';
+          toast.error('Failed to signUp. Please try again!', {toastId: 'registration-error'});
+        });
   },
 });
 
@@ -117,7 +137,7 @@ export const {
   setLoggedIn,
   setIsAdmin,
   logout,
-  checkAuth
+  checkAuth,
 } = Authentication.actions;
 
 export default Authentication.reducer;

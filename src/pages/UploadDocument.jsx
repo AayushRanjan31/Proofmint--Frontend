@@ -1,13 +1,13 @@
 import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocument';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { file, title, expiryDate, loading } = useSelector((state) => state.uploadDocument);
-  const user = localStorage.getItem("userName");
+  const {file, title, expiryDate, loading} = useSelector((state) => state.uploadDocument);
+  const user = localStorage.getItem('userName');
   const MAX_FILE_SIZE = 15 * 1024 * 1024;
   const formValid = file && title && expiryDate;
 
@@ -42,12 +42,12 @@ const UploadDocument = () => {
     }
 
     const res = await dispatch(
-      uploadDocument({
-        file: file,
-        title: title,
-        expiry: expiryDate,
-        username: user,
-      })
+        uploadDocument({
+          file: file,
+          title: title,
+          expiry: expiryDate,
+          username: user,
+        }),
     );
 
     const filePath = URL.createObjectURL(file);
@@ -57,7 +57,7 @@ const UploadDocument = () => {
       dispatch(setDocumentUrl(res.payload.imageData.url));
       dispatch(setQrUrl(res.payload.imageData.qrCode));
       dispatch(setDocumentId(res.payload.imageData.certificateId));
-      navigate("/stamp");
+      navigate('/stamp');
     }
   };
 
@@ -95,29 +95,29 @@ const UploadDocument = () => {
           <input
             type="text"
             onChange={(e) => dispatch(setTitle(e.target.value))}
-            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg 
+            className="w-[50%] px-4 py-2 text-[var(--text-color)] placeholder-gray-400 border border-gray-300 rounded-lg
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
             placeholder="Please enter title"
           />
           <input
             type="date"
-            min={new Date().toISOString().split("T")[0]}
+            min={new Date().toISOString().split('T')[0]}
             onChange={(e) => dispatch(setExpiryDate(e.target.value))}
-            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg 
+            className="w-[50%] px-4 py-2 text-[var(--text-color)] placeholder-gray-400 border border-gray-300 rounded-lg
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
           />
         </div>
 
-<button
-  className={`py-2 font-medium rounded-lg cursor-pointer 
-    ${formValid 
-      ? "bg-blue-500 hover:bg-blue-600 text-white" 
-      : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
-  onClick={handleUpload}
-  disabled={!formValid || loading}
->
-  {loading ? 'Uploading please wait....' : 'Upload File'}
-</button>
+        <button
+          className={`py-2 font-medium rounded-lg cursor-pointer 
+    ${formValid ?
+      'bg-blue-500 hover:bg-blue-600 text-white' :
+      'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+          onClick={handleUpload}
+          disabled={!formValid || loading}
+        >
+          {loading ? 'Uploading please wait....' : 'Upload File'}
+        </button>
       </div>
     </div>
   );

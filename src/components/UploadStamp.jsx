@@ -1,19 +1,19 @@
-import { useRef, useState } from "react";
-import Draggable from "react-draggable";
-import html2canvas from "html2canvas";
-import { saveFinalCertificateApi } from "../utils/proofMintApi";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useRef, useState} from 'react';
+import Draggable from 'react-draggable';
+import html2canvas from 'html2canvas';
+import {saveFinalCertificateApi} from '../utils/proofMintApi';
+import {useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 
 export default function CertificateWithStamp() {
   const certRef = useRef(null);
-  const qrRef = useRef(null); 
+  const qrRef = useRef(null);
   const navigate = useNavigate();
   const [saving, setSaving] = useState(false);
 
-  const { documentUrl, qrUrl, documentId } = useSelector(
-    (state) => state.uploadDocument
+  const {documentUrl, qrUrl, documentId} = useSelector(
+      (state) => state.uploadDocument,
   );
 
   const isImage = documentUrl?.match(/\.(jpeg|jpg|png)$/i);
@@ -36,20 +36,20 @@ export default function CertificateWithStamp() {
       });
 
       const blob = await new Promise((resolve) =>
-        canvas.toBlob(resolve, "image/png")
+        canvas.toBlob(resolve, 'image/png'),
       );
 
-      let res = await saveFinalCertificateApi(blob, documentId);
+      const res = await saveFinalCertificateApi(blob, documentId);
 
       if (res?.status === true) {
-        alert("Certificate saved successfully!");
-        navigate("/");
+        alert('Certificate saved successfully!');
+        navigate('/');
       } else {
         alert('Save failed: Server error');
       }
     } catch (err) {
-      console.error("Error saving final cert:", err);
-      alert("Save failed");
+      console.error('Error saving final cert:', err);
+      alert('Save failed');
     } finally {
       setSaving(false);
     }
@@ -82,7 +82,7 @@ export default function CertificateWithStamp() {
         {qrUrl && (
           <Draggable
             nodeRef={qrRef}
-            defaultPosition={{ x: 50, y: 50 }}
+            defaultPosition={{x: 50, y: 50}}
             bounds="parent"
           >
             <img
@@ -101,7 +101,7 @@ export default function CertificateWithStamp() {
           className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition mt-4"
           disabled={saving}
         >
-          {saving ? "Saving, please wait..." : "Save with QR"}
+          {saving ? 'Saving, please wait...' : 'Save with QR'}
         </button>
       )}
     </div>

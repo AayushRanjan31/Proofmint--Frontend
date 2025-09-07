@@ -1,20 +1,22 @@
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { verifyOtp, setOtpDigit, setActiveIndex, setOtpArray, resetOtpState } from "../redux/slices/otpSlice";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {verifyOtp, setOtpDigit, setActiveIndex, setOtpArray, resetOtpState} from '../redux/slices/otpSlice';
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
 
 const OtpVerificationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading, otpArray, activeIndex} = useSelector((state) => state.otp);
   const inputRefs = useRef([]);
-  const {  resetPasswordEmail } = useSelector((state) => state.forgotPassword);
+  const {resetPasswordEmail} = useSelector((state) => state.forgotPassword);
   // Auto-focus current active index
   useEffect(() => {
     inputRefs.current[activeIndex]?.focus();
   }, [activeIndex]);
- useEffect(()=>{console.log(resetPasswordEmail)},[resetPasswordEmail])
+  useEffect(()=>{
+    console.log(resetPasswordEmail);
+  }, [resetPasswordEmail]);
   // Typing
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
@@ -53,28 +55,30 @@ const OtpVerificationPage = () => {
     dispatch(setActiveIndex(next));
   };
 
-  useEffect(()=>{console.log(resetPasswordEmail)},[resetPasswordEmail])
+  useEffect(()=>{
+    console.log(resetPasswordEmail);
+  }, [resetPasswordEmail]);
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const otp = otpArray.join('');
     if (!otp || otp.length !== 6) {
-      toast.error("Please enter a valid 6-digit OTP",{toastId:"verify"});
+      toast.error('Please enter a valid 6-digit OTP', {toastId: 'verify'});
       return;
     }
 
-    console.log(resetPasswordEmail)
-    dispatch(verifyOtp({email:resetPasswordEmail,otp}))
-      .unwrap()
-      .then(() => {
-        toast.success("OTP verified successfully!",{toastId:"verify"});
-        navigate("/resetPassword");
-        dispatch(resetOtpState())
-      })
-      .catch((err) => {
-        console.log(err)
-      });
+    console.log(resetPasswordEmail);
+    dispatch(verifyOtp({email: resetPasswordEmail, otp}))
+        .unwrap()
+        .then(() => {
+          toast.success('OTP verified successfully!', {toastId: 'verify'});
+          navigate('/resetPassword');
+          dispatch(resetOtpState());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   return (

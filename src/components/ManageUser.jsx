@@ -1,49 +1,49 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RiMore2Fill, RiDeleteBin6Line } from "react-icons/ri";
-import { fetchAllUser,removeUser } from "../redux/slices/adminSlice";
-import { toast } from "react-toastify";
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RiMore2Fill, RiDeleteBin6Line} from 'react-icons/ri';
+import {fetchAllUser, removeUser} from '../redux/slices/adminSlice';
+import {toast} from 'react-toastify';
 
 
 const ManageUser = () => {
   const [openMenu, setOpenMenu] = useState(null);
   const [confirmDialog, setConfirmDialog] = useState({
-  isOpen: false,
-  userId: null,
-  userName: "",
-});
+    isOpen: false,
+    userId: null,
+    userName: '',
+  });
 
   const dispatch = useDispatch();
-  const { userData, error } = useSelector((state) => state.admin);
+  const {userData, error} = useSelector((state) => state.admin);
 
   useEffect(() => {
     dispatch(fetchAllUser());
   }, [dispatch]);
 
-const handleDeleteClick = (id, name) => {
-  setConfirmDialog({
-    isOpen: true,
-    userId: id,
-    userName: name,
-  });
-};
-const handleConfirmDelete = () => {
-  dispatch(removeUser(confirmDialog.userId))
-    .unwrap()
-    .then(() => {
-      toast.success(`User ${confirmDialog.userName} deleted successfully`);
-      setConfirmDialog({ isOpen: false, userId: null, userName: "" }); // ✅ closes dialog
-    })
-    .catch(() => {
-      toast.error("Failed to delete user");
-      setConfirmDialog({ isOpen: false, userId: null, userName: "" }); // ✅ still closes
+  const handleDeleteClick = (id, name) => {
+    setConfirmDialog({
+      isOpen: true,
+      userId: id,
+      userName: name,
     });
-};
+  };
+  const handleConfirmDelete = () => {
+    dispatch(removeUser(confirmDialog.userId))
+        .unwrap()
+        .then(() => {
+          toast.success(`User ${confirmDialog.userName} deleted successfully`);
+          setConfirmDialog({isOpen: false, userId: null, userName: ''}); // ✅ closes dialog
+        })
+        .catch(() => {
+          toast.error('Failed to delete user');
+          setConfirmDialog({isOpen: false, userId: null, userName: ''}); // ✅ still closes
+        });
+  };
 
-const handleCancelDelete = () => {
-  setConfirmDialog({ isOpen: false, userId: null, userName: "" });
-  setOpenMenu(null)
-};
+  const handleCancelDelete = () => {
+    setConfirmDialog({isOpen: false, userId: null, userName: ''});
+    setOpenMenu(null);
+  };
 
 
   return (
@@ -129,35 +129,35 @@ const handleCancelDelete = () => {
 
       </div>
       {confirmDialog.isOpen && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div className="bg-white rounded-xl shadow-lg p-6 w-80">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-xl shadow-lg p-6 w-80">
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">
         Delete User
-      </h2>
-      <p className="text-sm text-gray-600 mb-6">
-        Do you really want to delete{" "}
-        <span className="font-medium text-red-600">
-          {confirmDialog.userName}
-        </span>
+            </h2>
+            <p className="text-sm text-gray-600 mb-6">
+        Do you really want to delete{' '}
+              <span className="font-medium text-red-600">
+                {confirmDialog.userName}
+              </span>
         ?
-      </p>
-      <div className="flex justify-end gap-3">
-        <button
-          onClick={handleCancelDelete}
-          className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700"
-        >
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleCancelDelete}
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700"
+              >
           Cancel
-        </button>
-        <button
-          onClick={handleConfirmDelete}
-          className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
-        >
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
+              >
           Yes, Delete
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

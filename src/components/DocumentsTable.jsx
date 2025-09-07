@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { allFetchDocument } from '../redux/slices/documentSlice';
-import { RiMore2Fill } from 'react-icons/ri';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {allFetchDocument} from '../redux/slices/documentSlice';
+import {RiMore2Fill} from 'react-icons/ri';
 
 
 const DocumentsTable = () => {
   const dispatch = useDispatch();
   const [openMenu, setOpenMenu] = useState(null);
-  const { documents, error } = useSelector((state) => state.documents);
+  const {documents, error} = useSelector((state) => state.documents);
 
   useEffect(() => {
     dispatch(allFetchDocument());
   }, [dispatch]);
   const [previewDialog, setPreviewDialog] = useState({
     isOpen: false,
-    docUrl: "",
-    docTitle: "",
+    docUrl: '',
+    docTitle: '',
   });
   const handlePreview = (doc) => {
-    setPreviewDialog({ isOpen: true, docUrl: doc.preview || doc.fileUrl, docTitle: doc.title });
+    setPreviewDialog({isOpen: true, docUrl: doc.preview || doc.fileUrl, docTitle: doc.title});
     setOpenMenu(null);
   };
 
   const handleGetScanner = (doc) => {
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = doc.qrCode; // already base64 image from backend
     link.download = `${doc.title}-scanner.png`;
     link.click();
@@ -33,19 +33,19 @@ const DocumentsTable = () => {
     if (!previewDialog.docUrl) return;
 
     try {
-      const response = await fetch(previewDialog.docUrl, { mode: "cors" });
+      const response = await fetch(previewDialog.docUrl, {mode: 'cors'});
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = blobUrl;
 
       // Extract extension if available
-      const extension = previewDialog.docUrl.match(/\.(jpg|jpeg|png|pdf)$/i)
-        ? previewDialog.docUrl.split(".").pop()
-        : "png";
+      const extension = previewDialog.docUrl.match(/\.(jpg|jpeg|png|pdf)$/i) ?
+        previewDialog.docUrl.split('.').pop() :
+        'png';
 
-      link.download = `${previewDialog.docTitle || "document"}.${extension}`;
+      link.download = `${previewDialog.docTitle || 'document'}.${extension}`;
       document.body.appendChild(link);
       link.click();
 
@@ -53,10 +53,9 @@ const DocumentsTable = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
     } catch (err) {
-      console.error("Download failed:", err);
+      console.error('Download failed:', err);
     }
   };
-
 
 
   const docsArray = Array.isArray(documents) ? documents : [];
@@ -100,12 +99,12 @@ const DocumentsTable = () => {
                     <td className="p-3 border-b">{doc.documentId}</td>
                     <td className="p-3 border-b">
                       <span
-                        className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped'
-                          ? 'bg-green-100 text-green-700'
-                          : doc.status === 'uploaded'
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'bg-red-100 text-red-700'
-                          }`}
+                        className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped' ?
+                          'bg-green-100 text-green-700' :
+                          doc.status === 'uploaded' ?
+                            'bg-blue-100 text-blue-700' :
+                            'bg-red-100 text-red-700'
+                        }`}
                       >
                         {doc.status}
                       </span>
@@ -147,13 +146,15 @@ const DocumentsTable = () => {
               )}
             </tbody>
           </table>
-          {previewDialog.isOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-              <div className="bg-white rounded-xl shadow-lg p-6 w-[80vw] h-[80vh] flex flex-col">
-                <h2 className="text-lg font-semibold mb-4">{previewDialog.docTitle}</h2>
 
-                <div className="flex-1 overflow-auto mb-4 flex items-center justify-center">
-                  {previewDialog.docUrl.match(/\.(jpg|jpeg|png)$/i) ? (
+        </div>
+        {previewDialog.isOpen && (
+          <div className="fixed inset-0 flex items-center z-[9999] justify-center bg-black bg-opacity-60 ">
+            <div className="bg-white rounded-xl shadow-lg p-6 w-[80vw] h-[80vh] flex flex-col">
+              <h2 className="text-lg font-semibold mb-4">{previewDialog.docTitle}</h2>
+
+              <div className="flex-1 overflow-auto mb-4 flex items-center justify-center">
+                {previewDialog.docUrl.match(/\.(jpg|jpeg|png)$/i) ? (
                     <img
                       src={previewDialog.docUrl}
                       alt={previewDialog.docTitle}
@@ -166,60 +167,77 @@ const DocumentsTable = () => {
                       className="w-full h-full"
                     />
                   )}
-                </div>
+              </div>
 
-                <div className="flex justify-end gap-3">
-                  <button
-                    onClick={handleDownload}
-                    className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
-                  >
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={handleDownload}
+                  className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+                >
                     Download
-                  </button>
-                  <button
-                    onClick={() => setPreviewDialog({ isOpen: false, docUrl: "", docTitle: "" })}
-                    className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700"
-                  >
+                </button>
+                <button
+                  onClick={() => setPreviewDialog({isOpen: false, docUrl: '', docTitle: ''})}
+                  className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700"
+                >
                     Close
-                  </button>
-                </div>
+                </button>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
 
         <div className="space-y-4 lg:hidden">
           {error ? (
-            <h1 className="text-center text-red-500">{error}</h1>
-          ) : docsArray.length === 0 ? (
-            <h1 className="text-center text-gray-500">No documents found</h1>
-          ) : (
-            docsArray.map((doc, idx) => (
-              <div
-                key={idx}
-                className="p-4 border rounded-lg shadow-sm bg-gray-50"
-              >
-                <h3 className="text-lg font-semibold">{doc.title}</h3>
-                <p className="text-gray-600">Document ID: {doc.documentId}</p>
-                <p className="mt-1">
-                  <span
-                    className={`px-3 py-1 rounded-lg text-sm font-medium ${doc.status === 'stamped'
-                      ? 'bg-green-100 text-green-700'
-                      : doc.status === 'uploaded'
-                        ? 'bg-red-100 text-blue-700'
-                        : 'bg-red-100 text-red-700'
-                      }`}
-                  >
-                    {doc.status}
-                  </span>
-                </p>
-                <p className="mt-1 text-sm text-gray-500">
-                  Issued: {doc.createdAt.slice(0, 10)}
-                </p>
-              </div>
-            ))
-          )}
+    <h1 className="text-center text-red-500">{error}</h1>
+  ) : docsArray.length === 0 ? (
+    <h1 className="text-center text-gray-500">No documents found</h1>
+  ) : (
+    docsArray.map((doc, idx) => (
+      <div
+        key={idx}
+        className="p-4 border rounded-lg shadow-sm bg-gray-50"
+      >
+        <h3 className="text-lg font-semibold">{doc.title}</h3>
+        <p className="text-gray-600">Document ID: {doc.documentId}</p>
+        <p className="mt-1">
+          <span
+            className={`px-3 py-1 rounded-lg text-sm font-medium ${
+              doc.status === 'stamped' ?
+                'bg-green-100 text-green-700' :
+                doc.status === 'uploaded' ?
+                'bg-blue-100 text-blue-700' :
+                'bg-red-100 text-red-700'
+            }`}
+          >
+            {doc.status}
+          </span>
+        </p>
+        <p className="mt-1 text-sm text-gray-500">
+          Issued: {doc.createdAt.slice(0, 10)}
+        </p>
+
+        {/* ✅ Direct action buttons */}
+        <div className="flex gap-2 mt-3">
+          <button
+            onClick={() => handlePreview(doc)}
+            className="flex-1 px-3 py-2 text-sm rounded-md border text-blue-600 hover:bg-blue-50"
+          >
+            Preview
+          </button>
+          <button
+            onClick={() => handleGetScanner(doc)}
+            className="flex-1 px-3 py-2 text-sm rounded-md border text-red-600 hover:bg-red-50"
+          >
+            Scanner
+          </button>
         </div>
+      </div>
+    ))
+  )}
+        </div>
+
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setLoginEmail, setLoginPassword, setLoggedIn, loginUser } from "../redux/slices/authSlice";
-import { setUserName, setUserEmail, setUserId } from "../redux/slices/userDetails";
-import { toast } from 'react-toastify';
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { setResetPasswordEmail } from "../redux/slices/forgetPasswordSlice";
+import {useSelector, useDispatch} from 'react-redux';
+import {setLoginEmail, setLoginPassword, setLoggedIn, loginUser} from '../redux/slices/authSlice';
+import {setUserName, setUserEmail, setUserId} from '../redux/slices/userDetails';
+import {toast} from 'react-toastify';
+import {Link} from 'react-router-dom';
+import {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {setResetPasswordEmail} from '../redux/slices/forgetPasswordSlice';
 
 const Login = () => {
-  const { loginEmail, loginPassword, isLoggedIn } = useSelector((state) => state.auth);
+  const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loginPassword.length < 8) {
-      toast.error('Password must be 8 characters.', { toastId: 'fetch-error' });
+      toast.error('Password must be 8 characters.', {toastId: 'fetch-error'});
     } else {
-      const res = await dispatch(loginUser({ loginEmail, loginPassword }));
+      const res = await dispatch(loginUser({loginEmail, loginPassword}));
       if (res.payload?.status == true) {
         dispatch(setLoggedIn(true));
         dispatch(setUserName(res.payload.userData.firstName));
@@ -34,16 +34,16 @@ const Login = () => {
       }
 
       if (loginPassword.length <= 5) {
-        toast.error('Password must be 6 characters.', { toastId: 'fetch-error' });
+        toast.error('Password must be 6 characters.', {toastId: 'fetch-error'});
       } else {
-        let res = await dispatch(loginUser({ loginEmail, loginPassword }));
+        const res = await dispatch(loginUser({loginEmail, loginPassword}));
         if (res.payload?.status == true) {
           dispatch(setLoggedIn(true));
           dispatch(setUserName(res.payload.userData.firstName));
           dispatch(setUserEmail(res.payload.userData.email));
           dispatch(setUserId(res.payload.userData.id));
           navigate('/');
-          console.log(localStorage.getItem("token"));
+          console.log(localStorage.getItem('token'));
         }
       }
     }
@@ -85,7 +85,7 @@ const Login = () => {
               <Link
                 to="forgetPassword"
                 onClick={() => {
-                  dispatch(setResetPasswordEmail(""));
+                  dispatch(setResetPasswordEmail(''));
                 }}
                 className="text-blue-600 hover:underline text-sm"
               >
@@ -101,7 +101,7 @@ const Login = () => {
             Login
           </button>
           <p className="text-center">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <Link to="/signUp" className="text-blue-600 hover:underline">
               Sign Up
             </Link>

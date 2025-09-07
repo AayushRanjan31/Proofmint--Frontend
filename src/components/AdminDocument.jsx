@@ -1,19 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { RiMore2Fill, RiDeleteBin6Line } from "react-icons/ri";
-import { FaBan } from "react-icons/fa";
-import { allFetchDocument, removeDocument, revokeDocument } from "../redux/slices/documentSlice";
-import { toast } from "react-toastify";
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {RiMore2Fill, RiDeleteBin6Line} from 'react-icons/ri';
+import {FaBan} from 'react-icons/fa';
+import {
+  allFetchDocument,
+  removeDocument,
+  revokeDocument,
+} from '../redux/slices/documentSlice';
+import {toast} from 'react-toastify';
 
 const AdminDocument = () => {
   const dispatch = useDispatch();
-  const { documents, error } = useSelector((state) => state.documents);
+  const {documents, error} = useSelector((state) => state.documents);
   const [openMenu, setOpenMenu] = useState(null);
 
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     docId: null,
-    docTitle: "",
+    docTitle: '',
   });
 
   useEffect(() => {
@@ -26,39 +30,35 @@ const AdminDocument = () => {
       docId,
       docTitle: title,
     });
-    setOpenMenu(null); // close menu when dialog opens
+    setOpenMenu(null);
   };
-
-
-
 
   const handleCancelDelete = () => {
-    setConfirmDialog({ isOpen: false, docId: null, docTitle: "" });
+    setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
   };
 
-const handleConfirmDelete = async () => {
-  try {
-    await dispatch(removeDocument(confirmDialog.docId)).unwrap();
-    toast.success(`Document "${confirmDialog.docTitle}" deleted successfully`);
-    setConfirmDialog({ isOpen: false, docId: null, docTitle: "" });
-    dispatch(allFetchDocument()); // fetch AFTER delete
-  } catch (err) {
-    toast.error("Failed to delete document");
-    setConfirmDialog({ isOpen: false, docId: null, docTitle: "" });
-  }
-};
+  const handleConfirmDelete = async () => {
+    try {
+      await dispatch(removeDocument(confirmDialog.docId)).unwrap();
+      toast.success(`Document "${confirmDialog.docTitle}" deleted successfully`);
+      setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
+      dispatch(allFetchDocument());
+    } catch (err) {
+      toast.error('Failed to delete document');
+      setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
+    }
+  };
 
-const handleRevoke = async (docId, title) => {
-  try {
-    await dispatch(revokeDocument(docId)).unwrap();
-    toast.success(`Document "${title}" revoked successfully`);
-    dispatch(allFetchDocument()); // fetch AFTER revoke
-    setOpenMenu(null);
-  } catch (err) {
-    toast.error("Failed to revoke document");
-  }
-};
-
+  const handleRevoke = async (docId, title) => {
+    try {
+      await dispatch(revokeDocument(docId)).unwrap();
+      toast.success(`Document "${title}" revoked successfully`);
+      dispatch(allFetchDocument());
+      setOpenMenu(null);
+    } catch (err) {
+      toast.error('Failed to revoke document');
+    }
+  };
 
   return (
     <div className="lg:flex lg:justify-center md:ml-[280px]">
@@ -67,6 +67,7 @@ const handleRevoke = async (docId, title) => {
           <p className="pb-3 md:text-5xl text-4xl font-bold">All Documents</p>
         </div>
 
+        {/* Desktop Table */}
         <div className="hidden overflow-x-auto lg:block">
           <table className="w-full border-collapse">
             <thead>
@@ -97,15 +98,17 @@ const handleRevoke = async (docId, title) => {
                   <tr key={idx} className="text-[var(--text-color)]">
                     <td className="p-3 border-b">{doc.title}</td>
                     <td className="p-3 border-b">{doc.documentId}</td>
-                    <td className="p-3 border-b">{doc.createdAt?.slice(0, 10)}</td>
+                    <td className="p-3 border-b">
+                      {doc.createdAt?.slice(0, 10)}
+                    </td>
                     <td className="p-3 border-b">
                       <span
                         className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                          doc.status === "stamped"
-                            ? "bg-green-100 text-green-700"
-                            : doc.status === "uploaded"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-red-100 text-red-700"
+                          doc.status === 'stamped' ?
+                            'bg-green-100 text-green-700' :
+                            doc.status === 'uploaded' ?
+                            'bg-blue-100 text-blue-700' :
+                            'bg-red-100 text-red-700'
                         }`}
                       >
                         {doc.status}
@@ -123,18 +126,20 @@ const handleRevoke = async (docId, title) => {
                           <RiMore2Fill size={18} />
                         </button>
                         {openMenu === idx && (
-                          <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-100 shadow-lg rounded-md overflow-hidden z-10">
+                          <div className="absolute right-0 mt-2 w-32 bg-[var(--component-bg)] border border-gray-100 shadow-lg rounded-md overflow-hidden z-10">
                             <button
                               onClick={() => handleRevoke(doc.id, doc.title)}
                               className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-red-50"
                             >
-                              <FaBan size={20} /> Revoke
+                              <FaBan size={16} /> Revoke
                             </button>
                             <button
-                              onClick={() => handleDeleteClick(doc.id, doc.title)}
+                              onClick={() =>
+                                handleDeleteClick(doc.id, doc.title)
+                              }
                               className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                             >
-                              <RiDeleteBin6Line size={20} /> Delete
+                              <RiDeleteBin6Line size={16} /> Delete
                             </button>
                           </div>
                         )}
@@ -146,6 +151,57 @@ const handleRevoke = async (docId, title) => {
             </tbody>
           </table>
         </div>
+
+        {/* Mobile Cards */}
+        <div className="space-y-4 lg:hidden">
+          {documents?.map((doc) => (
+            <div
+              key={doc.id}
+              className="p-4 border border-gray-200 rounded-lg bg-white shadow-sm"
+            >
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="font-semibold text-gray-900">{doc.title}</h3>
+                <span
+                  className={`px-2 py-0.5 text-xs font-medium rounded-full ${
+                    doc.status === 'stamped' ?
+                      'bg-green-100 text-green-700' :
+                      doc.status === 'uploaded' ?
+                      'bg-blue-100 text-blue-700' :
+                      'bg-red-100 text-red-700'
+                  }`}
+                >
+                  {doc.status}
+                </span>
+              </div>
+              <p className="text-sm text-gray-600 mb-1">
+                <span className="font-medium">ID:</span> {doc.documentId}
+              </p>
+              <p className="text-sm text-gray-600 mb-1">
+                <span className="font-medium">Issued:</span>{' '}
+                {doc.createdAt?.slice(0, 10)}
+              </p>
+              <p className="text-sm text-gray-600 mb-3">
+                <span className="font-medium">Expire:</span>{' '}
+                {doc.expiry?.slice(0, 10)}
+              </p>
+
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={() => handleRevoke(doc.id, doc.title)}
+                  className="flex-1 px-3 py-2 text-sm rounded-md border text-yellow-600 hover:bg-yellow-50 flex items-center justify-center gap-1"
+                >
+                  <FaBan size={14} /> Revoke
+                </button>
+                <button
+                  onClick={() => handleDeleteClick(doc.id, doc.title)}
+                  className="flex-1 px-3 py-2 text-sm rounded-md border text-red-600 hover:bg-red-50 flex items-center justify-center gap-1"
+                >
+                  <RiDeleteBin6Line size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Confirm Delete Dialog */}
@@ -156,8 +212,11 @@ const handleRevoke = async (docId, title) => {
               Delete Document
             </h2>
             <p className="text-sm text-gray-600 mb-6">
-              Do you really want to delete{" "}
-              <span className="font-medium text-red-600">{confirmDialog.docTitle}</span>?
+              Do you really want to delete{' '}
+              <span className="font-medium text-red-600">
+                {confirmDialog.docTitle}
+              </span>
+              ?
             </p>
             <div className="flex justify-end gap-3">
               <button

@@ -4,11 +4,14 @@ import Sidebar from './Sidebar';
 
 const AppLayout = () => {
   return (
-    <div>
-      <NavbarPage/>
-      <Sidebar/>
-      <Outlet/>
-
+    <div className="flex flex-col">
+      <NavbarPage />
+      <div className="mt-16">
+        <Sidebar />
+        <div>
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,19 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from 'react-redux';
 import {
   resetPassword,
   setConfirmPassword,
   setNewPassword,
-} from "../redux/slices/resetPasswordSlice";
-import { toast } from "react-toastify";
-import { Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+} from '../redux/slices/resetPasswordSlice';
+import {toast} from 'react-toastify';
+import {Lock} from 'lucide-react';
+import {useNavigate} from 'react-router-dom';
 
 const ResetPasswordPage = () => {
   const dispatch = useDispatch();
-  const { resetPasswordEmail } = useSelector((state) => state.forgotPassword);
-  const { loading } = useSelector((state) => state.resetPassword);
-  const { newPassword, confirmPassword } = useSelector(
-    (state) => state.resetPassword
+  const {resetPasswordEmail} = useSelector((state) => state.forgotPassword);
+  const {loading} = useSelector((state) => state.resetPassword);
+  const {newPassword, confirmPassword} = useSelector(
+      (state) => state.resetPassword,
   );
   const navigate = useNavigate();
   const handleSubmit = (e) => {
@@ -23,21 +23,21 @@ const ResetPasswordPage = () => {
       return;
     }
     if (newPassword !== confirmPassword) {
-      toast.error("Passwords do not match", { toastId: "password" });
+      toast.error('Passwords do not match', {toastId: 'password'});
       return;
     }
 
-    dispatch(resetPassword({ email: resetPasswordEmail, newPassword }))
-      .unwrap()
-      .then(() => {
-        toast.success("Password reset successfully!", { toastId: "password1" });
-        navigate("/");
-        dispatch(setConfirmPassword(""));
-        dispatch(setNewPassword(""));
-      })
-      .catch((err) => {
-        toast.error(err, { toastId: "error" });
-      });
+    dispatch(resetPassword({email: resetPasswordEmail, newPassword}))
+        .unwrap()
+        .then(() => {
+          toast.success('Password reset successfully!', {toastId: 'password1'});
+          navigate('/');
+          dispatch(setConfirmPassword(''));
+          dispatch(setNewPassword(''));
+        })
+        .catch((err) => {
+          toast.error(err, {toastId: 'error'});
+        });
   };
 
   return (
@@ -57,8 +57,8 @@ const ResetPasswordPage = () => {
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => dispatch(setNewPassword(e.target.value))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-purple-500 focus:border-transparent 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg
+              focus:ring-2 focus:ring-purple-500 focus:border-transparent
               shadow-sm text-gray-700 placeholder-gray-400"
             required
           />
@@ -68,8 +68,8 @@ const ResetPasswordPage = () => {
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg 
-              focus:ring-2 focus:ring-purple-500 focus:border-transparent 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg
+              focus:ring-2 focus:ring-purple-500 focus:border-transparent
               shadow-sm text-gray-700 placeholder-gray-400"
             required
           />

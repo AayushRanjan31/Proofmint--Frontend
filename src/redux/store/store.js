@@ -21,7 +21,7 @@ export const store = configureStore({
     forgotPassword: forgotPassword,
     resetPassword: resetPassword,
     otp: otp,
-    admin: admin
+    admin: admin,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
