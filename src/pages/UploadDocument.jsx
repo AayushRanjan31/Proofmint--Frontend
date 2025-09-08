@@ -2,6 +2,7 @@ import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocument';
 import {useNavigate} from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const UploadDocument = () => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     validateFile(selectedFile);
+    e.target.value=null;
   };
 
   const handleDrop = (e) => {
@@ -26,7 +28,7 @@ const UploadDocument = () => {
   const validateFile = (selectedFile) => {
     if (!selectedFile) return;
     if (selectedFile.size > MAX_FILE_SIZE) {
-      alert('File size must be less than 15MB!');
+      toast.error( 'File size should be less than 15MB' );
       dispatch(setFile(null));
       return;
     }
@@ -35,7 +37,6 @@ const UploadDocument = () => {
 
   const handleUpload = async () => {
     if (!file) {
-      alert('Please upload a file first!');
       return;
     }
 
@@ -92,6 +93,7 @@ const UploadDocument = () => {
         <div className="flex gap-4 w-full justify-center">
           <input
             type="text"
+            value={title}
             onChange={(e) => dispatch(setTitle(e.target.value))}
             className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
@@ -99,6 +101,7 @@ const UploadDocument = () => {
           />
           <input
             type="date"
+            value={expiryDate}
             min={new Date().toISOString().split('T')[0]}
             onChange={(e) => dispatch(setExpiryDate(e.target.value))}
             className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
@@ -107,9 +110,9 @@ const UploadDocument = () => {
         </div>
 
         <button
-          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
+          className="py-2 bg-blue-500 disabled:bg-blue-400 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer disabled:cursor-not-allowed"
           onClick={handleUpload}
-          disabled={loading}
+          disabled={loading || !file || !title || !expiryDate}
         >
           {loading ? 'Uploading please wait....' : 'Upload File'}
         </button>

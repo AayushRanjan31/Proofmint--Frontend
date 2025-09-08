@@ -104,7 +104,6 @@ export const deleteUser=async ({userId})=>{
 };
 
 export const deleteADocument = async ({docId}) => {
-  console.log(docId);
   const res = await axiosInstance.delete(`/api/v1/admin/delete/document`, {
     data: {certificateId: docId},
   });

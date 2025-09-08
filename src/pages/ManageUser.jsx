@@ -31,12 +31,12 @@ const ManageUser = () => {
     dispatch(removeUser(confirmDialog.userId))
         .unwrap()
         .then(() => {
-          toast.success(`User ${confirmDialog.userName} deleted successfully`);
-          setConfirmDialog({isOpen: false, userId: null, userName: ''}); // ✅ closes dialog
+          toast.success(`User ${confirmDialog.userName} deleted successfully`, {toastId: 'delete'});
+          setConfirmDialog({isOpen: false, userId: null, userName: ''});
         })
         .catch(() => {
-          toast.error('Failed to delete user');
-          setConfirmDialog({isOpen: false, userId: null, userName: ''}); // ✅ still closes
+          toast.error('Failed to delete user', {toastId: 'deleted'});
+          setConfirmDialog({isOpen: false, userId: null, userName: ''});
         });
   };
 
@@ -52,7 +52,7 @@ const ManageUser = () => {
 
         {/* Desktop Table */}
         <div className="hidden overflow-x-auto lg:block">
-          <table className="w-full text-sm text-gray-700">
+          <table className="w-full text-sm text-gray-700 mb-4">
             <thead>
               <tr className="text-left bg-[var(--table-bg)] text-[var(--text-color)] text-xs uppercase tracking-wide">
                 <th className="p-3">Id</th>

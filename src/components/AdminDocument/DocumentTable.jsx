@@ -32,7 +32,7 @@ const DocumentTable = ({documents, error, openMenu, setOpenMenu, onRevoke, onDel
             documents?.map((doc, idx) => (
               <tr key={idx} className="text-[var(--text-color)]">
                 <td className="p-3 border-b">{doc.title}</td>
-                <td className="p-3 border-b">{doc.certificateId}</td>
+                <td className="p-3 border-b">{doc.documentId}</td>
                 <td className="p-3 border-b">{doc.issuer}</td>
                 <td className="p-3 border-b">
                   <span

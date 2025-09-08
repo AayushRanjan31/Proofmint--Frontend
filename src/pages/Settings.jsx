@@ -31,12 +31,12 @@ const Settings = () => {
       const res = await changePassword(prevPassword, newPassword, Email);
 
       if (res.data.status) {
-        toast.success('Password changed successfully!');
+        toast.success('Password changed successfully!', {toastId: 'success'});
       } else {
         if (res.data.message === 'Current password is incorrect') {
           toast.error('Current password is wrong!');
         } else {
-          toast.error(res.data.message || 'Something went wrong.');
+          toast.error(res.data.message || 'Something went wrong.', {toastId: 'error'});
         }
       }
     } catch (err) {

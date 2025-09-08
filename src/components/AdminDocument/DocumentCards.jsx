@@ -24,7 +24,7 @@ const DocumentCards = ({documents, onRevoke, onDeleteClick}) => {
             </span>
           </div>
           <p className="text-sm text-gray-600 mb-1">
-            <span className="font-medium">ID:</span> {doc.certificateId}
+            <span className="font-medium">ID:</span> {doc.documentId}
           </p>
           <p className="text-sm text-gray-600 mb-1">
             <span className="font-medium">Issued:</span>{' '}
