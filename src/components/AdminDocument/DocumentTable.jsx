@@ -2,7 +2,6 @@ import {RiMore2Fill, RiDeleteBin6Line} from 'react-icons/ri';
 import {FaBan} from 'react-icons/fa';
 
 const DocumentTable = ({documents, error, openMenu, setOpenMenu, onRevoke, onDeleteClick}) => {
-  console.log(documents);
   return (
     <div className="hidden overflow-x-auto lg:block">
       <table className="w-full border-collapse mb-20">
@@ -66,7 +65,6 @@ const DocumentTable = ({documents, error, openMenu, setOpenMenu, onRevoke, onDel
                         >
                           <FaBan size={16} /> Revoke
                         </button>
-                        {console.log(doc)}
                         <button
                           onClick={() => onDeleteClick(doc.certificateId
                               , doc.title)}
