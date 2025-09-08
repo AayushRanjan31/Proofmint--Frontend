@@ -2,7 +2,7 @@
 
 A secure system that lets **authorised users** upload documents (PDF, Image, Doc), apply a draggable digital stamp (document ID, optional QR code, verification URL), and flatten it into a printable PDF stored with metadata.  
 
-The system includes a public verification portal that allows anyone with the document ID to preview the document with a watermark.
+The system includes a public verification portal that allows anyone with the document ID to preview the document with a stamp and watermark.
 
 ---
 
@@ -10,7 +10,7 @@ The system includes a public verification portal that allows anyone with the doc
 ## Features
 - **Authentication** – Login & Sign Up
 - **Upload Documents** (PDF, DOC, Images) less than 15 mb 
-- **Draggable Stamp**
+- **Place a draggable stamp** 
 - **Public Verification Page** – preview the document 
 - **Responsive UI** – Works on desktop and mobile
 
@@ -19,7 +19,7 @@ The system includes a public verification portal that allows anyone with the doc
 
 ## Tech Stack
 - **Frontend Framework:** React 
-- **Styling:** TailwindCSS, Bootstrap 5, Material UI (MUI), Ant Design
+- **Styling:** TailwindCSS, Bootstrap, Material UI (MUI), Ant Design
 - **State Management:** Redux Toolkit, React Redux  
 - **Routing:** React Router 
 - **PDF & QR Tools:** pdf-lib, react-pdf, html2canvas, qrcode, qrcode.react  
@@ -32,7 +32,7 @@ The system includes a public verification portal that allows anyone with the doc
 
 ### 1. Clone the Repository
 ```bash
-git https://gitlab.com/AayushRanjan31/proof-mint-frontend-project
+git clone https://gitlab.com/AayushRanjan31/proof-mint-frontend-project
 cd proof-mint-frontend-project
 ```
 
