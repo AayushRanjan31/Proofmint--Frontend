@@ -10,7 +10,7 @@ export const getCerificate = createAsyncThunk(
           return rejectWithValue('Document not found');
         }
         return certificateDetails;
-      } catch (err) {
+      } catch {
         return rejectWithValue('Document not found');
       }
     },

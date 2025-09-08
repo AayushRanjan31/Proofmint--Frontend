@@ -31,12 +31,6 @@ const uploadDocumentSlice = createSlice({
     setTitle: (state, action)=>{
       state.title=action.payload;
     },
-    setExpiryDate: (state, action)=>{
-      state.expiryDate=action.payload;
-    },
-    setTitle: (state, action)=>{
-      state.title=action.payload;
-    },
     setFilePath: (state, action) => {
       state.filePath = action.payload;
     },
@@ -51,27 +45,6 @@ const uploadDocumentSlice = createSlice({
     },
     setDocumentId: (state, action)=>{
       state.documentId=action.payload;
-    },
-    setExpiryDate: (state, action)=>{
-      state.expiryDate=action.payload;
-    },
-    setTitle: (state, action)=>{
-      state.title=action.payload;
-    },
-    setDocumentUrl: (state, action)=>{
-      state.documentUrl=action.payload;
-    },
-    setQrUrl: (state, action)=>{
-      state.qrUrl=action.payload;
-    },
-    setDocumentId: (state, action)=>{
-      state.documentId=action.payload;
-    },
-    setExpiryDate: (state, action)=>{
-      state.expiryDate=action.payload;
-    },
-    setTitle: (state, action)=>{
-      state.title=action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -98,5 +71,6 @@ const uploadDocumentSlice = createSlice({
   },
 });
 
-export const {setFilePath, setFile, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} = uploadDocumentSlice.actions;
+export const {setFilePath, setFile, setDocumentUrl, setQrUrl, setDocumentId,
+  setTitle, setExpiryDate} = uploadDocumentSlice.actions;
 export default uploadDocumentSlice.reducer;

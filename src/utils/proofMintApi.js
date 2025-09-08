@@ -1,37 +1,21 @@
-import config from '../config';
+import axiosInstance from '../config';
 import axios from 'axios';
-
-const baseUrl = config.api.baseUrl;
 
 
 export async function signUp(firstName, lastName, email, password, number) {
-  const response = await axios.post(`${baseUrl}/api/v1/auth/signup`, {firstName, lastName, email, password, number}, {
-    withCredentials: true,
-    headers: {'Content-Type': 'application/json'},
-  });
+  const response = await axiosInstance.post(`/api/v1/auth/signup`, {firstName, lastName, email, password, number});
   return response.data;
 }
 
 
 export async function login(email, password) {
-  console.log(email, password);
-
-  const response = await axios.post(
-      `${baseUrl}/api/v1/auth/login`, {email, password}, {withCredentials: true, headers: {
-        'Content-Type': 'application/json',
-      },
-      },
-  );
-  console.log(response.data);
+  const response = await axiosInstance.post(`/api/v1/auth/login`, {email, password});
   return response.data;
 }
 
 
 export async function fetchDocuments() {
-  const response = await axios.get(`${baseUrl}/api/v1/documents`, {withCredentials: true,
-    headers: {
-      'Content-Type': 'application/json',
-    }});
+  const response = await axiosInstance.get(`/api/v1/documents`);
   return response.data;
 }
 
@@ -42,18 +26,16 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   formData.append('title', title);
   formData.append('expiry', expiry);
   formData.append('username', username);
-
   const response = await axios.post(
-      `${baseUrl}/api/v1/document/upload`,
+      `${import.meta.env.VITE_BASE_URL}/api/v1/document/upload`,
       formData,
       {
+        withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        withCredentials: true,
       },
   );
-
   return response.data;
 };
 
@@ -62,88 +44,80 @@ export const saveFinalCertificateApi = async (blob, documentId) => {
   const formData = new FormData();
   formData.append('file', blob);
   formData.append('certificateId', documentId);
-  const response = await axios.post(`${baseUrl}/api/v1/document/stamps`, formData, {
-    headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true,
-  });
+  const response = await axiosInstance.post(`/api/v1/document/stamps`, formData, {
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    }});
   return response.data;
 };
 
 
 export async function getCertificateDetails(documentId) {
-  const certificate=await axios.post(`${baseUrl}/api/v1/documents/verify`, {documentId});
+  const certificate=await axiosInstance.post(`/api/v1/documents/verify`, {documentId});
   return certificate.data;
 }
 
 export const logout = async () => {
-  await axios.post(`${baseUrl}/api/v1/auth/logout`, {}, {withCredentials: true});
+  await axiosInstance.post(`/api/v1/auth/logout`);
 };
 
 
 export const fetchUser = async () => {
-  const res = await axios.get(`${baseUrl}/api/v1/admin/`, {withCredentials: true});
+  const res = await axiosInstance.get(`/api/v1/admin/`);
   return res.data;
 };
 
 
 export const changePassword = async (password, newPassword, email) => {
-  return axios.post(`${baseUrl}/api/v1/auth/update/password`, {
+  return axiosInstance.post(`/api/v1/auth/update/password`, {
     email,
     password,
     newPassword,
-  }, {withCredentials: true});
+  });
 };
 
 
 export const forgetPassword = async (email) => {
-  const res = await axios.post(
-      `${baseUrl}/api/v1/auth/forgot/password`,
-      {email: email},
-      {
-        headers: {'Content-Type': 'application/json'},
-      },
-  );
+  const res = await axiosInstance.post(
+      `/api/v1/auth/forgot/password`,
+      {email: email});
   return res.data;
 };
 
 export const otpVerification =async ({email, otp})=>{
-  const res = await axios.post(
-      `${baseUrl}/api/v1/auth/verify/otp`,
-      {email, otp},
-      {
-        headers: {'Content-Type': 'application/json'},
-      },
-  );
-  console.log(res.data);
+  const res = await axiosInstance.post(
+      `/api/v1/auth/verify/otp`,
+      {email, otp});
   return res.data;
 };
 export const resettingPassword=async ({email, newPassword})=>{
-  const res= await axios.post(
-      `${baseUrl}/api/v1/auth/change/password`,
-      {email, newPassword},
-      {
-        headers: {'Content-Type': 'application/json'},
-      },
-  );
-  console.log(res.data);
+  const res= await axiosInstance.post(
+      `/api/v1/auth/change/password`,
+      {email, newPassword});
   return res.data;
 };
 
 export const deleteUser=async ({userId})=>{
-  const res=await axios.delete(`${baseUrl}/api/v1/admin/${userId}`, {withCredentials: true});
+  const res=await axiosInstance.delete(`/api/v1/admin/${userId}`);
   return res.data;
 };
 
 export const deleteADocument = async ({docId}) => {
-  const res = await axios.delete(`${baseUrl}/api/v1/admin/delete/document`, {
+  console.log(docId);
+  const res = await axiosInstance.delete(`/api/v1/admin/delete/document`, {
     data: {certificateId: docId},
-    withCredentials: true,
-    headers: {'Content-Type': 'application/json'},
   });
   return res.data;
 };
 
+
 export const revokeADocument=async ({docId})=>{
-  const res=await axios.put(`${baseUrl}/api/v1/documents/revoke`, {certificateId: docId}, {withCredentials: true});
+  const res=await axiosInstance.put(`/api/v1/documents/revoke`, {certificateId: docId});
   return res.data;
 };
 
+export async function fetchAllAdminDocuments() {
+  const response = await axiosInstance.get(`/api/v1/admin/all/documents`);
+  return response.data;
+}

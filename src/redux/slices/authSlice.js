@@ -73,7 +73,8 @@ const Authentication = createSlice({
     },
     checkAuth: (state) => {
       const token = localStorage.getItem('token');
-      const isAdmin = localStorage.getItem('isAdmin') === 'true'; // 👈 restore boolean
+      // restore boolean
+      const isAdmin = localStorage.getItem('isAdmin') === 'true';
       if (token) {
         state.isLoggedIn = true;
         state.token = token;

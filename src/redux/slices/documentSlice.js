@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {deleteADocument, revokeADocument, fetchDocuments} from '../../utils/proofMintApi';
+import {deleteADocument, revokeADocument, fetchDocuments, fetchAllAdminDocuments} from '../../utils/proofMintApi';
 
 // Fetch all documents (if you already have it)
 export const allFetchDocument = createAsyncThunk(
@@ -10,12 +10,21 @@ export const allFetchDocument = createAsyncThunk(
     },
 );
 
+export const allFetchAdminDocuments = createAsyncThunk(
+    'documents/fetchAdminDocuments',
+    async () => {
+      const res = await fetchAllAdminDocuments();
+      return res.allDocs;
+    },
+);
+
 // Delete document
 export const removeDocument = createAsyncThunk(
     'documents/deleteDocument',
     async (docId) => {
       await deleteADocument({docId});
-      return docId; // Return docId to update state
+      // Return docId to update state
+      return docId;
     },
 );
 
@@ -24,7 +33,8 @@ export const revokeDocument = createAsyncThunk(
     'documents/revokeDocument',
     async (docId) => {
       await revokeADocument({docId});
-      return docId; // Return docId to update state
+      // Return docId to update state
+      return docId;
     },
 );
 
@@ -44,6 +54,13 @@ const documentSlice = createSlice({
           state.error = null;
         })
         .addCase(allFetchDocument.rejected, (state, action) => {
+          state.error = action.error.message || 'Failed to fetch documents';
+        })
+        .addCase(allFetchAdminDocuments.fulfilled, (state, action) => {
+          state.documents = action.payload;
+          state.error = null;
+        })
+        .addCase(allFetchAdminDocuments.rejected, (state, action) => {
           state.error = action.error.message || 'Failed to fetch documents';
         })
         .addCase(removeDocument.fulfilled, (state, action) => {

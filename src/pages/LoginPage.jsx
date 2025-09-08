@@ -1,24 +1,15 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoginEmail, setLoginPassword, setLoggedIn, loginUser} from '../redux/slices/authSlice';
-import {setUserName, setUserEmail, setUserId} from '../redux/slices/userDetails';
 import {toast} from 'react-toastify';
 import {Link} from 'react-router-dom';
-import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {setResetPasswordEmail} from '../redux/slices/forgetPasswordSlice';
 
-const Login = () => {
-  const {loginEmail, loginPassword, isLoggedIn} = useSelector((state) => state.auth);
+const LoginPage = () => {
+  const {loginEmail, loginPassword} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,23 +19,7 @@ const Login = () => {
       const res = await dispatch(loginUser({loginEmail, loginPassword}));
       if (res.payload?.status == true) {
         dispatch(setLoggedIn(true));
-        dispatch(setUserName(res.payload.userData.firstName));
-        dispatch(setUserEmail(res.payload.userData.email));
-        dispatch(setUserId(res.payload.userData.id));
-      }
-
-      if (loginPassword.length <= 5) {
-        toast.error('Password must be 6 characters.', {toastId: 'fetch-error'});
-      } else {
-        const res = await dispatch(loginUser({loginEmail, loginPassword}));
-        if (res.payload?.status == true) {
-          dispatch(setLoggedIn(true));
-          dispatch(setUserName(res.payload.userData.firstName));
-          dispatch(setUserEmail(res.payload.userData.email));
-          dispatch(setUserId(res.payload.userData.id));
-          navigate('/');
-          console.log(localStorage.getItem('token'));
-        }
+        navigate('/');
       }
     }
   };
@@ -101,7 +76,7 @@ const Login = () => {
             Login
           </button>
           <p className="text-center">
-            Don't have an account?{' '}
+            Dont have an account? &nbsp;
             <Link to="/signUp" className="text-blue-600 hover:underline">
               Sign Up
             </Link>
@@ -112,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -6,7 +6,7 @@ import {useNavigate, Link} from 'react-router-dom';
 import {setLoginEmail, setLoginPassword} from '../redux/slices/authSlice';
 import {resetOtpState} from '../redux/slices/otpSlice';
 
-const ForgotPasswordPage = () => {
+const ForgotPassword= () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading, resetPasswordEmail} = useSelector((state) => state.forgotPassword);
@@ -26,11 +26,9 @@ const ForgotPasswordPage = () => {
 
     try {
       dispatch(setResetPasswordEmail(resetPasswordEmail));
-      const res=await dispatch(forgotPassword(resetPasswordEmail)).unwrap();
-      console.log('API response:', res);
+      await dispatch(forgotPassword(resetPasswordEmail)).unwrap();
       navigate('/otpVerification');
     } catch (error) {
-      console.log(error);
       toast.error(error || 'Failed to send OTP', {toastId: 'error'});
     }
   };
@@ -40,7 +38,8 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[92vh] bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="flex items-center justify-center min-h-[92vh]
+    bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 m-3">
         <div className="text-center mb-6">
           <div className="flex justify-center items-center mb-2">
@@ -48,7 +47,7 @@ const ForgotPasswordPage = () => {
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Forgot Password?</h2>
           <p className="text-gray-500 text-sm mt-1">
-            Enter your registered email and we'll send you reset instructions.
+            Enter your registered email and we will send you reset instructions.
           </p>
         </div>
 
@@ -90,4 +89,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default ForgotPassword;

@@ -8,7 +8,7 @@ import {toast} from 'react-toastify';
 import {Lock} from 'lucide-react';
 import {useNavigate} from 'react-router-dom';
 
-const ResetPasswordPage = () => {
+const ResetPassword = () => {
   const dispatch = useDispatch();
   const {resetPasswordEmail} = useSelector((state) => state.forgotPassword);
   const {loading} = useSelector((state) => state.resetPassword);
@@ -88,4 +88,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default ResetPassword;

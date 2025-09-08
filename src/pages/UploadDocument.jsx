@@ -9,8 +9,6 @@ const UploadDocument = () => {
   const {file, title, expiryDate, loading} = useSelector((state) => state.uploadDocument);
   const user = localStorage.getItem('userName');
   const MAX_FILE_SIZE = 15 * 1024 * 1024;
-  const formValid = file && title && expiryDate;
-
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -95,7 +93,7 @@ const UploadDocument = () => {
           <input
             type="text"
             onChange={(e) => dispatch(setTitle(e.target.value))}
-            className="w-[50%] px-4 py-2 text-[var(--text-color)] placeholder-gray-400 border border-gray-300 rounded-lg
+            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
             placeholder="Please enter title"
           />
@@ -103,18 +101,15 @@ const UploadDocument = () => {
             type="date"
             min={new Date().toISOString().split('T')[0]}
             onChange={(e) => dispatch(setExpiryDate(e.target.value))}
-            className="w-[50%] px-4 py-2 text-[var(--text-color)] placeholder-gray-400 border border-gray-300 rounded-lg
+            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
                       focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
           />
         </div>
 
         <button
-          className={`py-2 font-medium rounded-lg cursor-pointer 
-    ${formValid ?
-      'bg-blue-500 hover:bg-blue-600 text-white' :
-      'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer"
           onClick={handleUpload}
-          disabled={!formValid || loading}
+          disabled={loading}
         >
           {loading ? 'Uploading please wait....' : 'Upload File'}
         </button>
@@ -124,4 +119,3 @@ const UploadDocument = () => {
 };
 
 export default UploadDocument;
-

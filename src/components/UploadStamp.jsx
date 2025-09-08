@@ -4,9 +4,9 @@ import html2canvas from 'html2canvas';
 import {saveFinalCertificateApi} from '../utils/proofMintApi';
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import {toast} from 'react-toastify';
 
-
-export default function CertificateWithStamp() {
+const UploadStamp=()=> {
   const certRef = useRef(null);
   const qrRef = useRef(null);
   const navigate = useNavigate();
@@ -42,14 +42,13 @@ export default function CertificateWithStamp() {
       const res = await saveFinalCertificateApi(blob, documentId);
 
       if (res?.status === true) {
-        alert('Certificate saved successfully!');
+        toast.success('Certificate saved successfully', {toastId: 'certificate-with-stamp'});
         navigate('/');
       } else {
-        alert('Save failed: Server error');
+        toast.error('Failed to upload with stamp ', {toastId: 'failed-with-stamp'});
       }
-    } catch (err) {
-      console.error('Error saving final cert:', err);
-      alert('Save failed');
+    } catch {
+      toast.error('Save Failed', {toastId: 'save-failed'});
     } finally {
       setSaving(false);
     }
@@ -106,4 +105,5 @@ export default function CertificateWithStamp() {
       )}
     </div>
   );
-}
+};
+export default UploadStamp;

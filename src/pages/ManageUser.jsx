@@ -14,7 +14,7 @@ const ManageUser = () => {
   });
 
   const dispatch = useDispatch();
-  const {userData, error} = useSelector((state) => state.admin);
+  const {userData} = useSelector((state) => state.admin);
 
   useEffect(() => {
     dispatch(fetchAllUser());
@@ -117,7 +117,7 @@ const ManageUser = () => {
               <p className="text-sm text-gray-600">{data.email}</p>
               <div className="flex gap-2 mt-3">
                 <button
-                  onClick={() => handleDelete(data.id)}
+                  onClick={() => handleDeleteClick(data.id, data.firstName)}
                   className="flex-1 px-3 py-2 text-sm rounded-md border text-red-600 hover:bg-red-50"
                 >
                   Delete

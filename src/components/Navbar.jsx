@@ -1,13 +1,11 @@
-import '../styles/navbarCustom.css';
 import {FaUserCircle} from 'react-icons/fa';
 import {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoggedIn} from '../redux/slices/authSlice';
 import {logout} from '../utils/proofMintApi';
 import {useNavigate} from 'react-router-dom';
-import {clearUser} from '../redux/slices/userDetails';
 
-function NavbarPage() {
+const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [clickUser, setClickUser] = useState(false);
@@ -17,7 +15,6 @@ function NavbarPage() {
 
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
-    dispatch(clearUser());
     setClickUser(false);
     logout();
     localStorage.removeItem('userName');
@@ -70,6 +67,6 @@ function NavbarPage() {
       )}
     </nav>
   );
-}
+};
 
-export default NavbarPage;
+export default Navbar;

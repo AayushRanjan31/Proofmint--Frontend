@@ -6,8 +6,10 @@ export const fetchAllUser = createAsyncThunk('admin/fetchUser', async () => {
   return data.users;
 });
 export const removeUser = createAsyncThunk('admin/deleteUser', async (userId) => {
-  await deleteUser({userId}); // call API
-  return userId; // return id so we can update state
+  // call API
+  await deleteUser({userId});
+  // return id so we can update state
+  return userId;
 });
 
 

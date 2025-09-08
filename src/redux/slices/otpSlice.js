@@ -6,7 +6,6 @@ export const verifyOtp = createAsyncThunk(
     'auth/verifyOtp',
     async ({email, otp}, {rejectWithValue}) => {
       try {
-        console.log(email, otp);
         const res = await otpVerification({email, otp});
         return res.data;
       } catch (error) {
@@ -58,7 +57,6 @@ const otpSlice = createSlice({
         .addCase(verifyOtp.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload;
-          toast.error( 'Invalid OTP');
         });
   },
 });

@@ -4,7 +4,7 @@ import {verifyOtp, setOtpDigit, setActiveIndex, setOtpArray, resetOtpState} from
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 
-const OtpVerificationPage = () => {
+const OtpVerification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading, otpArray, activeIndex} = useSelector((state) => state.otp);
@@ -14,9 +14,6 @@ const OtpVerificationPage = () => {
   useEffect(() => {
     inputRefs.current[activeIndex]?.focus();
   }, [activeIndex]);
-  useEffect(()=>{
-    console.log(resetPasswordEmail);
-  }, [resetPasswordEmail]);
   // Typing
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
@@ -55,10 +52,6 @@ const OtpVerificationPage = () => {
     dispatch(setActiveIndex(next));
   };
 
-  useEffect(()=>{
-    console.log(resetPasswordEmail);
-  }, [resetPasswordEmail]);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +61,6 @@ const OtpVerificationPage = () => {
       return;
     }
 
-    console.log(resetPasswordEmail);
     dispatch(verifyOtp({email: resetPasswordEmail, otp}))
         .unwrap()
         .then(() => {
@@ -77,7 +69,7 @@ const OtpVerificationPage = () => {
           dispatch(resetOtpState());
         })
         .catch((err) => {
-          console.log(err);
+          toast.error('invalid otp', {toastId: 'invalid'});
         });
   };
 
@@ -123,4 +115,4 @@ const OtpVerificationPage = () => {
   );
 };
 
-export default OtpVerificationPage;
+export default OtpVerification;

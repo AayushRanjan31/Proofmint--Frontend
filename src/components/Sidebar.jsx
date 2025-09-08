@@ -7,7 +7,7 @@ import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-function Sidebar() {
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const isAdmin = useSelector((state) => state.auth?.isAdmin);
@@ -51,6 +51,7 @@ function Sidebar() {
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
+              onClick={() => setIsOpen(false)}
             >
               <GrHomeRounded />
               <span>Dashboard</span>
@@ -62,6 +63,7 @@ function Sidebar() {
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
+              onClick={() => setIsOpen(false)}
             >
               <FiUpload />
               <span>Upload a File</span>
@@ -75,6 +77,7 @@ function Sidebar() {
                     isActive && 'bg-[var(--side-btn-bg)]'
                   }`
                 }
+                onClick={() => setIsOpen(false)}
               >
                 <FaUserGear />
                 <span>Manage User</span>
@@ -87,6 +90,7 @@ function Sidebar() {
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
+              onClick={() => setIsOpen(false)}
             >
               <IoSettingsOutline />
               <span>Settings</span>
@@ -105,5 +109,5 @@ function Sidebar() {
       )}
     </>
   );
-}
+};
 export default Sidebar;

@@ -4,8 +4,9 @@ import {useState} from 'react';
 import {toast} from 'react-toastify';
 import {changePassword} from '../utils/proofMintApi';
 
-const Setting = () => {
-  const {userName, userEmail}=useSelector((state)=>state.userDetails);
+const Settings = () => {
+  const user=localStorage.getItem('userName');
+  const Email=localStorage.getItem('userEmail');
   const {theme} = useSelector((state) => state.settings);
   const [newPassword, setNewPassword] = useState('');
   const [prevPassword, setprevPassword] = useState('');
@@ -27,17 +28,23 @@ const Setting = () => {
     }
 
     try {
-      const res = await changePassword(prevPassword, newPassword, userEmail);
+      const res = await changePassword(prevPassword, newPassword, Email);
+
       if (res.data.status) {
         toast.success('Password changed successfully!');
       } else {
-        toast.error(res.data.message || 'Something went wrong.');
+        if (res.data.message === 'Current password is incorrect') {
+          toast.error('Current password is wrong!');
+        } else {
+          toast.error(res.data.message || 'Something went wrong.');
+        }
       }
     } catch (err) {
-      toast.error(err.message || 'Failed to change password', {
+      toast.error(err.response?.data?.message || err.message || 'Failed to change password', {
         toastId: 'change-password-error',
       });
     }
+
     setNewPassword('');
     setprevPassword('');
   };
@@ -46,7 +53,7 @@ const Setting = () => {
   return (
     <div className="mt-20 md:flex md:justify-center md:ml-70 md:mt-10">
       <div
-        className={'m-8 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
+        className={'m-2 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
       >
         <div className="flex flex-col">
           <p className="pb-1 md:text-5xl text-4xl font-bold">Settings</p>
@@ -57,13 +64,13 @@ const Setting = () => {
             <div className="flex flex-col gap-2">
               <input
                 type="text"
-                value={userName}
+                value={user}
                 className="w-full p-2 border rounded-lg"
                 disabled
               />
               <input
                 type="text"
-                value={userEmail}
+                value={Email}
                 className="w-full p-2 border rounded-lg"
                 disabled
               />
@@ -131,4 +138,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default Settings;

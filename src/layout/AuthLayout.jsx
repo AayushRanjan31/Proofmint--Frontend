@@ -1,5 +1,5 @@
-import Footer from './Footer';
-import NavbarPage from './Navbar';
+import Footer from '../components/footer';
+import NavbarPage from '../components/Navbar';
 import {Outlet, useLocation} from 'react-router-dom';
 
 const AuthLayout = () => {
@@ -17,4 +17,3 @@ const AuthLayout = () => {
 };
 
 export default AuthLayout;
-

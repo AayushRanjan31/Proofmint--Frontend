@@ -1,11 +1,11 @@
-import NavbarPage from './Navbar';
+import Navbar from '../components/Navbar';
 import {Outlet} from 'react-router-dom';
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar';
 
 const AppLayout = () => {
   return (
     <div className="flex flex-col">
-      <NavbarPage />
+      <Navbar />
       <div className="mt-16">
         <Sidebar />
         <div>

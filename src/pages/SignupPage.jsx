@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 
-const Signup = () => {
-  const {number, signUpFirstname, signUpLastname, signUpEmail, signUpPassword, signUpConfirmPassword} = useSelector((state) => state.auth);
+const SignupPage = () => {
+  const {number, signUpFirstname, signUpLastname, signUpEmail, signUpPassword,
+    signUpConfirmPassword} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate=useNavigate();
   const handleSubmit =async (e) => {
@@ -20,10 +21,11 @@ const Signup = () => {
       toast.error('ConfirmPassword must be 8 characters.', {toastId: 'confirm-password-error'});
     } else if (signUpPassword !== signUpConfirmPassword) {
       toast.error('passwords must be same.', {toastId: 'match-password-error'});
+    } else if (number.length<= 9 || number.length>10) {
+      toast.error('Phone number must be 10 digits .', {toastId: 'phone-number'});
     } else {
-      console.log(signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number );
-      const res=await dispatch(registerUser({signUpFirstname, signUpLastname, signUpEmail, signUpPassword, number})).unwrap();
-      console.log(res);
+      const res=await dispatch(registerUser({signUpFirstname, signUpLastname, signUpEmail,
+        signUpPassword, number})).unwrap();
       if (res.status ===true) {
         dispatch(setFirstname(''));
         dispatch(setLastname(''));
@@ -127,4 +129,4 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
+export default SignupPage;
