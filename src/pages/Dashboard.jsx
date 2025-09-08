@@ -1,20 +1,14 @@
-import {useState} from 'react';
-import VerifyDocument from '../components/VerifyDocument';
-import UploadDocument from '../components/uploadDocument';
+import AdminDocument from '../components/AdminDocument/AdminDocument';
+import UserDocuments from '../components/UserDocuments/UserDocuments';
+import {useSelector} from 'react-redux';
+
 
 const Dashboard = () => {
-  const [login, setlogin] = useState(true);
+  const {isAdmin} = useSelector((state) => state.auth);
   return (
-    <section>
-      {login ? <div>
-        <UploadDocument />
-      </div> :
-       <div>
-         <VerifyDocument/>
-       </div>
-      }
-    </section>
+    <>
+      {isAdmin ? <AdminDocument/> : <UserDocuments /> }
+    </>
   );
 };
-
 export default Dashboard;
