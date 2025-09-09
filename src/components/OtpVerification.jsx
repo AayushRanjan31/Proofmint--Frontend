@@ -1,34 +1,41 @@
 import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {verifyOtp, setOtpDigit, setActiveIndex, setOtpArray, resetOtpState} from '../redux/slices/otpSlice';
+import {
+  verifyOtp,
+  setOtpDigit,
+  setActiveIndex,
+  setOtpArray,
+  resetOtpState,
+} from '../redux/slices/otpSlice';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
+import {Input, Button, Space, Typography, Card} from 'antd';
+
+const {Title, Text} = Typography;
 
 const OtpVerification = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {loading, otpArray, activeIndex} = useSelector((state) => state.otp);
-  const inputRefs = useRef([]);
   const {resetPasswordEmail} = useSelector((state) => state.forgotPassword);
-  // Auto-focus current active index
+  const inputRefs = useRef([]);
+
+  // Auto-focus current input
   useEffect(() => {
     inputRefs.current[activeIndex]?.focus();
   }, [activeIndex]);
-  // Typing
+
+  // Handle typing
   const handleChange = (value, index) => {
     if (/^[0-9]?$/.test(value)) {
       dispatch(setOtpDigit({index, value}));
-      if (value && index < 5) {
-        dispatch(setActiveIndex(index + 1));
-      }
+      if (value && index < 5) dispatch(setActiveIndex(index + 1));
     }
   };
 
   // Keyboard navigation
   const handleKeyDown = (e, index) => {
-    if (e.key === 'ArrowLeft' && index > 0) {
-      dispatch(setActiveIndex(index - 1));
-    }
+    if (e.key === 'ArrowLeft' && index > 0) dispatch(setActiveIndex(index - 1));
     if (e.key === 'ArrowRight' && otpArray[index] && index < 5) {
       dispatch(setActiveIndex(index + 1));
     }
@@ -47,13 +54,11 @@ const OtpVerification = () => {
       copy[i] = pasted[count++];
     }
     dispatch(setOtpArray(copy));
-
-    const next = Math.min(index + pasted.length, otpArray.length - 1);
-    dispatch(setActiveIndex(next));
+    dispatch(setActiveIndex(Math.min(index + pasted.length, otpArray.length - 1)));
   };
 
-
-  const handleSubmit = (e) => {
+  // Submit OTP
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const otp = otpArray.join('');
     if (!otp || otp.length !== 6) {
@@ -61,32 +66,28 @@ const OtpVerification = () => {
       return;
     }
 
-    dispatch(verifyOtp({email: resetPasswordEmail, otp}))
-        .unwrap()
-        .then(() => {
-          toast.success('OTP verified successfully!', {toastId: 'verify'});
-          navigate('/resetPassword');
-          dispatch(resetOtpState());
-        })
-        .catch((err) => {
-          toast.error('invalid otp', {toastId: 'invalid'});
-        });
+    try {
+      await dispatch(verifyOtp({email: resetPasswordEmail, otp})).unwrap();
+      toast.success('OTP verified successfully!', {toastId: 'verify'});
+      navigate('/resetPassword');
+      dispatch(resetOtpState());
+    } catch {
+      toast.error('Invalid OTP', {toastId: 'invalid'});
+    }
   };
 
   return (
     <div className="flex items-center justify-center min-h-[92.5vh] bg-gradient-to-br from-blue-50 to-blue-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 m-3">
+      <Card className="max-w-md w-full p-8 rounded-2xl shadow-xl">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Verify OTP</h2>
-          <p className="text-gray-500 text-sm mt-1">
-            Enter the 6-digit OTP sent to your email.
-          </p>
+          <Title level={3}>Verify OTP</Title>
+          <Text type="secondary">Enter the 6-digit OTP sent to your email.</Text>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="flex justify-between gap-2">
+          <Space size="small" className="w-full justify-between">
             {otpArray.map((digit, index) => (
-              <input
+              <Input
                 key={index}
                 type="text"
                 maxLength={1}
@@ -95,22 +96,28 @@ const OtpVerification = () => {
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={(e) => handlePaste(e, index)}
-                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-lg
-                  focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                className="text-center text-lg font-semibold"
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '8px',
+                  fontSize: '18px',
+                }}
               />
             ))}
-          </div>
+          </Space>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 text-white bg-blue-600 rounded-lg font-medium
-              hover:bg-blue-700 transition duration-200 shadow-md disabled:opacity-60"
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            loading={loading}
+            size="large"
           >
-            {loading ? 'Verifying...' : 'Verify OTP'}
-          </button>
+            Verify OTP
+          </Button>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

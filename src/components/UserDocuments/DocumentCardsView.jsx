@@ -1,52 +1,55 @@
-const DocumentCardsView = ({docsArray, error, handlePreview, handleGetScanner}) => {
-  return (
-    <div className="space-y-4 lg:hidden">
-      {error ? (
-        <h1 className="text-center text-red-500">{error}</h1>
-      ) : docsArray.length === 0 ? (
-        <h1 className="text-center text-gray-500">No documents found</h1>
-      ) : (
-        docsArray.map((doc, idx) => (
-          <div
-            key={idx}
-            className="p-4 border rounded-lg shadow-sm bg-gray-50"
-          >
-            <h3 className="text-lg font-semibold">{doc.title}</h3>
-            <p className="text-gray-600">Document ID: {doc.documentId}</p>
-            <p className="mt-1">
-              <span
-                className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                  doc.status === 'stamped' ?
-                    'bg-green-100 text-green-700' :
-                    doc.status === 'uploaded' ?
-                    'bg-blue-100 text-blue-700' :
-                    'bg-red-100 text-red-700'
-                }`}
-              >
-                {doc.status}
-              </span>
-            </p>
-            <p className="mt-1 text-sm text-gray-500">
-              Issued: {doc.createdAt.slice(0, 10)}
-            </p>
+import {Card, Tag, Button} from 'antd';
 
-            <div className="flex gap-2 mt-3">
-              <button
-                onClick={() => handlePreview(doc)}
-                className="flex-1 px-3 py-2 text-sm rounded-md border text-blue-600 hover:bg-blue-50"
-              >
-                Preview
-              </button>
-              <button
-                onClick={() => handleGetScanner(doc)}
-                className="flex-1 px-3 py-2 text-sm rounded-md border text-red-600 hover:bg-red-50"
-              >
-                Scanner
-              </button>
-            </div>
+const DocumentCardsView = ({docsArray, error, handlePreview, handleGetScanner}) => {
+  const getStatusTag = (status) => {
+    if (status === 'stamped') return <Tag color="green">Stamped</Tag>;
+    if (status === 'uploaded') return <Tag color="blue">Uploaded</Tag>;
+    return <Tag color="red">Revoked</Tag>;
+  };
+
+  if (error) {
+    return <h1 className="text-center text-red-500">{error}</h1>;
+  }
+
+  if (docsArray.length === 0) {
+    return <h1 className="text-center text-gray-500">No documents found</h1>;
+  }
+
+  return (
+    <div className="flex flex-col gap-4 lg:hidden">
+      {docsArray.map((doc, idx) => (
+        <Card
+          key={idx}
+          title={doc.title}
+          extra={getStatusTag(doc.status)}
+          className="shadow-sm"
+        >
+          <p>
+            <strong>Document ID:</strong> {doc.documentId}
+          </p>
+          <p className="text-sm text-gray-500 mt-1">
+            Issued: {doc.createdAt.slice(0, 10)}
+          </p>
+
+          <div className="flex gap-2 mt-3">
+            <Button
+              block
+              type="default"
+              onClick={() => handlePreview(doc)}
+            >
+              Preview
+            </Button>
+            <Button
+              block
+              danger
+              type="default"
+              onClick={() => handleGetScanner(doc)}
+            >
+              Scanner
+            </Button>
           </div>
-        ))
-      )}
+        </Card>
+      ))}
     </div>
   );
 };

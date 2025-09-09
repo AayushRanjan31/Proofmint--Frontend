@@ -1,92 +1,111 @@
+import {Table, Tag, Dropdown, Button} from 'antd';
 import {RiMore2Fill} from 'react-icons/ri';
 
-const DocumentTableView = ({docsArray, error, openMenu, setOpenMenu, handlePreview,
-  handleGetScanner}) => {
+const DocumentTableView = ({docsArray, error, openMenu,
+  setOpenMenu, handlePreview, handleGetScanner}) => {
+  if (error) {
+    return (
+      <div className="hidden lg:block text-center text-red-500 p-4">
+        {error}
+      </div>
+    );
+  }
+
+  if (docsArray.length === 0) {
+    return (
+      <div className="hidden lg:block text-center text-gray-500 p-4">
+        No documents found
+      </div>
+    );
+  }
+
+  const getStatusTag = (status) => {
+    if (status === 'stamped') return <Tag color="green">Stamped</Tag>;
+    if (status === 'uploaded') return <Tag color="blue">Uploaded</Tag>;
+    return <Tag color="red">Revoked</Tag>;
+  };
+
+  const columns = [
+    {
+      title: 'Title',
+      dataIndex: 'title',
+      key: 'title',
+    },
+    {
+      title: 'Document ID',
+      dataIndex: 'documentId',
+      key: 'documentId',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => getStatusTag(status),
+    },
+    {
+      title: 'Issued',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (date) => date.slice(0, 10),
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, doc, idx) => {
+        const items = [
+          {
+            key: '1',
+            label: (
+              <button
+                onClick={() => {
+                  handlePreview(doc);
+                  setOpenMenu(null);
+                }}
+                className="w-full text-left"
+              >
+                Preview
+              </button>
+            ),
+          },
+          {
+            key: '2',
+            label: (
+              <button
+                onClick={() => {
+                  handleGetScanner(doc);
+                  setOpenMenu(null);
+                }}
+                className="w-full text-left text-red-600"
+              >
+                Scanner
+              </button>
+            ),
+          },
+        ];
+
+        return (
+          <Dropdown
+            menu={{items}}
+            trigger={['click']}
+            open={openMenu === idx}
+            onOpenChange={(flag) => setOpenMenu(flag ? idx : null)}
+          >
+            <Button type="text" icon={<RiMore2Fill size={18} />} />
+          </Dropdown>
+        );
+      },
+    },
+  ];
+
   return (
-    <div className="hidden overflow-x-auto lg:block">
-      <table className="w-full border-collapse mb-20">
-        <thead>
-          <tr className="text-left bg-[var(--table-bg)] text-[var(--text-color)]">
-            <th className="p-3 border-b">Title</th>
-            <th className="p-3 border-b">Document ID</th>
-            <th className="p-3 border-b">Status</th>
-            <th className="p-3 border-b">Issued</th>
-            <th className="p-3 border-b">Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {error ? (
-            <tr>
-              <td colSpan="5" className="text-center text-red-500 p-4">
-                {error}
-              </td>
-            </tr>
-          ) : docsArray.length === 0 ? (
-            <tr>
-              <td colSpan="5" className="text-center text-gray-500 p-4">
-                No documents found
-              </td>
-            </tr>
-          ) : (
-            docsArray.map((doc, idx) => (
-              <tr key={idx} className="text-[var(--text-color)]">
-                <td className="p-3 border-b">{doc.title}</td>
-                <td className="p-3 border-b">{doc.documentId}</td>
-                <td className="p-3 border-b">
-                  <span
-                    className={`px-3 py-1 rounded-lg text-sm font-medium ${
-                      doc.status === 'stamped' ?
-                        'bg-green-100 text-green-700' :
-                        doc.status === 'uploaded' ?
-                        'bg-blue-100 text-blue-700' :
-                        'bg-red-100 text-red-700'
-                    }`}
-                  >
-                    {doc.status}
-                  </span>
-                </td>
-                <td className="p-3 border-b">{doc.createdAt.slice(0, 10)}</td>
-                <td className="p-3 border-b">
-                  <div className="relative">
-                    <button
-                      onClick={() =>
-                        setOpenMenu(openMenu === idx ? null : idx)
-                      }
-                    >
-                      <RiMore2Fill size={18} />
-                    </button>
-
-
-                    {openMenu === idx && (
-                      <div className="absolute right-0 mt-2 w-32 bg-[var(--component-bg)] border border-gray-100 shadow-md rounded-md overflow-hidden z-10">
-                        <button
-                          onClick={() => {
-                            handlePreview(doc);
-                            setOpenMenu(null);
-                          }}
-                          className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-red-50"
-                        >
-                          Preview
-                        </button>
-                        <button
-                          onClick={() => {
-                            handleGetScanner(doc);
-                            setOpenMenu(null);
-                          }}
-                          className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                        >
-                          Scanner
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+    <div className="hidden lg:block">
+      <Table
+        rowKey={(idx) => idx}
+        dataSource={docsArray}
+        columns={columns}
+        pagination={false}
+        className="mb-20"
+      />
     </div>
   );
 };

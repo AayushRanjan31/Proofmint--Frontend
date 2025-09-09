@@ -5,17 +5,21 @@ import {
   setNewPassword,
 } from '../redux/slices/resetPasswordSlice';
 import {toast} from 'react-toastify';
-import {Lock} from 'lucide-react';
+import {LockOutlined} from '@ant-design/icons';
+import {Input, Button, Card, Typography} from 'antd';
 import {useNavigate} from 'react-router-dom';
+
+const {Title, Text} = Typography;
 
 const ResetPassword = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {resetPasswordEmail} = useSelector((state) => state.forgotPassword);
-  const {loading} = useSelector((state) => state.resetPassword);
-  const {newPassword, confirmPassword} = useSelector(
+  const {loading, newPassword, confirmPassword} = useSelector(
       (state) => state.resetPassword,
   );
-  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword) {
@@ -42,48 +46,48 @@ const ResetPassword = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[92.5vh] bg-gradient-to-br from-blue-50 to-blue-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 m-3">
+      <Card
+        className="max-w-md w-full p-8 rounded-2xl shadow-xl"
+        bordered={false}
+      >
         <div className="text-center mb-6">
-          <Lock className="w-10 h-10 text-purple-600 mx-auto mb-2" />
-          <h2 className="text-2xl font-bold text-gray-800">Reset Password</h2>
-          <p className="text-gray-500 text-sm mt-1">
+          <LockOutlined style={{fontSize: 40, color: '#7c3aed'}} />
+          <Title level={3} className="mt-2">
+            Reset Password
+          </Title>
+          <Text type="secondary">
             Enter your new password below.
-          </p>
+          </Text>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-2">
-          <input
-            type="password"
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input.Password
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => dispatch(setNewPassword(e.target.value))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg
-              focus:ring-2 focus:ring-purple-500 focus:border-transparent
-              shadow-sm text-gray-700 placeholder-gray-400"
+            size="large"
+            prefix={<LockOutlined />}
             required
           />
-
-          <input
-            type="password"
+          <Input.Password
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg
-              focus:ring-2 focus:ring-purple-500 focus:border-transparent
-              shadow-sm text-gray-700 placeholder-gray-400"
+            size="large"
+            prefix={<LockOutlined />}
             required
           />
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 text-white bg-purple-600 rounded font-medium
-              hover:bg-purple-700 transition duration-200 shadow-md disabled:opacity-60"
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            block
+            loading={loading}
           >
-            {loading ? 'Resetting...' : 'Reset Password'}
-          </button>
+            Reset Password
+          </Button>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

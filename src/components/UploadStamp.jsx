@@ -5,8 +5,9 @@ import {saveFinalCertificateApi} from '../utils/proofMintApi';
 import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
+import {Button} from 'antd';
 
-const UploadStamp=()=> {
+const UploadStamp = () => {
   const certRef = useRef(null);
   const qrRef = useRef(null);
   const navigate = useNavigate();
@@ -42,10 +43,14 @@ const UploadStamp=()=> {
       const res = await saveFinalCertificateApi(blob, documentId);
 
       if (res?.status === true) {
-        toast.success('Certificate saved successfully', {toastId: 'certificate-with-stamp'});
+        toast.success('Certificate saved successfully', {
+          toastId: 'certificate-with-stamp',
+        });
         navigate('/');
       } else {
-        toast.error('Failed to upload with stamp ', {toastId: 'failed-with-stamp'});
+        toast.error('Failed to upload with stamp', {
+          toastId: 'failed-with-stamp',
+        });
       }
     } catch {
       toast.error('Save Failed', {toastId: 'save-failed'});
@@ -79,11 +84,7 @@ const UploadStamp=()=> {
           />
         )}
         {qrUrl && (
-          <Draggable
-            nodeRef={qrRef}
-            defaultPosition={{x: 50, y: 50}}
-            bounds="parent"
-          >
+          <Draggable nodeRef={qrRef} defaultPosition={{x: 50, y: 50}} bounds="parent">
             <img
               ref={qrRef}
               src={qrUrl}
@@ -95,15 +96,24 @@ const UploadStamp=()=> {
       </div>
 
       {documentUrl && qrUrl && (
-        <button
+        <Button
+          type="primary"
           onClick={handleSaveFinal}
-          className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition mt-4"
-          disabled={saving}
+          loading={saving}
+          style={{
+            backgroundColor: '#1D4ED8',
+            borderColor: '#1D4ED8',
+            color: '#ffffff',
+            marginTop: '16px',
+            padding: '8px 24px',
+            borderRadius: '8px',
+          }}
         >
-          {saving ? 'Saving, please wait...' : 'Save with QR'}
-        </button>
+          Save with QR
+        </Button>
       )}
     </div>
   );
 };
+
 export default UploadStamp;

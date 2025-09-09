@@ -6,12 +6,12 @@ import {GiHamburgerMenu} from 'react-icons/gi';
 import {FaUserGear} from 'react-icons/fa6';
 import {NavLink} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import {Button} from 'antd';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const isAdmin = useSelector((state) => state.auth?.isAdmin);
-
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 767);
@@ -25,12 +25,22 @@ const Sidebar = () => {
     <>
       {/* Hamburger button - shows ONLY on mobile (<=450px) */}
       {isMobile && (
-        <button
-          className="fixed z-50 p-1 mx-2 rounded top-5 text-[#FFFFFF] bg-[#000000]"
+        <Button
+          type="primary"
+          icon={<GiHamburgerMenu />}
           onClick={toggleSidebar}
-        >
-          <GiHamburgerMenu size={22} />
-        </button>
+          style={{
+            position: 'fixed',
+            top: 16,
+            left: 16,
+            zIndex: 200,
+            padding: '4px 8px',
+            borderRadius: '6px',
+            backgroundColor: '#000000',
+            color: '#ffffff',
+            border: 'none',
+          }}
+        />
       )}
 
       {(isMobile ? isOpen : true) && (
@@ -86,7 +96,7 @@ const Sidebar = () => {
             <NavLink
               to="/setting"
               className={({isActive}) =>
-                `!no-underline  py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }

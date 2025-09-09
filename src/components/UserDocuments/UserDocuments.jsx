@@ -7,9 +7,9 @@ import PreviewDialog from './PreviewDialog';
 
 const UserDocuments = () => {
   const dispatch = useDispatch();
-  const {documents, error} = useSelector((state) => state.documents);
-  const [openMenu, setOpenMenu] = useState(null);
+  const {documents, error, loading} = useSelector((state) => state.documents);
 
+  const [openMenu, setOpenMenu] = useState(null);
   const [previewDialog, setPreviewDialog] = useState({
     isOpen: false,
     docUrl: '',
@@ -21,16 +21,30 @@ const UserDocuments = () => {
   }, [dispatch]);
 
   const handlePreview = (doc) => {
-    setPreviewDialog({isOpen: true, docUrl: doc.preview || doc.fileUrl, docTitle: doc.title});
+    setPreviewDialog({
+      isOpen: true,
+      docUrl: doc.preview || doc.fileUrl,
+      docTitle: doc.title,
+    });
     setOpenMenu(null);
   };
 
-  const handleGetScanner = (doc) => {
-    const link = document.createElement('a');
-    link.href = doc.qrCode;
-    link.download = `${doc.title}-scanner.png`;
-    link.click();
-    setOpenMenu(null);
+  const handleGetScanner = async (doc) => {
+    try {
+      const response = await fetch(doc.qrCode, {mode: 'cors'});
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `${doc.title}-scanner.png`;
+      link.click();
+
+      URL.revokeObjectURL(blobUrl);
+      setOpenMenu(null);
+    } catch (err) {
+      console.error('Scanner download failed:', err);
+    }
   };
 
   const handleDownload = async () => {
@@ -46,18 +60,22 @@ const UserDocuments = () => {
 
       const extension = previewDialog.docUrl.match(/\.(jpg|jpeg|png|pdf)$/i) ?
         previewDialog.docUrl.split('.').pop() :
+        blob.type === 'application/pdf' ?
+        'pdf' :
         'png';
 
       link.download = `${previewDialog.docTitle || 'document'}.${extension}`;
-      document.body.appendChild(link);
       link.click();
 
-      document.body.removeChild(link);
       URL.revokeObjectURL(blobUrl);
     } catch (err) {
       console.error('Download failed:', err);
     }
   };
+
+  const closePreview = () =>
+    setPreviewDialog({isOpen: false, docUrl: '', docTitle: ''});
+
   const docsArray = Array.isArray(documents) ? documents : [];
 
   return (
@@ -67,30 +85,36 @@ const UserDocuments = () => {
           <p className="pb-3 md:text-5xl text-4xl font-bold">Documents</p>
         </div>
 
-        {/* Desktop Table */}
-        <DocumentTableView
-          docsArray={docsArray}
-          error={error}
-          openMenu={openMenu}
-          setOpenMenu={setOpenMenu}
-          handlePreview={handlePreview}
-          handleGetScanner={handleGetScanner}
-        />
+        {loading ? (
+          <p className="text-center text-gray-500">Loading documents...</p>
+        ) : (
+          <>
+            {/* Desktop Table */}
+            <DocumentTableView
+              docsArray={docsArray}
+              error={error}
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              handlePreview={handlePreview}
+              handleGetScanner={handleGetScanner}
+            />
 
-        {/* Mobile Cards */}
-        <DocumentCardsView
-          docsArray={docsArray}
-          error={error}
-          handlePreview={handlePreview}
-          handleGetScanner={handleGetScanner}
-        />
+            {/* Mobile Cards */}
+            <DocumentCardsView
+              docsArray={docsArray}
+              error={error}
+              handlePreview={handlePreview}
+              handleGetScanner={handleGetScanner}
+            />
+          </>
+        )}
 
         {/* Preview Modal */}
         <PreviewDialog
           isOpen={previewDialog.isOpen}
           docUrl={previewDialog.docUrl}
           docTitle={previewDialog.docTitle}
-          onClose={() => setPreviewDialog({isOpen: false, docUrl: '', docTitle: ''})}
+          onClose={closePreview}
           onDownload={handleDownload}
         />
       </div>

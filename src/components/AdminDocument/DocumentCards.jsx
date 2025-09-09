@@ -1,55 +1,56 @@
+import {Card, Tag, Button} from 'antd';
 import {RiDeleteBin6Line} from 'react-icons/ri';
 import {FaBan} from 'react-icons/fa';
 
 const DocumentCards = ({documents, onRevoke, onDeleteClick}) => {
+  const getStatusTag = (status) => {
+    if (status === 'stamped') {
+      return <Tag color="green">Stamped</Tag>;
+    }
+    if (status === 'uploaded') {
+      return <Tag color="blue">Uploaded</Tag>;
+    }
+    return <Tag color="red">Expired</Tag>;
+  };
+
   return (
-    <div className="space-y-4 lg:hidden">
+    <div className="flex flex-col gap-4 lg:hidden">
       {documents?.map((doc) => (
-        <div
+        <Card
           key={doc.id}
-          className="p-4 border border-gray-200 rounded-lg bg-white shadow-sm"
+          title={doc.title}
+          extra={getStatusTag(doc.status)}
         >
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="font-semibold text-gray-900">{doc.title}</h3>
-            <span
-              className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                doc.status === 'stamped' ?
-                  'bg-green-100 text-green-700' :
-                  doc.status === 'uploaded' ?
-                  'bg-blue-100 text-blue-700' :
-                  'bg-red-100 text-red-700'
-              }`}
-            >
-              {doc.status}
-            </span>
-          </div>
-          <p className="text-sm text-gray-600 mb-1">
-            <span className="font-medium">ID:</span> {doc.documentId}
+          <p>
+            <strong>ID:</strong> {doc.documentId}
           </p>
-          <p className="text-sm text-gray-600 mb-1">
-            <span className="font-medium">Issued:</span>{' '}
-            {doc.issuer}
+          <p>
+            <strong>Issued:</strong> {doc.issuer}
           </p>
-          <p className="text-sm text-gray-600 mb-3">
-            <span className="font-medium">Expire:</span>{' '}
-            {doc.expiry?.slice(0, 10)}
+          <p>
+            <strong>Expire:</strong> {doc.expiry?.slice(0, 10)}
           </p>
 
           <div className="flex gap-2 mt-3">
-            <button
+            <Button
+              block
+              type="default"
               onClick={() => onRevoke(doc.certificateId, doc.title)}
-              className="flex-1 px-3 py-2 text-sm rounded-md border text-yellow-600 hover:bg-yellow-50 flex items-center justify-center gap-1"
+              icon={<FaBan size={14} />}
             >
-              <FaBan size={14} /> Revoke
-            </button>
-            <button
+              Revoke
+            </Button>
+            <Button
+              block
+              danger
+              type="default"
               onClick={() => onDeleteClick(doc.certificateId, doc.title)}
-              className="flex-1 px-3 py-2 text-sm rounded-md border text-red-600 hover:bg-red-50 flex items-center justify-center gap-1"
+              icon={<RiDeleteBin6Line size={14} />}
             >
-              <RiDeleteBin6Line size={14} /> Delete
-            </button>
+              Delete
+            </Button>
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   );

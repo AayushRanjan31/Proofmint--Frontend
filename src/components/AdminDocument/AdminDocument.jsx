@@ -1,7 +1,11 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import {allFetchAdminDocuments, removeDocument, revokeDocument} from '../../redux/slices/documentSlice';
-import {toast} from 'react-toastify';
+import {
+  allFetchAdminDocuments,
+  removeDocument,
+  revokeDocument,
+} from '../../redux/slices/documentSlice';
+import {message} from 'antd';
 import DocumentTable from './DocumentTable';
 import DocumentCards from './DocumentCards';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
@@ -11,7 +15,11 @@ const AdminDocument = () => {
   const {documents, error} = useSelector((state) => state.documents);
   const [openMenu, setOpenMenu] = useState(null);
 
-  const [confirmDialog, setConfirmDialog] = useState({isOpen: false, docId: null, docTitle: ''});
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    docId: null,
+    docTitle: '',
+  });
 
   useEffect(() => {
     dispatch(allFetchAdminDocuments());
@@ -22,16 +30,17 @@ const AdminDocument = () => {
     setOpenMenu(null);
   };
 
-  const handleCancelDelete = () => setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
+  const handleCancelDelete = () =>
+    setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
 
   const handleConfirmDelete = async () => {
     try {
       await dispatch(removeDocument(confirmDialog.docId)).unwrap();
-      toast.success(`Document "${confirmDialog.docTitle}" deleted successfully`);
+      message.success(`Document "${confirmDialog.docTitle}" deleted successfully`);
       setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
       dispatch(allFetchAdminDocuments());
     } catch {
-      toast.error('Failed to delete document');
+      message.error('Failed to delete document');
       setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
     }
   };
@@ -39,11 +48,11 @@ const AdminDocument = () => {
   const handleRevoke = async (docId, title) => {
     try {
       await dispatch(revokeDocument(docId)).unwrap();
-      toast.success(`Document "${title}" revoked successfully`);
+      message.success(`Document "${title}" revoked successfully`);
       dispatch(allFetchAdminDocuments());
       setOpenMenu(null);
     } catch {
-      toast.error('Failed to revoke document');
+      message.error('Failed to revoke document');
     }
   };
 
@@ -63,8 +72,11 @@ const AdminDocument = () => {
           onDeleteClick={handleDeleteClick}
         />
 
-        <DocumentCards documents={documents} onRevoke={handleRevoke}
-          onDeleteClick={handleDeleteClick} />
+        <DocumentCards
+          documents={documents}
+          onRevoke={handleRevoke}
+          onDeleteClick={handleDeleteClick}
+        />
       </div>
 
       <ConfirmDeleteDialog
