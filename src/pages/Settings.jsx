@@ -3,14 +3,16 @@ import {setTheme} from '../redux/slices/settingSlice';
 import {useState} from 'react';
 import {toast} from 'react-toastify';
 import {changePassword} from '../utils/proofMintApi';
+import {Input, Button} from 'antd';
 
 const Settings = () => {
-  const user=localStorage.getItem('userName');
-  const Email=localStorage.getItem('userEmail');
+  const user = localStorage.getItem('userName');
+  const Email = localStorage.getItem('userEmail');
   const {theme} = useSelector((state) => state.settings);
   const [newPassword, setNewPassword] = useState('');
   const [prevPassword, setprevPassword] = useState('');
   const dispatch = useDispatch();
+
   const handleToggle = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     dispatch(setTheme(newTheme));
@@ -49,7 +51,6 @@ const Settings = () => {
     setprevPassword('');
   };
 
-
   return (
     <div className="mt-20 md:flex md:justify-center md:ml-70 md:mt-10">
       <div
@@ -58,77 +59,57 @@ const Settings = () => {
         <div className="flex flex-col">
           <p className="pb-1 md:text-5xl text-4xl font-bold">Settings</p>
           <div>
-            <h3 className="mt-4 mb-3 text-lg font-semibold">
-                            Profile
-            </h3>
+            <h3 className="mt-4 mb-3 text-lg font-semibold">Profile</h3>
             <div className="flex flex-col gap-2">
-              <input
-                type="text"
-                value={user}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
-              <input
-                type="text"
-                value={Email}
-                className="w-full p-2 border rounded-lg"
-                disabled
-              />
+              <Input value={user} disabled style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'}} />
+              <Input value={Email} disabled style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'}} />
             </div>
           </div>
 
           <div>
-            <h3 className="mt-4 mb-3 text-lg font-semibold">
-                            Security
-            </h3>
+            <h3 className="mt-4 mb-3 text-lg font-semibold">Security</h3>
             <div className="flex flex-col gap-3">
-              <input
-                type="text"
+              <Input.Password
                 value={prevPassword}
-                className="w-full p-2 border rounded-lg"
                 onChange={(e) => setprevPassword(e.target.value)}
-                placeholder='Current Password'
+                placeholder="Current Password"
+                style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'}}
               />
-              <input
-                type="text"
+              <Input.Password
                 value={newPassword}
-                className="w-full p-2 border rounded-lg"
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder='New Password'
+                placeholder="New Password"
+                style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'} }
+
               />
-              <button
-                className={`py-2 ${newPassword === '' || prevPassword === '' || newPassword.length < 8 || prevPassword.length < 8 ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600 '} text-white font-medium rounded w-[160px]`}
-                onClick={() => handleNewPassword()}
+              <Button
+                type="primary"
+                size="middle"
+                style={{width: '160px', color: 'var(--text-color)'}}
                 disabled={newPassword === '' || prevPassword === '' || newPassword.length < 8 || prevPassword.length < 8}
+                onClick={handleNewPassword}
               >
-         Update Password
-              </button>
+                 Update Password
+              </Button>
             </div>
           </div>
 
           <div>
-            <h3 className="mt-4 mb-3 text-lg font-semibold">
-                            Preferences
-            </h3>
+            <h3 className="mt-4 mb-3 text-lg font-semibold">Preferences</h3>
             <div className="flex items-center gap-3">
               <span className="text-lg font-medium">Light</span>
               <button
-                onClick={() => handleToggle()}
+                onClick={handleToggle}
                 className={`w-14 h-7 flex items-center rounded px-1 cursor-pointer ${
-                                    theme == 'dark' ?
-                                        'bg-gray-800' :
-                                        'bg-gray-300'
+                  theme == 'dark' ? 'bg-gray-800' : 'bg-gray-300'
                 }`}
               >
                 <div
-                  className={`w-5 h-5  bg-white rounded shadow-md transform transition-transform ${
-                                        theme == 'dark' ?
-                                            'translate-x-7' :
-                                            'translate-x-0 '
+                  className={`w-5 h-5 bg-white rounded shadow-md transform transition-transform ${
+                    theme == 'dark' ? 'translate-x-7' : 'translate-x-0 '
                   }`}
                 />
               </button>
-
               <span className="text-lg font-medium">Dark</span>
             </div>
           </div>

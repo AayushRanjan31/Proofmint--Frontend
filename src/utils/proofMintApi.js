@@ -91,6 +91,7 @@ export const otpVerification =async ({email, otp})=>{
       {email, otp});
   return res.data;
 };
+
 export const resettingPassword=async ({email, newPassword})=>{
   const res= await axiosInstance.post(
       `/api/v1/auth/change/password`,
@@ -120,3 +121,13 @@ export async function fetchAllAdminDocuments() {
   const response = await axiosInstance.get(`/api/v1/admin/all/documents`);
   return response.data;
 }
+
+export const sendSignupOtp = async (email) => {
+  const response = await axiosInstance.post('/api/v1/auth/signup/otp', {email});
+  return response.data;
+};
+
+export const verifySignupOtp = async (email, otp) => {
+  const response = await axiosInstance.post('/api/v1/auth/signup/otp/verify', {email, otp});
+  return response.data;
+};

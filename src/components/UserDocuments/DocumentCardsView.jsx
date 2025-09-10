@@ -4,7 +4,7 @@ const DocumentCardsView = ({docsArray, error, handlePreview, handleGetScanner}) 
   const getStatusTag = (status) => {
     if (status === 'stamped') return <Tag color="green">Stamped</Tag>;
     if (status === 'uploaded') return <Tag color="blue">Uploaded</Tag>;
-    return <Tag color="red">Revoked</Tag>;
+    return <Tag color="red">Expired</Tag>;
   };
 
   if (error) {
@@ -12,7 +12,7 @@ const DocumentCardsView = ({docsArray, error, handlePreview, handleGetScanner}) 
   }
 
   if (docsArray.length === 0) {
-    return <h1 className="text-center text-gray-500">No documents found</h1>;
+    return <h1 className="lg:hidden text-center text-gray-500">No documents found</h1>;
   }
 
   return (

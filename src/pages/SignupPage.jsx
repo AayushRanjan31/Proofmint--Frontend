@@ -11,6 +11,8 @@ import {
 import {Link, useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {Input, Button} from 'antd';
+import {useState} from 'react';
+import {sendSignupOtp, verifySignupOtp} from '../utils/proofMintApi';
 
 const SignupPage = () => {
   const {
@@ -25,18 +27,61 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  const [otpVerified, setOtpVerified] = useState(false);
+
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const handleSendOtp = async () => {
+    if (!signUpEmail) return toast.error('Please enter your email first');
+    if (!isValidEmail(signUpEmail)) return toast.error('Please enter a valid email');
+
+    try {
+      const res = await sendSignupOtp(signUpEmail);
+      if (res.status === true || res.success === true) {
+        toast.success(res.message || 'OTP sent to your email');
+        setOtpSent(true);
+      }
+    } catch {
+      toast.error('Failed to send OTP');
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    if (!otp) return toast.error('Please enter OTP');
+
+    try {
+      const res = await verifySignupOtp(signUpEmail, otp);
+      if (res.status === true || res.success === true) {
+        toast.success(res.message || 'OTP verified successfully');
+        setOtpVerified(true);
+      }
+    } catch {
+      toast.error('Invalid OTP');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (signUpFirstname.length <= 5) toast.error('FirstName must be 6 characters.', {toastId: 'first-name-error'});
-    else if (signUpLastname.length <= 5) toast.error('Lastname must be 6 characters.', {toastId: 'last-name-error'});
-    else if (signUpPassword.length < 8) toast.error('Password must be 8 characters.', {toastId: 'password-error'});
-    else if (signUpConfirmPassword.length < 8) toast.error('ConfirmPassword must be 8 characters.', {toastId: 'confirm-password-error'});
-    else if (signUpPassword !== signUpConfirmPassword) toast.error('Passwords must be same.', {toastId: 'match-password-error'});
-    else if (number.length !== 10) toast.error('Phone number must be 10 digits.', {toastId: 'phone-number'});
-    else {
-      const res = await dispatch(registerUser({signUpFirstname,
-        signUpLastname, signUpEmail, signUpPassword, number})).unwrap();
+    if (!otpVerified) return toast.error('Please verify your email OTP first');
+    if (signUpFirstname.length <= 5) return toast.error('FirstName must be 6 characters.');
+    if (signUpLastname.length <= 5) return toast.error('Lastname must be 6 characters.');
+    if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.');
+    if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.');
+    if (signUpPassword !== signUpConfirmPassword) return toast.error('Passwords must be same.');
+    if (number.length !== 10) return toast.error('Phone number must be 10 digits.');
+
+    try {
+      const res = await dispatch(registerUser({
+        signUpFirstname,
+        signUpLastname,
+        signUpEmail,
+        signUpPassword,
+        number,
+      })).unwrap();
+
       if (res.status === true) {
         dispatch(setFirstname(''));
         dispatch(setLastname(''));
@@ -46,8 +91,20 @@ const SignupPage = () => {
         dispatch(setNumber(''));
         navigate('/');
       }
+    } catch (error) {
+      toast.error(error?.message || 'Signup failed');
     }
   };
+
+  const isFormValid = () =>
+    signUpFirstname &&
+    signUpLastname &&
+    signUpEmail &&
+    isValidEmail(signUpEmail) &&
+    signUpPassword &&
+    signUpConfirmPassword &&
+    number &&
+    otpVerified;
 
   return (
     <div className="flex items-center justify-center min-h-[81vh] ">
@@ -73,7 +130,36 @@ const SignupPage = () => {
             type="email"
             value={signUpEmail}
             onChange={(e) => dispatch(setEmail(e.target.value))}
+            disabled={otpSent}
           />
+
+          {/* OTP Section */}
+          <div className="flex gap-2">
+            <Input
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              disabled={!otpSent || otpVerified}
+            />
+            {!otpSent ? (
+              <Button
+                type="primary"
+                onClick={handleSendOtp}
+                disabled={!signUpEmail || !isValidEmail(signUpEmail)}
+              >
+                Send OTP
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                onClick={handleVerifyOtp}
+                disabled={otpVerified}
+              >
+                {otpVerified ? 'Verified' : 'Verify OTP'}
+              </Button>
+            )}
+          </div>
+
           <Input.Password
             placeholder="Password"
             value={signUpPassword}
@@ -94,6 +180,7 @@ const SignupPage = () => {
             type="primary"
             htmlType="submit"
             className="w-full py-2"
+            disabled={!isFormValid()}
           >
             Sign Up
           </Button>

@@ -109,7 +109,6 @@ const Authentication = createSlice({
           state.loginEmail = '';
           state.loginPassword = '';
           state.isLoggedIn = false;
-          toast.error('Failed to login, Please try again.', {toastId: 'login-error'});
         })
         .addCase(registerUser.fulfilled, () => {
           toast.success('Registration successful', {toastId: 'registration-success'});

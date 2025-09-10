@@ -81,6 +81,7 @@ const DocumentTable = ({documents, error, onRevoke, onDeleteClick}) => {
             'No documents found'
           ),
         }}
+        className="custom-table"
       />
     </div>
   );

@@ -60,58 +60,60 @@ const UploadStamp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center text-center gap-4">
-      <div
-        ref={certRef}
-        className="relative inline-block mt-4"
-        style={{width: '100%', maxWidth: '800px', height: '600px'}}
-      >
-        {isImage && (
-          <img
-            src={documentUrl}
-            alt="Uploaded Document"
-            className="w-full h-full object-contain border rounded"
-          />
-        )}
-
-        {!isImage && documentUrl && (
-          <iframe
-            src={viewUrl}
-            width="100%"
-            height="100%"
-            title="Document Preview"
-            style={{border: '1px solid #ccc', borderRadius: '8px'}}
-          />
-        )}
-        {qrUrl && (
-          <Draggable nodeRef={qrRef} defaultPosition={{x: 50, y: 50}} bounds="parent">
+    <div className='md:flex md:justify-center md:ml-72 mt-20 md:mt-10'>
+      <div className="flex flex-col items-center text-center gap-4 m-2">
+        <div
+          ref={certRef}
+          className="relative inline-block mt-4"
+          style={{width: '100%', maxWidth: '800px', height: '600px'}}
+        >
+          {isImage && (
             <img
-              ref={qrRef}
-              src={qrUrl}
-              alt="qr"
-              className="absolute w-24 cursor-move top-0 left-0 z-10"
+              src={documentUrl}
+              alt="Uploaded Document"
+              className="w-full h-full object-contain border rounded"
             />
-          </Draggable>
+          )}
+
+          {!isImage && documentUrl && (
+            <iframe
+              src={viewUrl}
+              width="100%"
+              height="100%"
+              title="Document Preview"
+              style={{border: '1px solid #ccc', borderRadius: '8px'}}
+            />
+          )}
+          {qrUrl && (
+            <Draggable nodeRef={qrRef} defaultPosition={{x: 50, y: 50}} bounds="parent">
+              <img
+                ref={qrRef}
+                src={qrUrl}
+                alt="qr"
+                className="absolute w-24 cursor-move top-0 left-0 z-10"
+              />
+            </Draggable>
+          )}
+        </div>
+
+        {documentUrl && qrUrl && (
+          <Button
+            type="primary"
+            onClick={handleSaveFinal}
+            loading={saving}
+            style={{
+              backgroundColor: '#1D4ED8',
+              borderColor: '#1D4ED8',
+              color: '#ffffff',
+              marginTop: '16px',
+              padding: '8px 24px',
+              borderRadius: '8px',
+            }}
+          >
+          Save with QR
+          </Button>
         )}
       </div>
-
-      {documentUrl && qrUrl && (
-        <Button
-          type="primary"
-          onClick={handleSaveFinal}
-          loading={saving}
-          style={{
-            backgroundColor: '#1D4ED8',
-            borderColor: '#1D4ED8',
-            color: '#ffffff',
-            marginTop: '16px',
-            padding: '8px 24px',
-            borderRadius: '8px',
-          }}
-        >
-          Save with QR
-        </Button>
-      )}
     </div>
   );
 };

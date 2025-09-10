@@ -7,7 +7,7 @@
   --sidebar-bg: #1b4c59; 
    --text-color: #000000;
    --btn-color: #e8e8e8;
-   --table-bg: #f0f0f0;
+   --table-bg: #ffffff;
    --side-btn-bg: #0d7a9e;
 }
 
@@ -21,6 +21,21 @@
    --table-bg: #343434;
     --side-btn-bg: #075772;
 }
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: var(--table-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background-color: var(--component-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  background-color: var(--btn-color) !important;
+}
+
 
 body {
   margin: 0;

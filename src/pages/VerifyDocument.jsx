@@ -9,6 +9,7 @@ import IssuedCertificate from '../components/IssuedCertificate';
 import {useState, useRef, useEffect} from 'react';
 import {BrowserMultiFormatReader} from '@zxing/browser';
 import {toast} from 'react-toastify';
+import {Input, Button} from 'antd';
 
 const VerifyDocument = () => {
   const dispatch = useDispatch();
@@ -47,19 +48,12 @@ const VerifyDocument = () => {
                 dispatch(getCerificate(docId))
                     .unwrap()
                     .then(() => {
-                      toast.success(
-                          'Certificate fetched successfully',
-                      );
+                      toast.success('Certificate fetched successfully');
                       stopScan();
                     })
                     .catch((err) => {
-                      setErrorMessage(
-                          'Failed to fetch certificate',
-                      );
-                      toast.error(
-                          err?.message ||
-                                            'Failed to fetch certificate',
-                      );
+                      setErrorMessage('Failed to fetch certificate');
+                      toast.error(err?.message || 'Failed to fetch certificate');
                     });
               } else {
                 setErrorMessage('Document not found. Try again.');
@@ -67,9 +61,7 @@ const VerifyDocument = () => {
                 dispatch(setDocumentId(''));
               }
             } catch {
-              setErrorMessage(
-                  'Invalid QR code. Please scan a valid one.',
-              );
+              setErrorMessage('Invalid QR code. Please scan a valid one.');
               dispatch(clearCertificate());
             }
           }
@@ -90,12 +82,12 @@ const VerifyDocument = () => {
   }, []);
 
   const handleVerifyClick = () => {
-    if (!documentId) {
+    if (!documentId.trim()) {
       setErrorMessage('Please enter a Document ID');
       return;
     }
     dispatch(clearCertificate());
-    dispatch(getCerificate(documentId))
+    dispatch(getCerificate(documentId.trim()))
         .unwrap()
         .then(() => {
           toast.success('Certificate fetched successfully');
@@ -106,27 +98,25 @@ const VerifyDocument = () => {
           toast.error(err?.message || 'Failed to fetch certificate');
         });
   };
+
   useEffect(() => {
-    // Component did mount logic (if any)
     return () => {
-      dispatch(clearCertificate()); // clear certificate
-      dispatch(setDocumentId('')); // clear document ID
+      dispatch(clearCertificate());
+      dispatch(setDocumentId(''));
     };
   }, [dispatch]);
 
   return (
     <div className="min-h-[81vh] flex justify-center items-start pt-10 mx-2">
-      <div className="shadow flex flex-col p-5 rounded-xl gap-4 bg-white md:w-[40vw]">
-        <p className="pb-3 md:text-5xl text-4xl font-bold">
-                    Verify Document
-        </p>
-        <p className="text-gray-500 text-sm mb-4">
-                    Enter your Document ID or scan the QR code to verify.
+      <div className="shadow flex flex-col p-5 rounded-xl gap-3 bg-white md:w-[40vw]">
+        <p className="pb-4 md:text-5xl text-4xl font-bold">Verify Document</p>
+        <p className="text-gray-500 text-sm">
+          Enter your Document ID or scan the QR code to verify.
         </p>
 
         <div
           className={`flex justify-center mb-3 ${
-                        scanning ? 'block' : 'hidden'
+            scanning ? 'block' : 'hidden'
           }`}
         >
           <video
@@ -143,44 +133,47 @@ const VerifyDocument = () => {
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 text-sm text-center">
-            {errorMessage}
-          </p>
+          <p className="text-red-500 text-sm text-center">{errorMessage}</p>
         )}
 
         {scanning && (
-          <button
-            className="mb-3 px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600"
+          <Button
+            type="primary"
+            danger
+            className="mb-3"
             onClick={stopScan}
           >
-                        Stop Scan
-          </button>
+            Stop Scan
+          </Button>
         )}
 
-        <input
-          type="text"
+        <Input
           placeholder="Document ID"
-          className="border border-gray-300 p-2 text-lg rounded-md mb-3"
+          size="large"
           value={documentId}
           onChange={(e) => dispatch(setDocumentId(e.target.value))}
         />
 
-        <button
-          className="py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer mb-3"
+        <Button
+          type="primary"
+          block
+          className="mb-3"
           onClick={handleVerifyClick}
         >
-                    Verify
-        </button>
+          Verify
+        </Button>
 
         {!scanning && (
-          <button
-            className="flex justify-center gap-3 items-center px-4 py-2 bg-gray-500 text-white rounded shadow hover:bg-gray-600 cursor-pointer"
+          <Button
+            block
+            className="flex justify-center gap-3 items-center"
             onClick={startScan}
+            icon={<MdOutlineQrCodeScanner size={20} />}
           >
-            <MdOutlineQrCodeScanner size={20} />
-            <span>Scan QR Code</span>
-          </button>
+            Scan QR Code
+          </Button>
         )}
+
         {certificate && !errorMessage && <IssuedCertificate />}
       </div>
     </div>

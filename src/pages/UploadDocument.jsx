@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocument';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
+import {Input, DatePicker, Button} from 'antd';
+import dayjs from 'dayjs';
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ const UploadDocument = () => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     validateFile(selectedFile);
-    e.target.value=null;
+    e.target.value = null;
   };
 
   const handleDrop = (e) => {
@@ -28,7 +30,7 @@ const UploadDocument = () => {
   const validateFile = (selectedFile) => {
     if (!selectedFile) return;
     if (selectedFile.size > MAX_FILE_SIZE) {
-      toast.error( 'File size should be less than 15MB' );
+      toast.error('File size should be less than 15MB');
       dispatch(setFile(null));
       return;
     }
@@ -36,9 +38,7 @@ const UploadDocument = () => {
   };
 
   const handleUpload = async () => {
-    if (!file) {
-      return;
-    }
+    if (!file) return;
 
     const res = await dispatch(
         uploadDocument({
@@ -61,9 +61,10 @@ const UploadDocument = () => {
   };
 
   return (
-    <div className='md:flex md:justify-center md:ml-70 mt-20 md:mt-10'>
-      <div className="shadow m-8 flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)] text-[var(--text-color)] md:w-[50vw]">
+    <div className="md:flex md:justify-center md:ml-70 mt-20 md:mt-20">
+      <div className="shadow m-2 flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)] text-[var(--text-color)] md:w-[50vw]">
         <h1 className="font-semibold pb-1">Upload Document</h1>
+
         <div
           className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3"
           onDrop={handleDrop}
@@ -90,32 +91,31 @@ const UploadDocument = () => {
           )}
         </div>
 
-        <div className="flex gap-4 w-full justify-center">
-          <input
-            type="text"
+        <div className="flex gap-3 w-full justify-center mt-4">
+          <Input
             value={title}
             onChange={(e) => dispatch(setTitle(e.target.value))}
-            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
             placeholder="Please enter title"
+            className="w-[50%]"
           />
-          <input
-            type="date"
-            value={expiryDate}
-            min={new Date().toISOString().split('T')[0]}
-            onChange={(e) => dispatch(setExpiryDate(e.target.value))}
-            className="w-[50%] px-4 py-2 text-gray-700 placeholder-gray-400 border border-gray-300 rounded-lg
-                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+          <DatePicker
+            value={expiryDate ? dayjs(expiryDate) : null}
+            onChange={(date, dateString) => dispatch(setExpiryDate(dateString))}
+            disabledDate={(current) => current && current < dayjs().startOf('day')}
+            className="w-[50%]"
           />
         </div>
 
-        <button
-          className="py-2 bg-blue-500 disabled:bg-blue-400 hover:bg-blue-600 text-white font-medium rounded-lg cursor-pointer disabled:cursor-not-allowed"
+        <Button
+          type="primary"
           onClick={handleUpload}
-          disabled={loading || !file || !title || !expiryDate}
+          loading={loading}
+          style={{color: 'var(--text-color)'}}
+          disabled={!file || !title || !expiryDate}
+          className="mt-4"
         >
-          {loading ? 'Uploading please wait....' : 'Upload File'}
-        </button>
+          Upload File
+        </Button>
       </div>
     </div>
   );

@@ -11,18 +11,10 @@ const DocumentTableView = ({docsArray, error, openMenu,
     );
   }
 
-  if (docsArray.length === 0) {
-    return (
-      <div className="hidden lg:block text-center text-gray-500 p-4">
-        No documents found
-      </div>
-    );
-  }
-
   const getStatusTag = (status) => {
     if (status === 'stamped') return <Tag color="green">Stamped</Tag>;
     if (status === 'uploaded') return <Tag color="blue">Uploaded</Tag>;
-    return <Tag color="red">Revoked</Tag>;
+    return <Tag color="red">Expired</Tag>;
   };
 
   const columns = [
@@ -104,7 +96,7 @@ const DocumentTableView = ({docsArray, error, openMenu,
         dataSource={docsArray}
         columns={columns}
         pagination={false}
-        className="mb-20"
+        className="mb-20 custom-table"
       />
     </div>
   );

@@ -23,7 +23,7 @@ const UserDocuments = () => {
   const handlePreview = (doc) => {
     setPreviewDialog({
       isOpen: true,
-      docUrl: doc.preview || doc.fileUrl,
+      docUrl: doc.fileUrl,
       docTitle: doc.title,
     });
     setOpenMenu(null);
