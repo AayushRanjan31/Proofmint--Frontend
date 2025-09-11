@@ -9,7 +9,7 @@ The system includes a public verification portal that allows anyone with the doc
 
 ## Features
 - **Authentication** – Login & Sign Up
-- **Upload Documents** (PDF, DOC, Images) less than 15 mb 
+- **Upload Documents** (PDF, Images) less than 15 mb 
 - **Place a draggable stamp** 
 - **Public Verification Page** – preview the document 
 - **Responsive UI** – Works on desktop and mobile
@@ -28,6 +28,22 @@ The system includes a public verification portal that allows anyone with the doc
 ---
 
 
+├── frontend/
+│   ├── public/             # Static assets
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/          # Pages: Login, Signup, OTP, Dashboard, Verify
+│   │   ├── redux/          # Store, slices
+│   │   ├── routes/         # React Router setup
+│   │   ├── utils/          # Helpers, API calls
+│   │   └── App.jsx         # Root component
+│   └── main.jsx            # Entry point
+├── .env.example            # Environment variables example
+├── package.json            # Backend & frontend dependencies
+└── README.md               # Project documentation
+
+---
+
 ## Installation & Setup
 
 ### 1. Clone the Repository
@@ -45,6 +61,11 @@ npm install
 ```
 npm run dev
 ```
+
+---
+
+### License
+This project is licensed under the ISC License.
 
 ---
 
