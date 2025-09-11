@@ -53,7 +53,7 @@ const VerifyDocument = () => {
                     })
                     .catch((err) => {
                       setErrorMessage('Failed to fetch certificate');
-                      toast.error(err?.message || 'Failed to fetch certificate');
+                      toast.error(err?.message || 'Failed to fetch certificate', {toastId: 'failed'});
                     });
               } else {
                 setErrorMessage('Document not found. Try again.');

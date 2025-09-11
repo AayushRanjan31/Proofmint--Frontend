@@ -23,7 +23,6 @@ export const removeDocument = createAsyncThunk(
     'documents/deleteDocument',
     async (docId) => {
       await deleteADocument({docId});
-      // Return docId to update state
       return docId;
     },
 );
@@ -33,7 +32,6 @@ export const revokeDocument = createAsyncThunk(
     'documents/revokeDocument',
     async (docId) => {
       await revokeADocument({docId});
-      // Return docId to update state
       return docId;
     },
 );
