@@ -28,6 +28,9 @@ The system includes a public verification portal that allows anyone with the doc
 ---
 
 
+## Project Structure
+
+```bash
 ├── frontend/
 │   ├── public/             # Static assets
 │   ├── src/
@@ -38,11 +41,14 @@ The system includes a public verification portal that allows anyone with the doc
 │   │   ├── utils/          # Helpers, API calls
 │   │   └── App.jsx         # Root component
 │   └── main.jsx            # Entry point
+│
 ├── .env.example            # Environment variables example
 ├── package.json            # Backend & frontend dependencies
 └── README.md               # Project documentation
+```
 
 ---
+
 
 ## Installation & Setup
 
@@ -64,7 +70,8 @@ npm run dev
 
 ---
 
-### License
+
+## License
 This project is licensed under the ISC License.
 
 ---
