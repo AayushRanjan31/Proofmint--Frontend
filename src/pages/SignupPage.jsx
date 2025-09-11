@@ -30,6 +30,7 @@ const SignupPage = () => {
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -37,14 +38,17 @@ const SignupPage = () => {
     if (!signUpEmail) return toast.error('Please enter your email first', {toastId: 'email'});
     if (!isValidEmail(signUpEmail)) return toast.error('Please enter a valid email', {toastId: 'error'});
 
+    setSendingOtp(true);
     try {
       const res = await sendSignupOtp(signUpEmail);
       if (res.status === true || res.success === true) {
-        toast.success(res.message || 'OTP sent to your email');
+        toast.success(res.message || 'OTP sent to your email', {toastId: 'sent'});
         setOtpSent(true);
       }
     } catch {
       toast.error('Failed to send OTP', {toastId: 'failed'});
+    } finally {
+      setSendingOtp(false);
     }
   };
 
@@ -54,11 +58,11 @@ const SignupPage = () => {
     try {
       const res = await verifySignupOtp(signUpEmail, otp);
       if (res.status === true || res.success === true) {
-        toast.success(res.message || 'OTP verified successfully', {toastId: 'verify'});
+        toast.success(res.message || 'OTP verified successfully', {toastId: 'sucessfull'});
         setOtpVerified(true);
       }
     } catch {
-      toast.error('Invalid OTP', {toastId: 'invalid'});
+      toast.error('Invalid OTP', {toastId: 'invaild'});
     }
   };
 
@@ -149,7 +153,8 @@ const SignupPage = () => {
               <Button
                 type="primary"
                 onClick={handleSendOtp}
-                disabled={!signUpEmail || !isValidEmail(signUpEmail)}
+                disabled={!signUpEmail || !isValidEmail(signUpEmail) || sendingOtp}
+                loading={sendingOtp}
               >
                 Send OTP
               </Button>
@@ -203,3 +208,4 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
+

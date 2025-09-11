@@ -92,7 +92,7 @@ const DocumentTableView = ({docsArray, error, openMenu,
   return (
     <div className="hidden lg:block">
       <Table
-        rowKey={(idx) => idx}
+        rowKey={(record) => record.documentId}
         dataSource={docsArray}
         columns={columns}
         pagination={false}

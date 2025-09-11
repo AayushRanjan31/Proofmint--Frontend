@@ -8,7 +8,7 @@ The system includes a public verification portal that allows anyone with the doc
 
 ## Features
 - **Authentication** – Login & Sign Up
-- **Upload Documents** (PDF, DOC, Images) less than 15 mb 
+- **Upload Documents** (PDF, Images) less than 15 mb 
 - **Place a draggable stamp** 
 - **Public Verification Page** – preview the document 
 - **Responsive UI** – Works on desktop and mobile
@@ -26,6 +26,10 @@ The system includes a public verification portal that allows anyone with the doc
 
 ---
 
+
+## Project Structure
+
+```bash
 ├── frontend/
 │   ├── public/             # Static assets
 │   ├── src/
@@ -36,9 +40,14 @@ The system includes a public verification portal that allows anyone with the doc
 │   │   ├── utils/          # Helpers, API calls
 │   │   └── App.jsx         # Root component
 │   └── main.jsx            # Entry point
+│
 ├── .env.example            # Environment variables example
 ├── package.json            # Backend & frontend dependencies
 └── README.md               # Project documentation
+```
+
+---
+
 
 ## Installation & Setup
 
@@ -60,5 +69,8 @@ npm run dev
 
 ---
 
+
 ## License
 This project is licensed under the ISC License.
+
+---

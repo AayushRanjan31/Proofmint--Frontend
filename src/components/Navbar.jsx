@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setLoggedIn} from '../redux/slices/authSlice';
 import {logout} from '../utils/proofMintApi';
 import {useNavigate} from 'react-router-dom';
-import {Avatar, Dropdown, Menu} from 'antd';
+import {Avatar, Dropdown} from 'antd';
 import {LogoutOutlined, UserOutlined} from '@ant-design/icons';
 
 const Navbar = () => {
@@ -18,31 +18,40 @@ const Navbar = () => {
     navigate('/');
   };
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="username" disabled>
-        {user}
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="logout" danger onClick={handleLogout} icon={<LogoutOutlined />}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
+  const menuItems = [
+    {
+      key: 'username',
+      label: <span className="text-black">{user}</span>,
+      disabled: true,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: 'logout',
+      danger: true,
+      label: (
+        <span onClick={handleLogout}>
+          <LogoutOutlined /> Logout
+        </span>
+      ),
+    },
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full shadow-md z-50 flex items-center px-4 md:px-6 bg-white">
-      {/* Logo */}
-      <div className="flex-1 flex items-center">
+    <nav
+      className="fixed top-0 left-0 w-full h-17 shadow-md z-50 flex items-center px-3 md:px-6"
+      style={{background: 'var(--navbar-bg)'}}
+    >
+      <div className="flex-1 flex items-center justify-center md:justify-start">
         <img src="/icon.png" alt="Logo" className="h-10" />
         <span className="ml-2 text-xl md:text-2xl font-bold text-gray-800">
           Proofmint
         </span>
       </div>
 
-      {/* User Dropdown */}
       {isLoggedIn && (
-        <Dropdown overlay={menu} placement="bottomRight" trigger={['click']}>
+        <Dropdown menu={{items: menuItems}} placement="bottomRight" trigger={['click']}>
           <Avatar
             size={32}
             icon={<UserOutlined />}
