@@ -10,12 +10,10 @@ export async function login(email, password) {
   return response.data;
 }
 
-
 export async function fetchDocuments() {
   const response = await axiosInstance.get(`/api/v1/documents`);
   return response.data;
 }
-
 
 export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   const formData = new FormData();
@@ -49,7 +47,6 @@ export const saveFinalCertificateApi = async (blob, documentId) => {
   return response.data;
 };
 
-
 export async function getCertificateDetails(documentId) {
   const certificate=await axiosInstance.post(`/api/v1/documents/verify`, {documentId});
   return certificate.data;
@@ -59,12 +56,10 @@ export const logout = async () => {
   await axiosInstance.post(`/api/v1/auth/logout`);
 };
 
-
 export const fetchUser = async () => {
   const res = await axiosInstance.get(`/api/v1/admin/`);
   return res.data;
 };
-
 
 export const changePassword = async (password, newPassword, email) => {
   return axiosInstance.post(`/api/v1/auth/update/password`, {
@@ -73,7 +68,6 @@ export const changePassword = async (password, newPassword, email) => {
     newPassword,
   });
 };
-
 
 export const forgetPassword = async (email) => {
   const res = await axiosInstance.post(

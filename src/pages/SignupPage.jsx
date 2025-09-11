@@ -68,7 +68,6 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!otpVerified) return toast.error('Please verify your email OTP first');
     if (signUpFirstname.length <= 5) return toast.error('FirstName must be 6 characters.');
     if (signUpLastname.length <= 5) return toast.error('Lastname must be 6 characters.');
