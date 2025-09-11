@@ -15,7 +15,7 @@ const PreviewDialog = ({isOpen, docUrl, docTitle, onClose, onDownload}) => {
         </Button>,
       ]}
       width="80vw"
-      bodyStyle={{height: '70vh', display: 'flex', flexDirection: 'column'}}
+      styles={{height: '70vh', display: 'flex', flexDirection: 'column'}}
       centered
     >
       <div className="flex-1 overflow-auto flex items-center justify-center">

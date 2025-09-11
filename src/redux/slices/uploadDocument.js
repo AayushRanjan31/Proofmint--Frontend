@@ -11,6 +11,7 @@ export const uploadDocument = createAsyncThunk('uploadDocument/upload', async (f
   }
 },
 );
+
 const uploadDocumentSlice = createSlice({
   name: 'uploadDocument',
   initialState: {
@@ -60,7 +61,7 @@ const uploadDocumentSlice = createSlice({
           state.expiryDate='';
           toast.success('uploaded successfully.', {toastId: 'upload-success'});
           state.loading = false;
-        }).addCase(uploadDocument.rejected, (state, action)=>{
+        }).addCase(uploadDocument.rejected, (state)=>{
           state.file='';
           state.title='';
           state.expiryDate='';

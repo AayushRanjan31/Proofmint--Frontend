@@ -1,12 +1,9 @@
 import axiosInstance from '../config';
-import axios from 'axios';
-
 
 export async function signUp(firstName, lastName, email, password, number) {
   const response = await axiosInstance.post(`/api/v1/auth/signup`, {firstName, lastName, email, password, number});
   return response.data;
 }
-
 
 export async function login(email, password) {
   const response = await axiosInstance.post(`/api/v1/auth/login`, {email, password});
@@ -26,8 +23,8 @@ export const uploadDocumentApi = async ({file, title, expiry, username}) => {
   formData.append('title', title);
   formData.append('expiry', expiry);
   formData.append('username', username);
-  const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/api/v1/document/upload`,
+  const response = await axiosInstance.post(
+      `/api/v1/document/upload`,
       formData,
       {
         withCredentials: true,

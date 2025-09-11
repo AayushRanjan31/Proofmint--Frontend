@@ -14,16 +14,13 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
     logout();
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('token');
+    localStorage.clear();
     navigate('/');
   };
 
-  // Dropdown menu for user
   const menu = (
     <Menu>
-      <Menu.Item key="username" disabled className='text-black'>
+      <Menu.Item key="username" disabled>
         {user}
       </Menu.Item>
       <Menu.Divider />
@@ -34,14 +31,11 @@ const Navbar = () => {
   );
 
   return (
-    <nav
-      className="fixed top-0 left-0 w-full h-17 shadow-md z-50 flex items-center px-3 md:px-6"
-      style={{background: 'var(--navbar-bg)'}}
-    >
+    <nav className="fixed top-0 left-0 w-full shadow-md z-50 flex items-center px-4 md:px-6 bg-white">
       {/* Logo */}
-      <div className="flex-1 flex items-center justify-center md:justify-start">
+      <div className="flex-1 flex items-center">
         <img src="/icon.png" alt="Logo" className="h-10" />
-        <span className="ml-2 text-[var(--text-color)] text-xl md:text-2xl font-bold">
+        <span className="ml-2 text-xl md:text-2xl font-bold text-gray-800">
           Proofmint
         </span>
       </div>
@@ -52,7 +46,7 @@ const Navbar = () => {
           <Avatar
             size={32}
             icon={<UserOutlined />}
-            style={{cursor: 'pointer', backgroundColor: '#000000'}}
+            style={{cursor: 'pointer', backgroundColor: '#000'}}
           />
         </Dropdown>
       )}
