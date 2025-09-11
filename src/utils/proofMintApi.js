@@ -102,7 +102,6 @@ export const deleteADocument = async ({docId}) => {
   return res.data;
 };
 
-
 export const revokeADocument=async ({docId})=>{
   const res=await axiosInstance.put(`/api/v1/documents/revoke`, {certificateId: docId});
   return res.data;
