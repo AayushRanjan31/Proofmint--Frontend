@@ -64,7 +64,6 @@ const UploadDocument = () => {
     <div className="md:flex md:justify-center md:ml-70 mt-20 md:mt-20">
       <div className="shadow m-2 flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)] text-[var(--text-color)] md:w-[50vw]">
         <h1 className="font-semibold pb-1">Upload Document</h1>
-
         <div
           className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3"
           onDrop={handleDrop}

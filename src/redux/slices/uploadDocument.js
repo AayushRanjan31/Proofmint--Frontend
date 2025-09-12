@@ -11,6 +11,7 @@ export const uploadDocument = createAsyncThunk('uploadDocument/upload', async (f
   }
 },
 );
+
 const uploadDocumentSlice = createSlice({
   name: 'uploadDocument',
   initialState: {

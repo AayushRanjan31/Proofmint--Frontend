@@ -35,8 +35,8 @@ const SignupPage = () => {
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSendOtp = async () => {
-    if (!signUpEmail) return toast.error('Please enter your email first');
-    if (!isValidEmail(signUpEmail)) return toast.error('Please enter a valid email');
+    if (!signUpEmail) return toast.error('Please enter your email first', {toastId: 'email'});
+    if (!isValidEmail(signUpEmail)) return toast.error('Please enter a valid email', {toastId: 'error'});
 
     setSendingOtp(true);
     try {
@@ -53,7 +53,7 @@ const SignupPage = () => {
   };
 
   const handleVerifyOtp = async () => {
-    if (!otp) return toast.error('Please enter OTP');
+    if (!otp) return toast.error('Please enter OTP', {toastId: 'otp'});
 
     try {
       const res = await verifySignupOtp(signUpEmail, otp);
@@ -68,7 +68,6 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!otpVerified) return toast.error('Please verify your email OTP first');
     if (signUpFirstname.length <= 5) return toast.error('FirstName must be 6 characters.');
     if (signUpLastname.length <= 5) return toast.error('Lastname must be 6 characters.');
@@ -96,7 +95,7 @@ const SignupPage = () => {
         navigate('/');
       }
     } catch (error) {
-      toast.error(error?.message || 'Signup failed');
+      toast.error(error?.message || 'Signup failed', {toastId: 'signup'});
     }
   };
 
@@ -121,16 +120,19 @@ const SignupPage = () => {
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <Input
             placeholder="First Name"
+            className='h-[40px]'
             value={signUpFirstname}
             onChange={(e) => dispatch(setFirstname(e.target.value))}
           />
           <Input
             placeholder="Last Name"
+            className='h-[40px]'
             value={signUpLastname}
             onChange={(e) => dispatch(setLastname(e.target.value))}
           />
           <Input
             placeholder="Email"
+            className='h-[40px]'
             type="email"
             value={signUpEmail}
             onChange={(e) => dispatch(setEmail(e.target.value))}
@@ -141,6 +143,7 @@ const SignupPage = () => {
           <div className="flex gap-2">
             <Input
               placeholder="Enter OTP"
+              className='h-[40px]'
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               disabled={!otpSent || otpVerified}
@@ -167,16 +170,19 @@ const SignupPage = () => {
 
           <Input.Password
             placeholder="Password"
+            className='h-[40px]'
             value={signUpPassword}
             onChange={(e) => dispatch(setPassword(e.target.value))}
           />
           <Input.Password
             placeholder="Confirm Password"
+            className='h-[40px]'
             value={signUpConfirmPassword}
             onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
           />
           <Input
             placeholder="Phone Number"
+            className='h-[40px]'
             value={number}
             onChange={(e) => dispatch(setNumber(e.target.value))}
           />
