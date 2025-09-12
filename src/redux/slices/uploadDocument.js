@@ -60,7 +60,7 @@ const uploadDocumentSlice = createSlice({
           state.expiryDate='';
           toast.success('uploaded successfully.', {toastId: 'upload-success'});
           state.loading = false;
-        }).addCase(uploadDocument.rejected, (state, action)=>{
+        }).addCase(uploadDocument.rejected, (state)=>{
           state.file='';
           state.title='';
           state.expiryDate='';

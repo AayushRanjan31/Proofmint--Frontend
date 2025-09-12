@@ -29,10 +29,11 @@ const PreviewDialog = ({isOpen, docUrl, docTitle, onClose, onDownload}) => {
           />
         ) : (
           <iframe
-            src={docUrl}
-            title="Document Preview"
+            src={`https://docs.google.com/gview?url=${encodeURIComponent(docUrl)}&embedded=true`}
+            title="PDF Preview"
             style={{width: '100%', height: '100%', border: 'none'}}
           />
+
         )}
       </div>
     </Modal>
