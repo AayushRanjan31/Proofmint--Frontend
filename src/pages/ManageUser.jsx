@@ -111,7 +111,7 @@ const ManageUser = () => {
 
   return (
     <div className="lg:flex lg:justify-center md:ml-[280px] mt-20">
-      <div className="m-2 md:border lg:w-[70vw]">
+      <div className="m-2 lg:w-[70vw]">
         {/* Desktop Table */}
         <div className="hidden lg:block">
           <Table

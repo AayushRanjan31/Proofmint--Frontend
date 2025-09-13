@@ -69,8 +69,8 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!otpVerified) return toast.error('Please verify your email OTP first');
-    if (signUpFirstname.length <= 5) return toast.error('FirstName must be 6 characters.');
-    if (signUpLastname.length <= 5) return toast.error('Lastname must be 6 characters.');
+    if (signUpFirstname.length <= 3) return toast.error('FirstName must be 3 characters.');
+    if (signUpLastname.length <= 3) return toast.error('Lastname must be 3 characters.');
     if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.');
     if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.');
     if (signUpPassword !== signUpConfirmPassword) return toast.error('Passwords must be same.');
@@ -94,8 +94,8 @@ const SignupPage = () => {
         dispatch(setNumber(''));
         navigate('/');
       }
-    } catch (error) {
-      toast.error(error?.message || 'Signup failed', {toastId: 'signup'});
+    } catch {
+      toast.error('Email already exists', {toastId: 'signup'});
     }
   };
 

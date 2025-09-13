@@ -120,7 +120,6 @@ const Authentication = createSlice({
           state.signUpPassword = '';
           state.signUpConfirmPassword = '';
           state.number = '';
-          toast.error('Failed to signUp. Please try again!', {toastId: 'registration-error'});
         });
   },
 });

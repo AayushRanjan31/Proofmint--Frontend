@@ -89,20 +89,27 @@ const UploadDocument = () => {
             </p>
           )}
         </div>
-
-        <div className="flex gap-3 w-full justify-center mt-4">
-          <Input
-            value={title}
-            onChange={(e) => dispatch(setTitle(e.target.value))}
-            placeholder="Please enter title"
-            className="w-[50%]"
-          />
-          <DatePicker
-            value={expiryDate ? dayjs(expiryDate) : null}
-            onChange={(date, dateString) => dispatch(setExpiryDate(dateString))}
-            disabledDate={(current) => current && current < dayjs().startOf('day')}
-            className="w-[50%]"
-          />
+        <div className="flex gap-6 w-full justify-center mt-4">
+          <div className="flex flex-col gap-2 w-[60%]">
+            <label htmlFor="title" className="font-medium">Title</label>
+            <Input
+              id="title"
+              value={title}
+              onChange={(e) => dispatch(setTitle(e.target.value))}
+              placeholder="Please enter title"
+              className="w-full"
+            />
+          </div>
+          <div className="flex flex-col gap-2 w-[40%]">
+            <label htmlFor="expiryDate" className="font-medium">Expire Date</label>
+            <DatePicker
+              id="expiryDate"
+              value={expiryDate ? dayjs(expiryDate) : null}
+              onChange={(date, dateString) => dispatch(setExpiryDate(dateString))}
+              disabledDate={(current) => current && current < dayjs().startOf('day')}
+              className="w-full"
+            />
+          </div>
         </div>
 
         <Button
