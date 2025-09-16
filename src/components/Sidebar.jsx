@@ -23,7 +23,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger button - shows ONLY on mobile (<=450px) */}
+      {/* Hamburger button - shows ONLY on mobile (<=767px) */}
       {isMobile && (
         <Button
           type="primary"
@@ -45,7 +45,7 @@ const Sidebar = () => {
 
       {(isMobile ? isOpen : true) && (
         <div
-          className={`fixed max-[576px]:mt-[70px] min-[576px]:mt-[70px] top-0 vh-100 p-3 bg-[var(--sidebar-bg)] transition-all`}
+          className="fixed top-0 mt-[70px] p-3 bg-[var(--sidebar-bg)] h-screen transition-all"
           style={{
             width: '280px',
             left: isMobile ? (isOpen ? '0' : '-250px') : '0',
@@ -69,7 +69,7 @@ const Sidebar = () => {
             <NavLink
               to="/upload"
               className={({isActive}) =>
-                `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
@@ -83,7 +83,7 @@ const Sidebar = () => {
               <NavLink
                 to="/manageUser"
                 className={({isActive}) =>
-                  `!no-underline py-3  px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
                     isActive && 'bg-[var(--side-btn-bg)]'
                   }`
                 }
@@ -112,7 +112,7 @@ const Sidebar = () => {
       {/* Overlay for mobile when sidebar is open */}
       {isMobile && isOpen && (
         <div
-          className="top-0 opacity-50 position-fixed start-0 w-100 h-100 bg-dark"
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
           onClick={toggleSidebar}
           style={{zIndex: 100}}
         ></div>
