@@ -45,9 +45,9 @@ const documentSlice = createSlice({
   name: 'documents',
   initialState,
   reducers: {
-    clearDocuments:(state,_)=>{
-      state.documents=[]
-    }
+    clearDocuments: (state, _)=>{
+      state.documents=[];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,5 +84,5 @@ const documentSlice = createSlice({
         });
   },
 });
-export const {clearDocuments}=documentSlice.actions
+export const {clearDocuments}=documentSlice.actions;
 export default documentSlice.reducer;

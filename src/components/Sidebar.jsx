@@ -81,7 +81,7 @@ const Sidebar = () => {
 
             {isAdmin && (
               <NavLink
-              to="/manage-users"
+                to="/manage-users"
                 className={({isActive}) =>
                   `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
                     isActive && 'bg-[var(--side-btn-bg)]'
