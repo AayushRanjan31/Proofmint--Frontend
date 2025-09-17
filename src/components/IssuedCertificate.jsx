@@ -1,18 +1,8 @@
 import {useSelector} from 'react-redux';
-import {AiOutlineFileExclamation} from 'react-icons/ai';
 import {Tag} from 'antd';
 
 const IssuedCertificate = () => {
   const {certificate} = useSelector((state) => state.verifyDocument);
-
-  if (!certificate?.previewUrl) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-        <AiOutlineFileExclamation className="text-4xl mb-2" />
-        <p>No certificate preview available</p>
-      </div>
-    );
-  }
 
   const getStatusTag = (status) => {
     if (status === 'stamped') {
@@ -21,7 +11,7 @@ const IssuedCertificate = () => {
     return <Tag color="red">Expired</Tag>;
   };
 
-  const isImage = /\.(jpeg|jpg|png|gif|webp)(\?.*)?$/i.test(certificate.previewUrl);
+  const isImage = /\.(jpeg|jpg|png|webp)(\?.*)?$/i.test(certificate.previewUrl);
   const isPdf = /\.pdf(\?.*)?$/i.test(certificate.previewUrl);
 
 

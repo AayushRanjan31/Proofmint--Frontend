@@ -95,7 +95,7 @@ const DocumentTableView = ({docsArray, error, openMenu,
         rowKey={(record) => record.documentId}
         dataSource={docsArray}
         columns={columns}
-        pagination={false}
+        pagination={{pageSize: 10}}
         className="mb-20 custom-table"
       />
     </div>

@@ -13,6 +13,9 @@ import {toast} from 'react-toastify';
 import {Input, Button} from 'antd';
 import {useState} from 'react';
 import {sendSignupOtp, verifySignupOtp} from '../utils/proofMintApi';
+import Typography from 'antd/es/typography/Typography';
+
+const {Title, Text} = Typography;
 
 const SignupPage = () => {
   const {
@@ -69,8 +72,8 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!otpVerified) return toast.error('Please verify your email OTP first');
-    if (signUpFirstname.length <= 3) return toast.error('FirstName must be 3 characters.');
-    if (signUpLastname.length <= 3) return toast.error('Lastname must be 3 characters.');
+    if (signUpFirstname.length <= 2) return toast.error('FirstName must be 3 characters.');
+    if (signUpLastname.length <= 2) return toast.error('Lastname must be 3 characters.');
     if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.');
     if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.');
     if (signUpPassword !== signUpConfirmPassword) return toast.error('Passwords must be same.');
@@ -113,8 +116,8 @@ const SignupPage = () => {
     <div className="flex items-center justify-center min-h-[81vh] ">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-xl m-3">
         <div className="flex flex-col items-center mb-6">
-          <span className="text-4xl font-bold text-gray-800">ProofMint</span>
-          <h2 className="mt-4 text-xl font-bold text-gray-700">Signup</h2>
+          <Title level={2} className="text-gray-800">ProofMint</Title>
+          <Title level={4} className="text-gray-700 mt-2">Signup</Title>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -195,11 +198,12 @@ const SignupPage = () => {
           >
             Sign Up
           </Button>
-
-          <p className="text-center">
-            Already have an account? &nbsp;
-            <Link to="/">Login</Link>
-          </p>
+          <Text>
+             Already have an account? &nbsp;
+            <Link to="/" className="text-blue-600 hover:underline">
+             Login
+            </Link>
+          </Text>
         </form>
       </div>
     </div>

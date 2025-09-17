@@ -48,7 +48,7 @@ const VerifyDocument = () => {
                 dispatch(getCerificate(docId))
                     .unwrap()
                     .then(() => {
-                      toast.success('Certificate fetched successfully');
+                      toast.success('Certificate fetched successfully', {toastId: 'successfully'});
                       stopScan();
                     })
                     .catch((err) => {
@@ -90,12 +90,12 @@ const VerifyDocument = () => {
     dispatch(getCerificate(documentId.trim()))
         .unwrap()
         .then(() => {
-          toast.success('Certificate fetched successfully');
+          toast.success('Certificate fetched successfully', {toastId: 'successfully'});
           setErrorMessage('');
         })
         .catch((err) => {
           setErrorMessage('Failed to fetch certificate');
-          toast.error(err?.message || 'Failed to fetch certificate');
+          toast.error(err?.message || 'Failed to fetch certificate', {toastId: 'failed'});
         });
   };
 
