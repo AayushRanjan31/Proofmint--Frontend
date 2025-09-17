@@ -4,11 +4,12 @@
   --color-bg: #F8FAFC; 
   --component-bg: #FFFFFF; 
   --navbar-bg: #FFFFFF; 
-  --sidebar-bg: #1b4c59; 
+  /* --sidebar-bg: #1b4c59;  */
+    --sidebar-bg: #f3f5f7; 
    --text-color: #000000;
    --btn-color: #e8e8e8;
    --table-bg: #ffffff;
-   --side-btn-bg: #0d7a9e;
+   --side-btn-bg: #95ddf5;
 }
 
 .dark {

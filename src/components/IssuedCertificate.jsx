@@ -3,14 +3,15 @@ import {Tag} from 'antd';
 
 const IssuedCertificate = () => {
   const {certificate} = useSelector((state) => state.verifyDocument);
+
   const getStatusTag = (status) => {
     if (status === 'stamped') {
-      return <Tag color="green">Stamped</Tag>;  
+      return <Tag color="green">Stamped</Tag>;
     }
     return <Tag color="red">Expired</Tag>;
   };
 
-  const isImage = /\.(jpeg|jpg|png|gif|webp)(\?.*)?$/i.test(certificate.previewUrl);
+  const isImage = /\.(jpeg|jpg|png|webp)(\?.*)?$/i.test(certificate.previewUrl);
   const isPdf = /\.pdf(\?.*)?$/i.test(certificate.previewUrl);
 
   const viewUrl = !isImage && !isPdf ?

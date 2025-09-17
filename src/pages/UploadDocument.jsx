@@ -3,8 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocument';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
-import {Input, DatePicker, Button} from 'antd';
+import {Input, DatePicker, Button, Typography} from 'antd';
 import dayjs from 'dayjs';
+
+const {Title} = Typography;
 
 const UploadDocument = () => {
   const dispatch = useDispatch();
@@ -63,7 +65,7 @@ const UploadDocument = () => {
   return (
     <div className="md:flex md:justify-center md:ml-70 mt-20 md:mt-20">
       <div className="shadow m-2 flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)] text-[var(--text-color)] md:w-[50vw]">
-        <h1 className="font-semibold pb-1">Upload Document</h1>
+        <Title className="font-semibold pb-1">Upload Document</Title>
         <div
           className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3"
           onDrop={handleDrop}

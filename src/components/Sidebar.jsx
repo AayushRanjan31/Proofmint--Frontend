@@ -45,7 +45,7 @@ const Sidebar = () => {
 
       {(isMobile ? isOpen : true) && (
         <div
-          className="fixed top-0 mt-[70px] p-3 bg-[var(--sidebar-bg)] h-screen transition-all"
+          className="fixed top-0 mt-[70px] p-3 bg-[var(--sidebar-bg)] h-screen transition-all border-r border-gray-200 shadow"
           style={{
             width: '280px',
             left: isMobile ? (isOpen ? '0' : '-250px') : '0',
@@ -57,7 +57,7 @@ const Sidebar = () => {
             <NavLink
               to="/"
               className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
@@ -69,7 +69,7 @@ const Sidebar = () => {
             <NavLink
               to="/upload"
               className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
@@ -83,7 +83,7 @@ const Sidebar = () => {
               <NavLink
                 to="/manageUser"
                 className={({isActive}) =>
-                  `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                  `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
                     isActive && 'bg-[var(--side-btn-bg)]'
                   }`
                 }
@@ -96,7 +96,7 @@ const Sidebar = () => {
             <NavLink
               to="/setting"
               className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-white ${
+                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
                   isActive && 'bg-[var(--side-btn-bg)]'
                 }`
               }
@@ -120,4 +120,5 @@ const Sidebar = () => {
     </>
   );
 };
+
 export default Sidebar;
