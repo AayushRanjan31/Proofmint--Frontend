@@ -23,7 +23,7 @@ const ResetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword) {
-      toast.error('All fields are required');
+      toast.error('All fields are required', {toastId: 'fields'});
       return;
     }
     if (newPassword !== confirmPassword) {

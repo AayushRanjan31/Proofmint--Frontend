@@ -32,7 +32,7 @@ const UploadDocument = () => {
   const validateFile = (selectedFile) => {
     if (!selectedFile) return;
     if (selectedFile.size > MAX_FILE_SIZE) {
-      toast.error('File size should be less than 15MB');
+      toast.error('File size should be less than 15MB', {toastId: 'lessThan15MB'});
       dispatch(setFile(null));
       return;
     }

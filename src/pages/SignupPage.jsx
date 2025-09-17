@@ -71,13 +71,13 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!otpVerified) return toast.error('Please verify your email OTP first');
-    if (signUpFirstname.length <= 2) return toast.error('FirstName must be 3 characters.');
-    if (signUpLastname.length <= 2) return toast.error('Lastname must be 3 characters.');
-    if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.');
-    if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.');
-    if (signUpPassword !== signUpConfirmPassword) return toast.error('Passwords must be same.');
-    if (number.length !== 10) return toast.error('Phone number must be 10 digits.');
+    if (!otpVerified) return toast.error('Please verify your email OTP first', {toastId: 'verify'});
+    if (signUpFirstname.length <= 2) return toast.error('FirstName must be 3 characters.', {toastId: 'invalidLength'});
+    if (signUpLastname.length <= 2) return toast.error('Lastname must be 3 characters.', {toastId: 'length'});
+    if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.', {toastId: 'password'});
+    if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.', {toastId: 'match'});
+    if (signUpPassword !== signUpConfirmPassword) return toast.error('Passwords must be same.', {toastId: 'unmatch'});
+    if (number.length !== 10) return toast.error('Phone number must be 10 digits.', {toastId: 'digitsMatchable'});
 
     try {
       const res = await dispatch(registerUser({

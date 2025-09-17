@@ -47,10 +47,10 @@ const UploadStamp = () => {
         const res = await saveFinalCertificateApi(blob, documentId);
 
         if (res?.status === true) {
-          toast.success('Image saved with QR');
+          toast.success('Image saved with QR', {toastId: 'save'});
           navigate('/');
         } else {
-          toast.error('Failed to upload image with QR');
+          toast.error('Failed to upload image with QR', {toastId: 'qr failed'});
         }
       } else {
         const existingPdfBytes = await fetch(documentUrl).then((res) =>
@@ -86,14 +86,14 @@ const UploadStamp = () => {
         const res = await saveFinalCertificateApi(blob, documentId);
 
         if (res?.status === true) {
-          toast.success('PDF saved with QR');
+          toast.success('PDF saved with QR', {toastId: 'saved'});
           navigate('/');
         } else {
-          toast.error('Failed to upload PDF with QR');
+          toast.error('Failed to upload PDF with QR', {toastId: 'upload failed'});
         }
       }
     } catch {
-      toast.error('Save Failed');
+      toast.error('Save Failed', {toastId: 'save failed'});
     } finally {
       setSaving(false);
     }
