@@ -21,7 +21,7 @@ The system includes a public verification portal that allows anyone with the doc
 - **Styling:** TailwindCSS , Ant Design
 - **State Management:** Redux Toolkit, React Redux  
 - **Routing:** React Router 
-- **PDF & QR Tools:** pdf-lib, react-pdf, html2canvas, qrcode, qrcode.react  
+- **PDF & QR Tools:** pdf-lib, html2canvas 
 - **Utilities:** axios,  file-saver, react-draggable, react-toastify  
 
 ---
