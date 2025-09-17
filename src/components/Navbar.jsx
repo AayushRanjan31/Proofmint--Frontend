@@ -31,7 +31,7 @@ const Navbar = () => {
       key: 'logout',
       danger: true,
       label: (
-        <span onClick={handleLogout}>
+        <span>
           <LogoutOutlined /> Logout
         </span>
       ),
@@ -40,7 +40,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 w-full h-17 shadow-md z-50 flex items-center px-3 md:px-6"
+      className="fixed top-0 left-0 w-full h-17 shadow z-50 flex items-center px-3 md:px-6 border-b border-gray-200"
       style={{background: 'var(--navbar-bg)'}}
     >
       <div className="flex-1 flex items-center justify-center md:justify-start">
@@ -51,7 +51,14 @@ const Navbar = () => {
       </div>
 
       {isLoggedIn && (
-        <Dropdown menu={{items: menuItems}} placement="bottomRight" trigger={['click']}>
+        <Dropdown
+          menu={{
+            items: menuItems,
+            onClick: ({key}) => key === 'logout' && handleLogout(),
+          }}
+          placement="bottomRight"
+          trigger={['click']}
+        >
           <Avatar
             size={32}
             icon={<UserOutlined />}

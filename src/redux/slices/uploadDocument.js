@@ -23,7 +23,6 @@ const uploadDocumentSlice = createSlice({
     expiryDate: '',
     title: '',
     loading: false,
-    saveWithQr: false,
   },
   reducers: {
     setExpiryDate: (state, action)=>{
@@ -57,14 +56,10 @@ const uploadDocumentSlice = createSlice({
           state.file = '';
           state.title='';
           state.expiryDate='';
-          state.title='';
-          state.expiryDate='';
           toast.success('uploaded successfully.', {toastId: 'upload-success'});
           state.loading = false;
         }).addCase(uploadDocument.rejected, (state)=>{
           state.file='';
-          state.title='';
-          state.expiryDate='';
           state.title='';
           state.expiryDate='';
           toast.error('upload failed ,Please upload again!.', {toastId: 'upload-error'});

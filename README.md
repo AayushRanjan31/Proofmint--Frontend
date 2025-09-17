@@ -22,7 +22,7 @@ The system includes a public verification portal that allows anyone with the doc
 - **State Management:** Redux Toolkit, React Redux  
 - **Routing:** React Router 
 - **PDF & QR Tools:** pdf-lib, react-pdf, html2canvas, qrcode, qrcode.react  
-- **Utilities:** axios, js-cookie, file-saver, react-draggable, react-toastify  
+- **Utilities:** axios,  file-saver, react-draggable, react-toastify  
 
 ---
 

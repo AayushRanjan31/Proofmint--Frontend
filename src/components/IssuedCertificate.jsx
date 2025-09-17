@@ -14,7 +14,6 @@ const IssuedCertificate = () => {
   const isImage = /\.(jpeg|jpg|png|webp)(\?.*)?$/i.test(certificate.previewUrl);
   const isPdf = /\.pdf(\?.*)?$/i.test(certificate.previewUrl);
 
-
   const viewUrl = !isImage && !isPdf ?
     `https://docs.google.com/gview?url=${encodeURIComponent(certificate.previewUrl)}&embedded=true` :
     null;

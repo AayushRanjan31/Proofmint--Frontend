@@ -24,6 +24,10 @@ const Settings = () => {
   };
 
   const handleNewPassword = async () => {
+    if (newPassword==prevPassword) {
+      toast.error('previous and new passwords should not be same', {toastId: 'password'});
+      return;
+    }
     if (newPassword.length < 8) {
       toast.error('Password must be 8 characters.', {toastId: 'password-error'});
       return;
