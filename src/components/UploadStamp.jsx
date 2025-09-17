@@ -92,8 +92,7 @@ const UploadStamp = () => {
           toast.error('Failed to upload PDF with QR');
         }
       }
-    } catch (err) {
-      console.error('Error saving document with QR:', err);
+    } catch  {
       toast.error('Save Failed');
     } finally {
       setSaving(false);

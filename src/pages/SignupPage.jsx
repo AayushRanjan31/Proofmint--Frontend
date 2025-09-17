@@ -68,8 +68,8 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!otpVerified) return toast.error('Please verify your email OTP first');
-    if (signUpFirstname.length <= 3) return toast.error('FirstName must be 3 characters.');
+    if (!otpVerified) return toast.error('Please verify your email OTP first',{toastId:""});
+    if (signUpFirstname.length <= 3) return toast.error('FirstName must be 3 characters.',{toastId:""});
     if (signUpLastname.length <= 3) return toast.error('Lastname must be 3 characters.');
     if (signUpPassword.length < 8) return toast.error('Password must be 8 characters.');
     if (signUpConfirmPassword.length < 8) return toast.error('ConfirmPassword must be 8 characters.');
