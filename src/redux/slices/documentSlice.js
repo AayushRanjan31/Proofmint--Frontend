@@ -44,7 +44,11 @@ const initialState = {
 const documentSlice = createSlice({
   name: 'documents',
   initialState,
-  reducers: {},
+  reducers: {
+    clearDocuments: (state, _)=>{
+      state.documents=[];
+    },
+  },
   extraReducers: (builder) => {
     builder
         .addCase(allFetchDocument.fulfilled, (state, action) => {
@@ -80,5 +84,5 @@ const documentSlice = createSlice({
         });
   },
 });
-
+export const {clearDocuments}=documentSlice.actions;
 export default documentSlice.reducer;

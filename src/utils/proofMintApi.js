@@ -69,7 +69,7 @@ export const changePassword = async (password, newPassword, email) => {
   });
 };
 
-export const forgetPassword = async (email) => {
+export const forgotPassword = async (email) => {
   const res = await axiosInstance.post(
       `/api/v1/auth/forgot/password`,
       {email: email});

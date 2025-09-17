@@ -3,13 +3,13 @@ import {Link, useLocation} from 'react-router-dom';
 
 const Footer = () => {
   const location = useLocation();
-  const showVerify = ['/', '/signUp'].includes(location.pathname);
+  const showVerify = ['/', '/sign-up'].includes(location.pathname);
 
   return (
     <footer className="w-full p-[15px] mt-[50px] bg-[#ececec]">
       <div className="flex justify-end">
         {showVerify ? (
-          <Link to="/verifydocument">
+          <Link to="/verify-document">
             <Button type="primary" ghost>
               Verify Document
             </Button>

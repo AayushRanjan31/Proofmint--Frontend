@@ -11,6 +11,7 @@ const DocumentTableView = ({docsArray, error, openMenu,
     );
   }
 
+
   const getStatusTag = (status) => {
     if (status === 'stamped') return <Tag color="green">Stamped</Tag>;
     if (status === 'uploaded') return <Tag color="blue">Uploaded</Tag>;

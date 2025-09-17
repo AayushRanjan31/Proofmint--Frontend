@@ -69,7 +69,7 @@ const OtpVerification = () => {
     try {
       await dispatch(verifyOtp({email: resetPasswordEmail, otp})).unwrap();
       toast.success('OTP verified successfully!', {toastId: 'verify'});
-      navigate('/resetPassword');
+      navigate('/reset-password');
       dispatch(resetOtpState());
     } catch {
       toast.error('Invalid OTP', {toastId: 'invalid'});
