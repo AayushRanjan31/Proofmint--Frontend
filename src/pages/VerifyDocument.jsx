@@ -4,7 +4,7 @@ import {
   setDocumentId,
   getCerificate,
   clearCertificate,
-} from '../redux/slices/verifyDocument';
+} from '../redux/slices/verifyDocumentSlice';
 import IssuedCertificate from '../components/IssuedCertificate';
 import {useState, useRef, useEffect} from 'react';
 import {BrowserMultiFormatReader} from '@zxing/browser';

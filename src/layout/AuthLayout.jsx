@@ -11,7 +11,7 @@ const AuthLayout = () => {
       <main className="mt-16">
         <Outlet />
       </main>
-      {location.pathname !== '/forgetPassword' && <Footer />}
+      {location.pathname !== '/forgot-password' && <Footer />}
     </div>
   );
 };

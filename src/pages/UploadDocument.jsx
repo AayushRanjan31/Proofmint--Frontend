@@ -1,6 +1,6 @@
 import {FiUploadCloud} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
-import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocument';
+import {uploadDocument, setFile, setFilePath, setDocumentUrl, setQrUrl, setDocumentId, setTitle, setExpiryDate} from '../redux/slices/uploadDocumentSlice';
 import {useNavigate} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import {Input, DatePicker, Button, Typography} from 'antd';

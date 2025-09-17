@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {setLoginEmail, setLoginPassword, setLoggedIn, loginUser} from '../redux/slices/authSlice';
-import {setResetPasswordEmail} from '../redux/slices/forgetPasswordSlice';
+import {setResetPasswordEmail} from '../redux/slices/forgotPasswordSlice';
 import {toast} from 'react-toastify';
 import {Link, useNavigate} from 'react-router-dom';
 import {Form, Input, Button, Typography} from 'antd';
@@ -51,7 +51,7 @@ const LoginPage = () => {
             />
             <div className="text-right mt-1">
               <Link
-                to="/forgetPassword"
+                to="/forgot-password"
                 onClick={() => dispatch(setResetPasswordEmail(''))}
                 className="text-blue-600 hover:underline text-sm"
               >
@@ -66,7 +66,7 @@ const LoginPage = () => {
           </Form.Item>
           <Text>
             Don&apos;t have an account? &nbsp;
-            <Link to="/signUp" className="text-blue-600 hover:underline">
+            <Link to="/sign-up" className="text-blue-600 hover:underline">
               Sign Up
             </Link>
           </Text>

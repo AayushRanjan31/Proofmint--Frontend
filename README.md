@@ -1,6 +1,6 @@
 # ProofMint — Certificate Issuance & Verification Platform
 
-A secure system that lets **authorised users** upload documents (PDF, Image, Doc), apply a draggable digital stamp (document ID, optional QR code, verification URL), and flatten it into a printable PDF stored with metadata.  
+A secure system that lets **authorized users** upload documents (PDF, Image, Doc), apply a draggable digital stamp (document ID, optional QR code, verification URL), and flatten it into a printable PDF stored with metadata.
 
 The system includes a public verification portal that allows anyone with the document ID to preview the document with a stamp and watermark.
 

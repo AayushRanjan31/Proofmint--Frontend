@@ -1,12 +1,12 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
-import {forgetPassword} from '../../utils/proofMintApi';
+import {forgotPassword as forgotPasswordAPI} from '../../utils/proofMintApi';
 
 export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
     async (email, {rejectWithValue}) => {
       try {
-        const res = await forgetPassword(email);
+        const res = await forgotPasswordAPI(email);
         return res.data;
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || 'Server error');
@@ -23,8 +23,8 @@ const forgotPasswordSlice = createSlice({
     resetPasswordEmail: '',
   },
   reducers: {
-    setResetPasswordEmail: (state, action)=>{
-      state.resetPasswordEmail=action.payload;
+    setResetPasswordEmail: (state, action) => {
+      state.resetPasswordEmail = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -46,5 +46,5 @@ const forgotPasswordSlice = createSlice({
   },
 });
 
-export const {setResetPasswordEmail}=forgotPasswordSlice.actions;
+export const {setResetPasswordEmail} = forgotPasswordSlice.actions;
 export default forgotPasswordSlice.reducer;

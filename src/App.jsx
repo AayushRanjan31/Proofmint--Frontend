@@ -9,7 +9,7 @@ import AppLayout from './layout/AppLayout';
 import NotFound from './pages/NotFound';
 import {checkAuth} from './redux/slices/authSlice';
 import ManageUser from './pages/ManageUser';
-import ForgotPasswordPage from './components/ForgetPassword';
+import ForgotPasswordPage from './components/ForgotPassword';
 import ResetPasswordPage from './components/ResetPassword';
 import OtpVerificationPage from './components/OtpVerification';
 import {ToastContainer} from 'react-toastify';
@@ -18,7 +18,7 @@ import UploadStamp from './components/UploadStamp';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 
-const App=()=> {
+const App = () => {
   const dispatch = useDispatch();
   const {isLoggedIn, isAdmin} = useSelector((state) => state.auth);
 
@@ -35,12 +35,12 @@ const App=()=> {
                 children: [
                   {path: '/', element: <Dashboard />},
                   {path: 'upload', element: <UploadDocument />},
-                  {path: 'setting', element: <Settings />},
+                  {path: 'settings', element: <Settings />},
                   {path: 'stamp', element: <UploadStamp />},
                   ...(isAdmin ?
                               [
                                 {
-                                  path: 'manageUser',
+                                  path: 'manage-users',
                                   element: <ManageUser />,
                                 },
                               ] :
@@ -55,21 +55,21 @@ const App=()=> {
                 element: <AuthLayout />,
                 children: [
                   {index: true, element: <LoginPage />},
-                  {path: 'signUp', element: <SignupPage />},
+                  {path: 'sign-up', element: <SignupPage />},
                   {
-                    path: 'verifydocument',
+                    path: 'verify-document',
                     element: <VerifyDocument />,
                   },
                   {
-                    path: 'forgetPassword',
+                    path: 'forgot-password',
                     element: <ForgotPasswordPage />,
                   },
                   {
-                    path: 'resetPassword',
+                    path: 'reset-password',
                     element: <ResetPasswordPage />,
                   },
                   {
-                    path: 'otpVerification',
+                    path: 'otp-verification',
                     element: <OtpVerificationPage />,
                   },
                 ],

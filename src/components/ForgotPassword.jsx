@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   setResetPasswordEmail,
   forgotPassword,
-} from '../redux/slices/forgetPasswordSlice';
+} from '../redux/slices/forgotPasswordSlice';
 import {toast} from 'react-toastify';
 import {Mail} from 'lucide-react';
 import {useNavigate, Link} from 'react-router-dom';
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
     try {
       dispatch(setResetPasswordEmail(resetPasswordEmail));
       await dispatch(forgotPassword(resetPasswordEmail)).unwrap();
-      navigate('/otpVerification');
+      navigate('/otp-verification');
     } catch (error) {
       toast.error(error || 'Failed to send OTP', {toastId: 'error'});
     }
