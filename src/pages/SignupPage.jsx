@@ -198,7 +198,7 @@ const SignupPage = () => {
 
           <p className="text-center">
             Already have an account? &nbsp;
-            <Link to="/">Login</Link>
+            <Link to="/" className='text-blue-500 underline'>Login</Link>
           </p>
         </form>
       </div>
