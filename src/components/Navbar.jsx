@@ -4,7 +4,7 @@ import {logout} from '../utils/proofMintApi';
 import {useNavigate} from 'react-router-dom';
 import {Avatar, Dropdown} from 'antd';
 import {LogoutOutlined, UserOutlined} from '@ant-design/icons';
-import {clearDocuments} from "../redux/slices/documentSlice"
+import {clearDocuments} from '../redux/slices/documentSlice';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(setLoggedIn(false));
     logout();
-    dispatch(clearDocuments())
+    dispatch(clearDocuments());
     localStorage.clear();
     navigate('/');
   };
