@@ -23,7 +23,7 @@ const LoginPage = () => {
       dispatch(setLoggedIn(true));
       navigate('/');
     } else {
-      toast.error(res.payload?.message || 'Login failed');
+      toast.error(res.payload || 'Login failed');
     }
   };
 

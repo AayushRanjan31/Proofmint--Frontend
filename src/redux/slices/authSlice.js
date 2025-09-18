@@ -17,10 +17,15 @@ export const registerUser = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-    'login',
-    async ({loginEmail, loginPassword}) => {
-      const loginData = await login(loginEmail, loginPassword, {withCredentials: true});
-      return loginData;
+    'auth/login',
+    async ({loginEmail, loginPassword}, {rejectWithValue}) => {
+      try {
+        const loginData = await login(loginEmail, loginPassword, {withCredentials: true});
+        return loginData;
+      } catch (err) {
+        const message = err.response?.data?.message || 'Something went wrong';
+        return rejectWithValue(message);
+      }
     },
 );
 
