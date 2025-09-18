@@ -4,6 +4,10 @@ import {allFetchDocument} from '../../redux/slices/documentSlice';
 import DocumentTableView from './DocumentTableView';
 import DocumentCardsView from './DocumentCardsView';
 import PreviewDialog from './PreviewDialog';
+import {Typography} from 'antd';
+import {toast} from 'react-toastify';
+
+const {Title} = Typography;
 
 const UserDocuments = () => {
   const dispatch = useDispatch();
@@ -43,7 +47,7 @@ const UserDocuments = () => {
       URL.revokeObjectURL(blobUrl);
       setOpenMenu(null);
     } catch (err) {
-      console.error('Scanner download failed:', err);
+      toast.error('Scanner download failed:', err);
     }
   };
 
@@ -69,7 +73,7 @@ const UserDocuments = () => {
 
       URL.revokeObjectURL(blobUrl);
     } catch (err) {
-      console.error('Download failed:', err);
+      toast.error('Download failed:', err);
     }
   };
 
@@ -82,7 +86,7 @@ const UserDocuments = () => {
     <div className="lg:flex lg:justify-center md:ml-[280px]">
       <div className="px-2 mt-10 lg:w-[70vw]">
         <div className="flex items-center justify-between mb-4 text-[var(--text-color)]">
-          <p className="pb-3 md:text-5xl text-4xl font-bold">Documents</p>
+          <Title> Documents</Title>
         </div>
 
         {loading ? (

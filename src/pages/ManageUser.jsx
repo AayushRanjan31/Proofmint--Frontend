@@ -12,7 +12,10 @@ import {
   Tag,
   Card,
   Space,
+  Typography,
 } from 'antd';
+
+const {Title} = Typography;
 
 const ManageUser = () => {
   const [confirmDialog, setConfirmDialog] = useState({
@@ -110,8 +113,9 @@ const ManageUser = () => {
   ];
 
   return (
-    <div className="lg:flex lg:justify-center md:ml-[280px] mt-20">
+    <div className="lg:flex lg:justify-center md:ml-[280px] mt-10">
       <div className="m-2 lg:w-[70vw]">
+        <Title>Manage User</Title>
         {/* Desktop Table */}
         <div className="hidden lg:block">
           <Table

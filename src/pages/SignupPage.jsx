@@ -34,6 +34,7 @@ const SignupPage = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
   const [sendingOtp, setSendingOtp] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -48,8 +49,8 @@ const SignupPage = () => {
         toast.success(res.message || 'OTP sent to your email', {toastId: 'sent'});
         setOtpSent(true);
       }
-    } catch {
-      toast.error('Failed to send OTP', {toastId: 'failed'});
+    } catch (err) {
+      toast.error(err?.response?.data?.message ||'Failed to send OTP', {toastId: 'failed'});
     } finally {
       setSendingOtp(false);
     }
@@ -80,6 +81,7 @@ const SignupPage = () => {
     if (number.length !== 10) return toast.error('Phone number must be 10 digits.', {toastId: 'digitsMatchable'});
 
     try {
+      setLoading(true);
       await dispatch(registerUser({
         signUpFirstname,
         signUpLastname,
@@ -87,8 +89,9 @@ const SignupPage = () => {
         signUpPassword,
         number,
       })).unwrap();
-    } catch {
-      toast.error('Error in SignUp', {toastId: 'signup'});
+      navigate('/');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Error in SignUp', {toastId: 'signup'});
     } finally {
       dispatch(setFirstname(''));
       dispatch(setLastname(''));
@@ -96,11 +99,11 @@ const SignupPage = () => {
       dispatch(setPassword(''));
       dispatch(setConfirmPassword(''));
       dispatch(setNumber(''));
-      navigate('/');
       setSendingOtp(false);
       setOtpVerified(false);
       setOtp('');
       setOtpSent(false);
+      setLoading(false);
     }
   };
 
@@ -196,6 +199,7 @@ const SignupPage = () => {
             type="primary"
             htmlType="submit"
             className="w-full py-2"
+            loading={loading}
             disabled={!isFormValid()}
           >
             Sign Up

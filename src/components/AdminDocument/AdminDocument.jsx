@@ -9,6 +9,9 @@ import DocumentTable from './DocumentTable';
 import DocumentCards from './DocumentCards';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import {toast} from 'react-toastify';
+import {Typography} from 'antd';
+
+const {Title} = Typography;
 
 const AdminDocument = () => {
   const dispatch = useDispatch();
@@ -60,7 +63,7 @@ const AdminDocument = () => {
     <div className="lg:flex lg:justify-center md:ml-[280px]">
       <div className="px-2 mt-10 lg:w-[70vw]">
         <div className="flex items-center justify-between mb-4 text-[var(--text-color)]">
-          <p className="pb-3 md:text-5xl text-4xl font-bold">All Documents</p>
+          <Title>All Documents</Title>
         </div>
 
         <DocumentTable
