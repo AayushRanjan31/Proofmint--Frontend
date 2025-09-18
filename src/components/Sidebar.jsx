@@ -1,17 +1,14 @@
 import {useState, useEffect} from 'react';
-import {GrHomeRounded} from 'react-icons/gr';
-import {FiUpload} from 'react-icons/fi';
-import {IoSettingsOutline} from 'react-icons/io5';
-import {GiHamburgerMenu} from 'react-icons/gi';
-import {FaUserGear} from 'react-icons/fa6';
-import {NavLink} from 'react-router-dom';
+import {HomeOutlined, UploadOutlined, SettingOutlined, UserOutlined, MenuOutlined} from '@ant-design/icons';
+import {Menu, Drawer, Button} from 'antd';
+import {NavLink, useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Button} from 'antd';
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const isAdmin = useSelector((state) => state.auth?.isAdmin);
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 767);
@@ -19,103 +16,118 @@ const Sidebar = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const menuItems = [
+    {key: '/', icon: <HomeOutlined />, label: 'Dashboard', path: '/'},
+    {key: '/upload', icon: <UploadOutlined />, label: 'Upload a File', path: '/upload'},
+    isAdmin && {key: '/manage-users', icon: <UserOutlined />, label: 'Manage User', path: '/manage-users'},
+    {key: '/settings', icon: <SettingOutlined />, label: 'Settings', path: '/settings'},
+  ].filter(Boolean);
+
+  const menuStyle = {
+    backgroundColor: 'var(--sidebar-bg)',
+    borderRight: '0.8px solid #e5e7eb',
+    height: '100%',
+    paddingTop: '50px',
+  };
+
+  const menuItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    fontSize: '1.10rem',
+    fontWeight: 500,
+    padding: '12px 16px',
+    borderRadius: '12px',
+  };
 
   return (
     <>
-      {/* Hamburger button - shows ONLY on mobile (<=767px) */}
       {isMobile && (
         <Button
           type="primary"
-          icon={<GiHamburgerMenu />}
-          onClick={toggleSidebar}
+          onClick={() => setDrawerOpen(true)}
           style={{
             position: 'fixed',
             top: 16,
             left: 16,
             zIndex: 200,
-            padding: '4px 8px',
             borderRadius: '6px',
-            backgroundColor: '#000000',
-            color: '#ffffff',
-            border: 'none',
-          }}
-        />
-      )}
-
-      {(isMobile ? isOpen : true) && (
-        <div
-          className="fixed top-0 mt-[70px] p-3 bg-[var(--sidebar-bg)] h-screen transition-all border-r border-gray-200 shadow"
-          style={{
-            width: '280px',
-            left: isMobile ? (isOpen ? '0' : '-250px') : '0',
-            zIndex: 101,
-            transition: 'left 0.3s',
+            backgroundColor: '#000',
+            color: '#fff',
           }}
         >
-          <div className="py-12 px-3 flex flex-col gap-4">
-            <NavLink
-              to="/"
-              className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
-                  isActive && 'bg-[var(--side-btn-bg)]'
-                }`
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              <GrHomeRounded />
-              <span>Dashboard</span>
-            </NavLink>
-            <NavLink
-              to="/upload"
-              className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
-                  isActive && 'bg-[var(--side-btn-bg)]'
-                }`
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              <FiUpload />
-              <span>Upload a File</span>
-            </NavLink>
-
-            {isAdmin && (
-              <NavLink
-                to="/manage-users"
-                className={({isActive}) =>
-                  `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
-                    isActive && 'bg-[var(--side-btn-bg)]'
-                  }`
-                }
-                onClick={() => setIsOpen(false)}
-              >
-                <FaUserGear />
-                <span>Manage User</span>
-              </NavLink>
-            )}
-            <NavLink
-              to="/settings"
-              className={({isActive}) =>
-                `!no-underline py-3 px-2 rounded-xl flex gap-2 items-center text-2xl font-bold text-[var(--text-color)] ${
-                  isActive && 'bg-[var(--side-btn-bg)]'
-                }`
-              }
-              onClick={() => setIsOpen(false)}
-            >
-              <IoSettingsOutline />
-              <span>Settings</span>
-            </NavLink>
-          </div>
-        </div>
+          <MenuOutlined />
+        </Button>
       )}
 
-      {/* Overlay for mobile when sidebar is open */}
-      {isMobile && isOpen && (
+      {/* Mobile Drawer */}
+      {isMobile ? (
+        <Drawer
+          title="Menu"
+          placement="left"
+          onClose={() => setDrawerOpen(false)}
+          open={drawerOpen}
+          styles={{body: {padding: 0}}}
+        >
+          <Menu
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            style={menuStyle}
+            items={menuItems.map((item) => ({
+              key: item.key,
+              label: (
+                <NavLink to={item.path} style={{color: 'var(--text-color)'}}>
+                  <div
+                    style={{
+                      ...menuItemStyle,
+                      color: location.pathname === item.path && 'var(--side-btn-bg)',
+                    }}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                </NavLink>
+              ),
+            }))}
+            onClick={() => setDrawerOpen(false)}
+          />
+        </Drawer>
+      ) : (
+        // Desktop sidebar
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
-          onClick={toggleSidebar}
-          style={{zIndex: 100}}
-        ></div>
+          style={{
+            width: 280,
+            height: '100vh',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            paddingTop: '70px',
+            ...menuStyle,
+            overflowY: 'auto',
+          }}
+        >
+          <Menu
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            style={menuStyle}
+            items={menuItems.map((item) => ({
+              key: item.key,
+              label: (
+                <NavLink to={item.path} style={{color: 'var(--text-color)'}}>
+                  <div
+                    style={{
+                      ...menuItemStyle,
+                      color: location.pathname === item.path && 'var(--side-btn-bg)',
+                    }}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                </NavLink>
+              ),
+            }))}
+          />
+        </div>
       )}
     </>
   );

@@ -80,25 +80,27 @@ const SignupPage = () => {
     if (number.length !== 10) return toast.error('Phone number must be 10 digits.');
 
     try {
-      const res = await dispatch(registerUser({
+      await dispatch(registerUser({
         signUpFirstname,
         signUpLastname,
         signUpEmail,
         signUpPassword,
         number,
       })).unwrap();
-
-      if (res.status === true) {
-        dispatch(setFirstname(''));
-        dispatch(setLastname(''));
-        dispatch(setEmail(''));
-        dispatch(setPassword(''));
-        dispatch(setConfirmPassword(''));
-        dispatch(setNumber(''));
-        navigate('/');
-      }
     } catch {
-      toast.error('Email already exists', {toastId: 'signup'});
+      toast.error('Error in SignUp', {toastId: 'signup'});
+    } finally {
+      dispatch(setFirstname(''));
+      dispatch(setLastname(''));
+      dispatch(setEmail(''));
+      dispatch(setPassword(''));
+      dispatch(setConfirmPassword(''));
+      dispatch(setNumber(''));
+      navigate('/');
+      setSendingOtp(false);
+      setOtpVerified(false);
+      setOtp('');
+      setOtpSent(false);
     }
   };
 

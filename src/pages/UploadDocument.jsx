@@ -63,67 +63,72 @@ const UploadDocument = () => {
   };
 
   return (
-    <div className="md:flex md:justify-center md:ml-70 mt-20 md:mt-20">
-      <div className="shadow m-2 flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)] text-[var(--text-color)] md:w-[50vw]">
-        <Title className="font-semibold pb-1">Upload Document</Title>
-        <div
-          className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3"
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
-          <FiUploadCloud size={60} className="text-gray-500" />
-          <p className="text-gray-500">Drag and drop file or</p>
-          <label
-            htmlFor="fileInput"
-            className="px-6 py-2 bg-[var(--btn-color)] rounded-md cursor-pointer hover:bg-gray-200"
-          >
-            Browse File
-          </label>
-          <input
-            type="file"
-            id="fileInput"
-            className="hidden"
-            onChange={handleFileChange}
-          />
-          {file && file.name && (
-            <p className="text-sm text-green-600 mt-2">
-              Selected: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
-            </p>
-          )}
-        </div>
-        <div className="flex gap-6 w-full justify-center mt-4">
-          <div className="flex flex-col gap-2 w-[60%]">
-            <label htmlFor="title" className="font-medium">Title</label>
-            <Input
-              id="title"
-              value={title}
-              onChange={(e) => dispatch(setTitle(e.target.value))}
-              placeholder="Please enter title"
-              className="w-full"
-            />
-          </div>
-          <div className="flex flex-col gap-2 w-[40%]">
-            <label htmlFor="expiryDate" className="font-medium">Expire Date</label>
-            <DatePicker
-              id="expiryDate"
-              value={expiryDate ? dayjs(expiryDate) : null}
-              onChange={(date, dateString) => dispatch(setExpiryDate(dateString))}
-              disabledDate={(current) => current && current < dayjs().startOf('day')}
-              className="w-full"
-            />
-          </div>
-        </div>
+    <div className="md:flex md:justify-center md:ml-70 mt-10">
+      <div className='flex flex-col m-2'>
+        <Title style={{color: 'var(--text-color)'}} level={1} className="text-center pb-1">Upload Document</Title>
 
-        <Button
-          type="primary"
-          onClick={handleUpload}
-          loading={loading}
-          style={{color: 'var(--text-color)'}}
-          disabled={!file || !title || !expiryDate}
-          className="mt-4"
-        >
+        <div className="shadow flex flex-col p-5 rounded-xl gap-3 bg-[var(--component-bg)]  md:w-[50vw]">
+          <div
+            className="border-2 border-dashed border-gray-300 p-8 rounded-xl flex flex-col items-center gap-3"
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+          >
+            <FiUploadCloud size={60} className="text-gray-500" />
+            <p className="text-gray-500">Drag and drop file or</p>
+            <label
+              htmlFor="fileInput"
+              className="px-6 py-2 bg-[var(--btn-color)]  rounded-md cursor-pointer hover:bg-gray-200"
+            >
+            Browse File
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+            {file && file.name && (
+              <p className="text-sm text-green-600 mt-2">
+              Selected: {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+              </p>
+            )}
+          </div>
+          <div className="flex gap-6 w-full justify-center mt-4">
+            <div className="flex flex-col gap-2 w-[60%] text-[var(--text-color)]">
+              <label htmlFor="title" className="font-medium">Title</label>
+              <Input
+                id="title"
+                value={title}
+                onChange={(e) => dispatch(setTitle(e.target.value))}
+                placeholder="Please enter title"
+                style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'}}
+              />
+            </div>
+            <div className="flex flex-col gap-2 w-[40%] text-[var(--text-color)]">
+              <label htmlFor="expiryDate" className="font-medium">Expire Date</label>
+              <DatePicker
+                id="expiryDate"
+                value={expiryDate ? dayjs(expiryDate) : null}
+                placeholder='Select date'
+                onChange={(date, dateString) => dispatch(setExpiryDate(dateString))}
+                disabledDate={(current) => current && current < dayjs().startOf('day')}
+                style={{backgroundColor: 'var(--component-bg)', color: 'var(--text-color)'}}
+                className="themed-picker"
+              />
+            </div>
+          </div>
+
+          <Button
+            type="primary"
+            onClick={handleUpload}
+            loading={loading}
+            style={{color: 'var(--text-color)'}}
+            disabled={!file || !title || !expiryDate}
+            className="mt-4"
+          >
           Upload File
-        </Button>
+          </Button>
+        </div>
       </div>
     </div>
   );

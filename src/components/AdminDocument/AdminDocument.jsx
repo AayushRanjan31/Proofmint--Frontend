@@ -5,10 +5,10 @@ import {
   removeDocument,
   revokeDocument,
 } from '../../redux/slices/documentSlice';
-import {message} from 'antd';
 import DocumentTable from './DocumentTable';
 import DocumentCards from './DocumentCards';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
+import {toast} from 'react-toastify';
 
 const AdminDocument = () => {
   const dispatch = useDispatch();
@@ -36,11 +36,11 @@ const AdminDocument = () => {
   const handleConfirmDelete = async () => {
     try {
       await dispatch(removeDocument(confirmDialog.docId)).unwrap();
-      message.success(`Document "${confirmDialog.docTitle}" deleted successfully`);
+      toast.success(`Document "${confirmDialog.docTitle}" deleted successfully`, {toastId: 'successfully'});
       setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
       dispatch(allFetchAdminDocuments());
     } catch {
-      message.error('Failed to delete document');
+      toast.error('Failed to delete document', {toastId: 'delete'});
       setConfirmDialog({isOpen: false, docId: null, docTitle: ''});
     }
   };
@@ -48,11 +48,11 @@ const AdminDocument = () => {
   const handleRevoke = async (docId, title) => {
     try {
       await dispatch(revokeDocument(docId)).unwrap();
-      message.success(`Document "${title}" revoked successfully`);
+      toast.success(`Document "${title}" revoked successfully`, {toastId: 'revoked'});
       dispatch(allFetchAdminDocuments());
       setOpenMenu(null);
     } catch {
-      message.error('Failed to revoke document');
+      toast.error('Failed to revoke document', {toastId: 'failed'});
     }
   };
 

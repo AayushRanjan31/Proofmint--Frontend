@@ -47,7 +47,7 @@ const Navbar = () => {
     >
       <div className="flex-1 flex items-center justify-center md:justify-start">
         <img src="/icon.png" alt="Logo" className="h-10" />
-        <span className="ml-2 text-xl md:text-2xl font-bold text-gray-800">
+        <span className="ml-2 text-xl md:text-2xl font-bold text-[var(--text-color)]">
           Proofmint
         </span>
       </div>

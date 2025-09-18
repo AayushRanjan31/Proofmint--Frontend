@@ -8,7 +8,9 @@ import {Mail} from 'lucide-react';
 import {useNavigate, Link} from 'react-router-dom';
 import {setLoginEmail, setLoginPassword} from '../redux/slices/authSlice';
 import {resetOtpState} from '../redux/slices/otpSlice';
-import {Input, Button} from 'antd';
+import {Input, Button, Typography} from 'antd';
+
+const {Text} = Typography;
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -79,7 +81,7 @@ const ForgotPassword = () => {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 pt-3">
+        <Text className="text-center text-sm text-gray-500 pt-3">
           Remembered your password?{' '}
           <Link
             to="/"
@@ -88,7 +90,7 @@ const ForgotPassword = () => {
           >
             Back to Login
           </Link>
-        </p>
+        </Text>
       </div>
     </div>
   );

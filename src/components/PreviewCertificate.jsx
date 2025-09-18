@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux';
 import {Tag} from 'antd';
 
-const IssuedCertificate = () => {
+const PreviewCertificate = () => {
   const {certificate} = useSelector((state) => state.verifyDocument);
 
   const getStatusTag = (status) => {
@@ -55,4 +55,4 @@ const IssuedCertificate = () => {
   );
 };
 
-export default IssuedCertificate;
+export default PreviewCertificate;

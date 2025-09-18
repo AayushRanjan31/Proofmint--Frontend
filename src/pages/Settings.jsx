@@ -3,7 +3,9 @@ import {setTheme} from '../redux/slices/settingSlice';
 import {useState} from 'react';
 import {toast} from 'react-toastify';
 import {changePassword} from '../utils/proofMintApi';
-import {Input, Button} from 'antd';
+import {Input, Button, Typography} from 'antd';
+
+const {Title} = Typography;
 
 const Settings = () => {
   const user = localStorage.getItem('userName');
@@ -57,11 +59,11 @@ const Settings = () => {
 
   return (
     <div className="mt-20 md:flex md:justify-center md:ml-70 md:mt-10">
-      <div
-        className={'m-2 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
-      >
-        <div className="flex flex-col">
-          <p className="pb-1 md:text-5xl text-4xl font-bold">Settings</p>
+      <div className="flex flex-col">
+        <Title style={{color: 'var(--text-color)'}} level={1} className="text-center pb-1">Settings</Title>
+        <div
+          className={'m-2 p-10 shadow rounded-xl md:w-[50vw] bg-[var(--component-bg)] text-[var(--text-color)]'}
+        >
           <div>
             <h3 className="mt-4 mb-3 text-lg font-semibold">Profile</h3>
             <div className="flex flex-col gap-2">

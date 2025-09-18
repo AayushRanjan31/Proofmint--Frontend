@@ -5,7 +5,7 @@ import {
   getCerificate,
   clearCertificate,
 } from '../redux/slices/verifyDocumentSlice';
-import IssuedCertificate from '../components/IssuedCertificate';
+import PreviewCertificate from '../components/PreviewCertificate';
 import {useState, useRef, useEffect} from 'react';
 import {BrowserMultiFormatReader} from '@zxing/browser';
 import {toast} from 'react-toastify';
@@ -172,7 +172,7 @@ const VerifyDocument = () => {
           </Button>
         )}
 
-        {certificate && !errorMessage && <IssuedCertificate />}
+        {certificate && !errorMessage && <PreviewCertificate />}
       </div>
     </div>
   );
