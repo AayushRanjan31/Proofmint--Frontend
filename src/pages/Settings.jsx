@@ -42,7 +42,7 @@ const Settings = () => {
         toast.success('Password changed successfully!', {toastId: 'success'});
       } else {
         if (res.data.message === 'Current password is incorrect') {
-          toast.error('Current password is wrong!');
+          toast.error('Current password is wrong!', {toastId: 'wrong'});
         } else {
           toast.error(res.data.message || 'Something went wrong.', {toastId: 'error'});
         }

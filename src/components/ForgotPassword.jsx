@@ -4,7 +4,7 @@ import {
   forgotPassword,
 } from '../redux/slices/forgotPasswordSlice';
 import {toast} from 'react-toastify';
-import {Mail} from 'lucide-react';
+import {MdEmail} from 'react-icons/md';
 import {useNavigate, Link} from 'react-router-dom';
 import {setLoginEmail, setLoginPassword} from '../redux/slices/authSlice';
 import {resetOtpState} from '../redux/slices/otpSlice';
@@ -53,7 +53,7 @@ const ForgotPassword = () => {
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 m-3">
         <div className="text-center mb-6">
           <div className="flex justify-center items-center mb-2">
-            <Mail className="w-10 h-10 text-blue-600" />
+            <MdEmail className="w-10 h-10 text-blue-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Forgot Password?</h2>
           <p className="text-gray-500 text-sm mt-1">

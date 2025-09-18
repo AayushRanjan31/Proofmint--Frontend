@@ -4,7 +4,6 @@ import {Outlet, useLocation} from 'react-router-dom';
 
 const AuthLayout = () => {
   const location = useLocation();
-
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarPage />
