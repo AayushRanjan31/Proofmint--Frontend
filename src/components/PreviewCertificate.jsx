@@ -6,9 +6,9 @@ const PreviewCertificate = () => {
 
   const getStatusTag = (status) => {
     if (status === 'stamped') {
-      return <Tag color="green">Stamped</Tag>;
+      return <Tag color="green">Valid</Tag>;
     }
-    return <Tag color="red">Expired</Tag>;
+    return <Tag color="red">Invalid</Tag>;
   };
 
   const isImage = /\.(jpeg|jpg|png|webp)(\?.*)?$/i.test(certificate.previewUrl);
