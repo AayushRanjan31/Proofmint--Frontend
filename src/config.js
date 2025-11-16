@@ -1,25 +1,25 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL:
+  baseURL:
         import.meta.env.VITE_BASE_URL ||
-        "https://proofmint-backend.up.railway.app",
-    headers: {
-        "Content-Type": "application/json",
-    },
+        'https://proofmint-backend.up.railway.app',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Add request interceptor to include token in headers
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
     },
     (error) => {
-        return Promise.reject(error);
+      return Promise.reject(error);
     },
 );
 
